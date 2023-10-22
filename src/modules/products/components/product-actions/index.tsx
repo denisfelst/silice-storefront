@@ -4,8 +4,10 @@ import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
+import { isEqual } from "lodash"
 import Link from "next/link"
 import React, { useMemo, useState } from "react"
+import { Variant } from "types/medusa"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -14,27 +16,27 @@ type ProductActionsProps = {
 const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
-  
+
   const Options = {
     format: {
-      group: 'group',
-      single: 'single',
+      group: "group",
+      single: "single",
     },
     groupType: {
-      asdw: 'asdw',
-      arrows: 'arrows',
-      fRow: 'f-row'
+      asdw: "asdw",
+      arrows: "arrows",
+      fRow: "f-row",
     },
     size: {
-      tab: 'tab',
-      unit: 'unit',
-      spacebar: 'spacebar'
+      tab: "tab",
+      unit: "unit",
+      spacebar: "spacebar",
     },
-    null: 'null',
-  } 
-    
-  const [selectedOptions, setSelectedOptions] = useState(['', '', '']);  // format, type, size, 
-  
+    null: "null",
+  }
+
+  const [selectedOptions, setSelectedOptions] = useState(["", "", ""]) // format, type, size,
+
   const price = useProductPrice({ id: product.id!, variantId: variant?.id })
 
   const selectedPrice = useMemo(() => {
@@ -43,75 +45,77 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     return variantPrice || cheapestPrice || null
   }, [price])
 
-  const updateSelectionHandler = (title: string, option: Record<string, string>): void => {
-    updateOptions(option);
+  const updateSelectionHandler = (
+    title: string,
+    option: Record<string, string>
+  ): void => {
+    updateOptions(option)
 
-    title = title.toLowerCase();
+    title = title.toLowerCase()
 
-    let updatedItems = [...selectedOptions];
+    let updatedItems = [...selectedOptions]
 
     if (title === Options.format.group || title === Options.format.single) {
-      setSelectedOptions(['', '', '']);
-      updatedItems[0] = title;
+      setSelectedOptions(["", "", ""])
+      updatedItems[0] = title
+    } else if (
+      title === Options.groupType.asdw ||
+      title === Options.groupType.arrows ||
+      title === Options.groupType.fRow
+    ) {
+      updatedItems[1] = title
+    } else if (
+      title === Options.size.unit ||
+      title === Options.size.spacebar ||
+      title.toLowerCase() === Options.size.tab
+    ) {
+      updatedItems[2] = title
     }
 
-    else if (title === Options.groupType.asdw || title === Options.groupType.arrows || title === Options.groupType.fRow) {
-      updatedItems[1] = title;
-    }
-    
-    else if (title === Options.size.unit || title === Options.size.spacebar || title.toLowerCase() === Options.size.tab) {
-      updatedItems[2] = title;
-    }
-
-    setSelectedOptions(updatedItems);
-
-    setTimeout(() => {
-      console.log('selectedOptions => ', selectedOptions);
-    }, 30);
+    setSelectedOptions(updatedItems)
   }
 
   const handleCase = (title: string): boolean => {
-    title = title.toLowerCase();
+    title = title.toLowerCase()
 
-    if (title === 'format') {
-      return true;
-    }
-
-    else if (title === 'group_type') {
+    if (title === "format") {
+      return true
+    } else if (title === "group_type") {
       if (selectedOptions[0] === Options.format.group) {
-        return true;
+        return true
       }
-      return false;
-    }
-
-    else if (title === 'size') {
+      return false
+    } else if (title === "size") {
       if (selectedOptions[0] === Options.format.single) {
-        return true;
+        return true
       }
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   const handleAddToCart = () => {
-    const formatKey = 'opt_01HD6W19FS2X7FT4889W4G2RQP';
-    const groupTypeKey = 'opt_01HD6XVASZ7YRMSPDGQ3E2RKRM';
-    const sizeKey = 'opt_01HD6ZYKWXQA0K8SVEC7T16S6M';
-    
+    const formatKey = "opt_01HD6W19FS2X7FT4889W4G2RQP"
+    const groupTypeKey = "opt_01HD6XVASZ7YRMSPDGQ3E2RKRM"
+    const sizeKey = "opt_01HD6ZYKWXQA0K8SVEC7T16S6M"
+
     if (options[formatKey].toLowerCase() === Options.format.group) {
-      options[sizeKey] = 'null';
+      options[sizeKey] = "null"
+    } else if (options[formatKey].toLowerCase() === Options.format.single) {
+      options[groupTypeKey] = "null"
     }
-    else if (options[formatKey].toLowerCase() === Options.format.single) { 
-      options[groupTypeKey] = 'null';
-    }
-    
+
     for (const key in options) {
-      updateOptions({key: options[key]});
+      updateOptions({ key: options[key] })
     }
 
-    setSelectedOptions(['', '', '']);
+    setSelectedOptions(
+      selectedOptions.map((opt) => (opt === "" ? "null" : opt))
+    )
 
-    addToCart();
+    addToCart(options)
+
+    setSelectedOptions(["", "", ""])
   }
 
   return (
@@ -140,7 +144,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                   title={option.title}
                 />
               </div>
-            ) : null;
+            ) : null
           })}
         </div>
       )}
@@ -153,7 +157,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                 "text-rose-600": selectedPrice.price_type === "sale",
               })}
             >
-            { !(selectedOptions[1] == '' && selectedOptions[2] == '') ? selectedPrice.calculated_price: 'To Be Defined...'}
+              {!(selectedOptions[1] == "" && selectedOptions[2] == "")
+                ? selectedPrice.calculated_price
+                : "To Be Defined..."}
             </span>
             {selectedPrice.price_type === "sale" && (
               <>

@@ -26,7 +26,7 @@ interface ProductContext {
   updateOptions: (options: Record<string, string>) => void
   increaseQuantity: () => void
   decreaseQuantity: () => void
-  addToCart: () => void
+  addToCart: (optionsParam?: any) => void
 }
 
 const ProductActionContext = createContext<ProductContext | null>(null)
@@ -75,8 +75,13 @@ export const ProductProvider = ({
     return map
   }, [variants])
 
-  const getMatchingVariant = () => {
+  const getMatchingVariant = (optionsParam?: any) => {
     let variantId: string | undefined = undefined
+
+    // delete key='null' key-value pair
+    if (optionsParam && optionsParam.key) {
+      delete optionsParam.key
+    }
 
     for (const key of Object.keys(variantRecord)) {
       if (isEqual(variantRecord[key], options)) {
@@ -133,21 +138,15 @@ export const ProductProvider = ({
     setOptions({ ...options, ...update })
   }
 
-  const addToCart = () => {
-    if (variant) {
+  const addToCart = (optionsParam?: object) => {
+    const v = getMatchingVariant(optionsParam)
+
+    if (v) {
       addItem({
-        variantId: variant.id,
+        variantId: v.id,
         quantity,
       })
-    } else {
-      const v = getMatchingVariant();
-      if (v) { 
-        addItem({
-          variantId: v.id,
-          quantity,
-        })
-      } else console.error("Couldn't find variant");
-    }
+    } else console.error("Couldn't find variant", optionsParam)
   }
 
   const increaseQuantity = () => {
