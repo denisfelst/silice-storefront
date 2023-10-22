@@ -75,6 +75,18 @@ export const ProductProvider = ({
     return map
   }, [variants])
 
+  const getMatchingVariant = () => {
+    let variantId: string | undefined = undefined
+
+    for (const key of Object.keys(variantRecord)) {
+      if (isEqual(variantRecord[key], options)) {
+        variantId = key
+      }
+    }
+
+    return variants.find((v) => v.id === variantId)
+  }
+
   // memoized function to check if the current options are a valid variant
   const variant = useMemo(() => {
     let variantId: string | undefined = undefined
@@ -127,6 +139,14 @@ export const ProductProvider = ({
         variantId: variant.id,
         quantity,
       })
+    } else {
+      const v = getMatchingVariant();
+      if (v) { 
+        addItem({
+          variantId: v.id,
+          quantity,
+        })
+      } else console.error("Couldn't find variant");
     }
   }
 
