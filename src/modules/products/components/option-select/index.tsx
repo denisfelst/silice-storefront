@@ -1,7 +1,7 @@
+import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
-import React, { useEffect } from "react"
 
 type OptionSelectProps = {
   option: ProductOption
@@ -16,17 +16,16 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   updateOption,
   title,
 }) => {
-  const filteredOptions = option.values.map((v) => v.value).filter(onlyUnique).filter(value => value !== 'null');
-  
-  useEffect(() => { 
-
-  });
+  const validOptions = option.values
+    .map((v) => v.value)
+    .filter(onlyUnique)
+    .filter((value) => value !== "null")
 
   return (
     <div className="flex flex-col gap-y-3">
       <span className="text-base-semi">Select {title}</span>
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-2">
-        {filteredOptions.map((v) => {
+        {validOptions.map((v) => {
           return (
             <button
               onClick={() => updateOption(v, { [option.id]: v })}

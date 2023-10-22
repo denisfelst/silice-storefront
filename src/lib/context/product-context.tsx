@@ -78,11 +78,6 @@ export const ProductProvider = ({
   const getMatchingVariant = (optionsParam?: any) => {
     let variantId: string | undefined = undefined
 
-    // delete key='null' key-value pair
-    if (optionsParam && optionsParam.key) {
-      delete optionsParam.key
-    }
-
     for (const key of Object.keys(variantRecord)) {
       if (isEqual(variantRecord[key], options)) {
         variantId = key
