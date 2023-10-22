@@ -4,10 +4,8 @@ import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
-import { isEqual } from "lodash"
 import Link from "next/link"
 import React, { useMemo, useState } from "react"
-import { Variant } from "types/medusa"
 
 type ProductActionsProps = {
   product: PricedProduct

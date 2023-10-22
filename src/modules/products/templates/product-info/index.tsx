@@ -1,7 +1,6 @@
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
-import ProductActions from "@modules/products/components/product-actions"
+import ProductActions from "@modules/products/components/product/product-actions"
 import React from "react"
-import { Product } from "types/medusa"
 
 type ProductInfoProps = {
   product: PricedProduct

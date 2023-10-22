@@ -2,7 +2,7 @@
 
 import { useFeaturedProductsQuery } from "@lib/hooks/use-layout-data"
 import UnderlineLink from "@modules/common/components/underline-link"
-import ProductPreview from "@modules/products/components/product-preview"
+import ProductPreview from "@modules/products/components/product/product-preview"
 import SkeletonProductPreview from "@modules/skeletons/components/skeleton-product-preview"
 
 const FeaturedProducts = () => {

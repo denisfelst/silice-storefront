@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import Link from "next/link"
 import { ProductPreviewType } from "types/global"
-import Thumbnail from "../thumbnail"
+import Thumbnail from "../../thumbnail"
 
 const ProductPreview = ({
   title,
