@@ -79,7 +79,7 @@ export const ProductProvider = ({
     let variantId: string | undefined = undefined
 
     for (const key of Object.keys(variantRecord)) {
-      if (isEqual(variantRecord[key], options)) {
+      if (isEqual(variantRecord[key], optionsParam)) {
         variantId = key
       }
     }

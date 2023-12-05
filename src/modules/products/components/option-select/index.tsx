@@ -2,6 +2,7 @@ import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
+import { NullValue } from "../product/model/constants"
 
 type OptionSelectProps = {
   option: ProductOption
@@ -16,10 +17,11 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   updateOption,
   title,
 }) => {
+  // remove nulls from select options view
   const validOptions = option.values
     .map((v) => v.value)
     .filter(onlyUnique)
-    .filter((value) => value !== "null")
+    .filter((value) => value !== NullValue)
 
   return (
     <div className="flex flex-col gap-y-3">

@@ -20,16 +20,23 @@ export class SelectOptions {
     this.size = obj?.size ?? NullValue
   }
 
+  public isSelectionComplete(): boolean {
+    if (this.type === NullValue && this.size === NullValue) {
+      return false
+    }
+    return true
+  }
+
   public setValue(value: string): void {
     if (!value) {
       console.error("setValue error - type undefined", value)
     }
 
-    if (value.toLowerCase() === NullValue) {
+    if (value === NullValue) {
       console.log("setValue error - value is null", value)
     }
 
-    switch (value.toLowerCase()) {
+    switch (value) {
       case FormatValueEnum.Single as string:
         this.format = FormatValueEnum.Single
         this.type = NullValue

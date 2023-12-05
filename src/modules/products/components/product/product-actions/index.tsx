@@ -6,7 +6,13 @@ import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
 import React, { useMemo, useState } from "react"
-import { FormatValueEnum, OptionsEnum } from "../model/constants"
+import {
+  FormatValueEnum,
+  NullValue,
+  OptionsEnum,
+  SizeValueEnum,
+  TypeValueEnum,
+} from "../model/constants"
 import { SelectOptions } from "../model/select-options"
 
 type ProductActionsProps = {
@@ -52,8 +58,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   // should show element option (e.g. size) depending on what is already selected
   const showOption = (title: string): boolean => {
-    title = title.toLowerCase()
-
     if (title === OptionsEnum.Format) {
       return true
     } else if (title === OptionsEnum.Type) {
@@ -70,19 +74,48 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   const handleAddToCart = () => {
-    // if (options[FORMAT_KEY].toLowerCase() === OPTION_VALUES.format.group) {
-    //   options[SIZE_KEY] = NULL
-    // } else if (
-    //   options[FORMAT_KEY].toLowerCase() === OPTION_VALUES.format.single
-    // ) {
-    //   options[GROUP_TYPE_KEY] = NULL
-    // }
-    // for (const key in options) {
-    //   updateOptions({ key: options[key] })
-    // }
-    // setSelectedOptions(selectedOptions.map((opt) => (opt === "" ? NULL : opt)))
-    // addToCart(options)
-    // setSelectedOptions(["", "", ""])
+    let newOptions = Object.assign({}, options)
+    console.log("options => ", options)
+    let formatKey, sizeKey, typeKey
+
+    // set nullValue to undefined options
+    for (const key in newOptions) {
+      if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
+        newOptions[key] = NullValue
+      }
+    }
+
+    for (const key in newOptions) {
+      const value = newOptions[key]
+
+      if (value === FormatValueEnum.Single || value === FormatValueEnum.Group) {
+        formatKey = key
+      } else if (
+        value === TypeValueEnum.Asdw ||
+        value === TypeValueEnum.Arrows ||
+        value === TypeValueEnum.FRow
+      ) {
+        typeKey = key
+      } else if (
+        value === SizeValueEnum.Unit ||
+        value === SizeValueEnum.Spacebar ||
+        value === SizeValueEnum.Shift ||
+        value === SizeValueEnum.Ctrl
+      ) {
+        sizeKey = key
+      }
+    }
+
+    if (typeKey && newOptions[typeKey] !== selectedOptions.type)
+      newOptions[typeKey] = selectedOptions.type
+    if (sizeKey && newOptions[sizeKey] !== selectedOptions.size)
+      newOptions[sizeKey] = selectedOptions.size
+
+    updateOptions(newOptions)
+    addToCart(newOptions)
+
+    selectedOptions.resetOptions()
+    setSelectedOptions(selectedOptions)
   }
 
   return (
@@ -124,9 +157,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                 "text-rose-600": selectedPrice.price_type === "sale",
               })}
             >
-              {/* {!(selectedOptions[1] == "" && selectedOptions[2] == "")
-                ? selectedPrice.calculated_price
-                : "To Be Defined..."} */}
+              {selectedOptions.type == NullValue &&
+                selectedOptions.size !== NullValue &&
+                selectedPrice.calculated_price}
             </span>
             {selectedPrice.price_type === "sale" && (
               <>
@@ -147,9 +180,13 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         )}
       </div>
 
-      <Button onClick={handleAddToCart}>
-        {!inStock ? "Out of stock" : "Add to cart"}
-      </Button>
+      {selectedOptions.isSelectionComplete() ? (
+        <Button onClick={handleAddToCart}>
+          {!inStock ? "Out of stock" : "Add to cart"}
+        </Button>
+      ) : (
+        "Select all options"
+      )}
     </div>
   )
 }

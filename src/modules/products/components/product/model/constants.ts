@@ -2,35 +2,35 @@ export const FORMAT_KEY = "opt_01HD6W19FS2X7FT4889W4G2RQP"
 export const TYPE_KEY = "opt_01HD6XVASZ7YRMSPDGQ3E2RKRM"
 export const SIZE_KEY = "opt_01HD6ZYKWXQA0K8SVEC7T16S6M"
 
-export const NullValue = "null"
+export const NullValue = "Null"
 
 export enum ColorValueEnum {
-  Red = "red",
-  Blue = "blue",
-  Yellow = "yellow",
-  Green = "green",
+  Red = "Red",
+  Blue = "Blue",
+  Yellow = "Yellow",
+  Green = "Green",
 }
 
 export enum FormatValueEnum {
-  Group = "group",
-  Single = "single",
+  Group = "Group",
+  Single = "Single",
 }
 
 export enum TypeValueEnum {
-  Asdw = "asdw",
-  Arrows = "arrows",
-  FRow = "frow",
+  Asdw = "Asdw",
+  Arrows = "Arrows",
+  FRow = "FRow",
 }
 
 export enum SizeValueEnum {
-  Unit = "unit",
-  Shift = "shift",
-  Ctrl = "ctrl",
-  Spacebar = "spacebar",
+  Unit = "Unit",
+  Shift = "Shift",
+  Ctrl = "Ctrl",
+  Spacebar = "Spacebar",
 }
 
 export enum OptionsEnum {
-  Format = "format",
-  Size = "size",
-  Type = "type",
+  Format = "Format",
+  Size = "Size",
+  Type = "Type",
 }
