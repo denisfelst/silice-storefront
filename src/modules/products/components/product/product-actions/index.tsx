@@ -5,7 +5,7 @@ import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useMemo, useState } from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import {
   FormatValueEnum,
   NullValue,
@@ -28,12 +28,16 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     new SelectOptions()
   )
 
+  useEffect(() => {
+    updateOptionsFromSelection()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedOptions])
+
   const price = useProductPrice({ id: product.id!, variantId: variant?.id })
 
   const selectedPrice = useMemo(() => {
-    const { variantPrice, cheapestPrice } = price
-
-    return variantPrice || cheapestPrice || null
+    const { variantPrice } = price
+    return variantPrice || null
   }, [price])
 
   const updateSelectionHandler = (
@@ -44,16 +48,60 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       console.error("Undefined selection value")
     }
 
-    updateOptions(option)
-
     const newSelectedOptions = new SelectOptions({
       format: selectedOptions.format,
       type: selectedOptions.type,
       size: selectedOptions.size,
     })
 
+    updateOptions(option) // add new selection to options
     newSelectedOptions.setValue(selectedValue)
     setSelectedOptions(newSelectedOptions)
+  }
+
+  const updateOptionsFromSelection = () => {
+    let newOptions = Object.assign({}, options)
+    let formatKey, sizeKey, typeKey // options keys
+
+    for (const key in newOptions) {
+      if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
+        newOptions[key] = NullValue // set nullValue to undefined options
+      } else {
+        const value = newOptions[key]
+        if (
+          value === FormatValueEnum.Single ||
+          value === FormatValueEnum.Group
+        ) {
+          formatKey = key
+        } else if (
+          value === TypeValueEnum.Asdw ||
+          value === TypeValueEnum.Arrows ||
+          value === TypeValueEnum.FRow
+        ) {
+          typeKey = key
+        } else if (
+          value === SizeValueEnum.Unit ||
+          value === SizeValueEnum.Spacebar ||
+          value === SizeValueEnum.Shift ||
+          value === SizeValueEnum.Ctrl
+        ) {
+          sizeKey = key
+        }
+      }
+    }
+
+    // update values with selectedOptions
+    if (formatKey && newOptions[formatKey] !== selectedOptions.format) {
+      newOptions[formatKey] = selectedOptions.format
+    }
+    if (typeKey && newOptions[typeKey] !== selectedOptions.type) {
+      newOptions[typeKey] = selectedOptions.type
+    }
+    if (sizeKey && newOptions[sizeKey] !== selectedOptions.size) {
+      newOptions[sizeKey] = selectedOptions.size
+    }
+
+    updateOptions(newOptions)
   }
 
   // should show element option (e.g. size) depending on what is already selected
@@ -74,46 +122,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   const handleAddToCart = () => {
-    let newOptions = Object.assign({}, options)
-    console.log("options => ", options)
-    let formatKey, sizeKey, typeKey
-
-    // set nullValue to undefined options
-    for (const key in newOptions) {
-      if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
-        newOptions[key] = NullValue
-      }
-    }
-
-    for (const key in newOptions) {
-      const value = newOptions[key]
-
-      if (value === FormatValueEnum.Single || value === FormatValueEnum.Group) {
-        formatKey = key
-      } else if (
-        value === TypeValueEnum.Asdw ||
-        value === TypeValueEnum.Arrows ||
-        value === TypeValueEnum.FRow
-      ) {
-        typeKey = key
-      } else if (
-        value === SizeValueEnum.Unit ||
-        value === SizeValueEnum.Spacebar ||
-        value === SizeValueEnum.Shift ||
-        value === SizeValueEnum.Ctrl
-      ) {
-        sizeKey = key
-      }
-    }
-
-    if (typeKey && newOptions[typeKey] !== selectedOptions.type)
-      newOptions[typeKey] = selectedOptions.type
-    if (sizeKey && newOptions[sizeKey] !== selectedOptions.size)
-      newOptions[sizeKey] = selectedOptions.size
-
-    updateOptions(newOptions)
-    addToCart(newOptions)
-
+    addToCart(options)
     selectedOptions.resetOptions()
     setSelectedOptions(selectedOptions)
   }
@@ -134,7 +143,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
-          {(product.options || []).map((option, index) => {
+          {(product.options || []).map((option) => {
             return showOption(option.title) ? (
               <div key={option.id}>
                 <OptionSelect
