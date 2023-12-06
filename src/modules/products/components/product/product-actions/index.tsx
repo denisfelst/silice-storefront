@@ -166,9 +166,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                 "text-rose-600": selectedPrice.price_type === "sale",
               })}
             >
-              {selectedOptions.type == NullValue &&
-                selectedOptions.size !== NullValue &&
-                selectedPrice.calculated_price}
+              {selectedPrice.calculated_price ??
+                "Price unavailable. Add it to the basket to see its price."}
             </span>
             {selectedPrice.price_type === "sale" && (
               <>
