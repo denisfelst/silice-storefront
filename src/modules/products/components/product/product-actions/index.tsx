@@ -14,6 +14,7 @@ import {
   TypeValueEnum,
 } from "../model/constants"
 import { SelectOptions } from "../model/select-options"
+import AdditionalInfo from "../product-additional-info"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -195,6 +196,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       ) : (
         "Select all options"
       )}
+      <div>
+        <AdditionalInfo />
+      </div>
     </div>
   )
 }
