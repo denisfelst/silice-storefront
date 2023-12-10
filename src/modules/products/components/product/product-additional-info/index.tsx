@@ -1,27 +1,41 @@
-import { FormEvent, useState } from "react"
+import {
+  ChangeEvent,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from "react"
 
-const AdditionalInfo = () => {
-  const API_BASE_URL = "http://localhost:8000"
-
+const AdditionalInfo = forwardRef(function AdditionalInfo(props, ref) {
   const [info, setInfo] = useState("")
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    sessionStorage.setItem("selectedValue", info)
+    const delayDebounceFn = setTimeout(() => {
+      sessionStorage.setItem("selectedValue", e.target.value)
+      setInfo(e.target.value)
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
   }
+
+  const resetInfo = () => {
+    setInfo("")
+  }
+
+  useImperativeHandle(ref, () => ({
+    resetInfo,
+  }))
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>Enter Info</label>
-        <input
-          style={{ border: "1px solid red" }}
-          onChange={(e) => setInfo(e.target.value)}
-        ></input>
-
-        <button type="submit">Add</button>
-      </form>
+      <label>Enter Info</label>
+      <input
+        style={{ border: "1px solid red" }}
+        onChange={(e) => handleSubmit(e)}
+      ></input>
     </div>
   )
-}
+})
 
 export default AdditionalInfo

@@ -5,7 +5,7 @@ import Button from "@modules/common/components/button"
 import OptionSelect from "@modules/products/components/option-select"
 import clsx from "clsx"
 import Link from "next/link"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import {
   FormatValueEnum,
   NullValue,
@@ -33,6 +33,8 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     updateOptionsFromSelection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptions])
+
+  const additionalInfoRef = useRef(null)
 
   const price = useProductPrice({ id: product.id!, variantId: variant?.id })
 
@@ -126,6 +128,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     addToCart(options)
     selectedOptions.resetOptions()
     setSelectedOptions(selectedOptions)
+    //@ts-ignore
+    // Call resetInfo from AdditionalInfo component
+    additionalInfoRef.current?.resetInfo()
   }
 
   return (
@@ -158,6 +163,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           })}
         </div>
       )}
+
+      <div>
+        <AdditionalInfo ref={additionalInfoRef} />
+      </div>
 
       <div className="mb-4">
         {selectedPrice ? (
@@ -196,9 +205,6 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       ) : (
         "Select all options"
       )}
-      <div>
-        <AdditionalInfo />
-      </div>
     </div>
   )
 }
