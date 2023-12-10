@@ -2,8 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { google } from "googleapis"
 
 type SheetForm = {
-  info1: string
-  info2: string
+  orderId: string
+  email: string
+  selectedValue: string
 }
 
 export default async function handler(
@@ -36,10 +37,10 @@ export default async function handler(
 
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "A1:B1",
+      range: "A1:C1",
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[body.info1, body.info2]],
+        values: [[body.orderId, body.email, body.selectedValue]],
       },
     })
 

@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation"
 import React, { createContext, useContext, useEffect, useMemo } from "react"
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { useStore } from "./store-context"
+import { handleAdditionalInfoSubmission } from "services/additional-info-service"
 
 type AddressValues = {
   first_name: string
@@ -316,6 +317,8 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   const onPaymentCompleted = () => {
     complete(undefined, {
       onSuccess: ({ data }) => {
+        // @ts-ignore
+        handleAdditionalInfoSubmission(data.id, data.email)
         resetCart()
         push(`/order/confirmed/${data.id}`)
       },
