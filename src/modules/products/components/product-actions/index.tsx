@@ -1,4 +1,7 @@
-import { useProductActions, ProductProvider } from "@lib/context/product-context"
+import {
+  useProductActions,
+  ProductProvider,
+} from "@lib/context/product-context"
 import useProductPrice from "@lib/hooks/use-product-price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Button from "@modules/common/components/button"
@@ -7,6 +10,7 @@ import clsx from "clsx"
 import Link from "next/link"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import {
+  EngravingEnum,
   FormatValueEnum,
   NullValue,
   OptionsEnum,
@@ -28,8 +32,14 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
   const [selectedOptions, setSelectedOptions] = useState<SelectOptions>(
     new SelectOptions()
   )
+  const [showLetterInput, setShowLetterInput] = useState<boolean>(false)
 
   useEffect(() => {
+    if (selectedOptions.engraving === EngravingEnum.Yes) {
+      setShowLetterInput(true)
+    } else {
+      setShowLetterInput(false)
+    }
     updateOptionsFromSelection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptions])
@@ -55,6 +65,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
       format: selectedOptions.format,
       type: selectedOptions.type,
       size: selectedOptions.size,
+      engraving: selectedOptions.engraving,
     })
 
     updateOptions(option) // add new selection to options
@@ -64,7 +75,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
   const updateOptionsFromSelection = () => {
     let newOptions = Object.assign({}, options)
-    let formatKey, sizeKey, typeKey // options keys
+    let formatKey, sizeKey, typeKey, engravingKey // options keys
 
     for (const key in newOptions) {
       if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
@@ -89,6 +100,8 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
           value === SizeValueEnum.Ctrl
         ) {
           sizeKey = key
+        } else if (value === EngravingEnum.Yes || value === EngravingEnum.No) {
+          engravingKey = key
         }
       }
     }
@@ -102,6 +115,12 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
     }
     if (sizeKey && newOptions[sizeKey] !== selectedOptions.size) {
       newOptions[sizeKey] = selectedOptions.size
+    }
+    if (
+      engravingKey &&
+      newOptions[engravingKey] !== selectedOptions.engraving
+    ) {
+      newOptions[engravingKey] = selectedOptions.engraving
     }
 
     updateOptions(newOptions)
@@ -118,6 +137,14 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
       return false
     } else if (title === OptionsEnum.Size) {
       if (selectedOptions.format === FormatValueEnum.Single) {
+        return true
+      }
+      return false
+    } else if (title === OptionsEnum.Engraving) {
+      if (
+        selectedOptions.format === FormatValueEnum.Single &&
+        selectedOptions.size !== NullValue
+      ) {
         return true
       }
       return false
@@ -168,12 +195,14 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       )}
 
-      <div>
-        <AdditionalInfo
-          ref={additionalInfoRef}
-          getInfo={updateAdditionalInfo}
-        />
-      </div>
+      {showLetterInput && (
+        <div>
+          <AdditionalInfo
+            ref={additionalInfoRef}
+            getInfo={updateAdditionalInfo}
+          />
+        </div>
+      )}
 
       <div className="mb-4">
         {selectedPrice ? (
@@ -221,6 +250,5 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => (
     <ProductActionsInner product={product} />
   </ProductProvider>
 )
-
 
 export default ProductActions

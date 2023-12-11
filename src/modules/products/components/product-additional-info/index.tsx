@@ -38,6 +38,7 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
   return (
     <div>
       <label>Enter Info</label>
+      <br />
       <input
         style={{ border: "1px solid red" }}
         onChange={(e) => handleChange(e)}

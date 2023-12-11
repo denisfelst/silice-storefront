@@ -33,9 +33,15 @@ export enum OptionsEnum {
   Format = "Format",
   Size = "Size",
   Type = "Type",
+  Engraving = "Engraving",
 }
 
 export enum AdditionalInfoEnum {
   Letter = "Letter",
   Comments = "Comments",
+}
+
+export enum EngravingEnum {
+  Yes = "Yes",
+  No = "No",
 }

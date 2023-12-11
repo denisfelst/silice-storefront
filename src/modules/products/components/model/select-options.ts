@@ -3,21 +3,25 @@ import {
   NullValue,
   SizeValueEnum,
   TypeValueEnum,
+  EngravingEnum,
 } from "./constants"
 
 export class SelectOptions {
   public format: FormatValueEnum | typeof NullValue
   public type: TypeValueEnum | typeof NullValue
   public size: SizeValueEnum | typeof NullValue
+  public engraving: EngravingEnum | typeof NullValue
 
   constructor(obj?: {
     format: FormatValueEnum | typeof NullValue
     type: TypeValueEnum | typeof NullValue
     size: SizeValueEnum | typeof NullValue
+    engraving: EngravingEnum | typeof NullValue
   }) {
     this.format = obj?.format ?? NullValue
     this.type = obj?.type ?? NullValue
     this.size = obj?.size ?? NullValue
+    this.engraving = obj?.engraving ?? NullValue
   }
 
   public isSelectionComplete(): boolean {
@@ -67,6 +71,13 @@ export class SelectOptions {
         break
       case TypeValueEnum.FRow as string:
         this.type = TypeValueEnum.FRow
+        break
+
+      case EngravingEnum.Yes as string:
+        this.engraving = EngravingEnum.Yes
+        break
+      case EngravingEnum.No as string:
+        this.engraving = EngravingEnum.No
         break
     }
   }
