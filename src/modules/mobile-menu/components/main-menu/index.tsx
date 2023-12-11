@@ -48,7 +48,7 @@ const MainMenu = () => {
       </div>
 
       <div className="space-y-6 flex-1 flex flex-col justify-between p-6">
-        {process.env.FEATURE_SEARCH_ENABLED && (
+        {process.env.FEATURE_SEARCH_ENABLED === "true" && (
           <button
             className="bg-gray-50 flex items-center px-4 py-2 gap-x-2 text-ui-fg-muted rounded-rounded"
             onClick={setScreenSearch}

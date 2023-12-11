@@ -8,7 +8,7 @@ import CountrySelect from "../country-select"
 const SideMenuItems = {
   Home: "/",
   Store: "/store",
-  Search: "",
+  // Search: "", // TODO: add search if needed
   Account: "/account",
   Cart: "/cart",
 }
@@ -54,7 +54,7 @@ const SideMenu = ({ searchModalOpen }: { searchModalOpen: () => void }) => {
                       {Object.entries(SideMenuItems).map(([name, href]) => {
                         if (
                           name === "Search" &&
-                          process.env.FEATURE_SEARCH_ENABLED
+                          process.env.FEATURE_SEARCH_ENABLED === "true"
                         ) {
                           return (
                             <li key={name}>
