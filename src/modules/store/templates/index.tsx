@@ -10,14 +10,18 @@ const StoreTemplate = () => {
   const [params, setParams] = useState<StoreGetProductsParams>({})
   const [sortBy, setSortBy] = useState<SortOptions>("created_at")
 
+  const SORT = process.env.SORT_BY_SECTION || "false"
+
   return (
     <div className="flex flex-col small:flex-row small:items-start py-6">
-      <RefinementList
-        refinementList={params}
-        setRefinementList={setParams}
-        sortBy={sortBy}
-        setSortBy={setSortBy}
-      />
+      {SORT === "true" && (
+        <RefinementList
+          refinementList={params}
+          setRefinementList={setParams}
+          sortBy={sortBy}
+          setSortBy={setSortBy}
+        />
+      )}
       <InfiniteProducts params={params} sortBy={sortBy} />
     </div>
   )
