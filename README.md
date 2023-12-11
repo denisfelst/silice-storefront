@@ -1,3 +1,14 @@
+# Personal Notes
+
+run storefront: npm run dev
+run admin panel: npx medusa develop -> else -> npx medusa user -e [email] -p [password]
+
+# silice-storefront
+
+Front end of the Silice Store, using Medusa.js
+
+# --- Medusa default readme: ---
+
 <p align="center">
   <a href="https://www.medusajs.com">
   <picture>
@@ -214,8 +225,3 @@ Done! All product and collection data should now be coming from the module. The 
 - [Website](https://nextjs.org/)
 - [GitHub](https://github.com/vercel/next.js)
 - [Documentation](https://nextjs.org/docs)
-
-# Personal Notes
-
-run storefront: npm run dev
-run admin panel: npx medusa develop -> else -> npx medusa user -e [email] -p [password]
