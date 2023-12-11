@@ -34,3 +34,8 @@ export enum OptionsEnum {
   Size = "Size",
   Type = "Type",
 }
+
+export enum AdditionalInfoEnum {
+  Letter = "Letter",
+  Comments = "Comments",
+}
