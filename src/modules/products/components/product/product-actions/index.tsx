@@ -133,6 +133,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     additionalInfoRef.current?.resetInfo()
   }
 
+  const updateAdditionalInfo = (info: string) => {
+    // TODO: handle info
+  }
+
   return (
     <div className="flex flex-col gap-y-2">
       {product.collection && (
@@ -165,7 +169,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       )}
 
       <div>
-        <AdditionalInfo ref={additionalInfoRef} />
+        <AdditionalInfo
+          ref={additionalInfoRef}
+          getInfo={updateAdditionalInfo}
+        />
       </div>
 
       <div className="mb-4">

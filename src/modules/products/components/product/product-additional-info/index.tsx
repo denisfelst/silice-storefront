@@ -1,22 +1,30 @@
 import {
   ChangeEvent,
+  ForwardRefRenderFunction,
   forwardRef,
   useEffect,
   useImperativeHandle,
   useState,
 } from "react"
 
-const AdditionalInfo = forwardRef(function AdditionalInfo(props, ref) {
+interface AdditionalInfoProps {
+  getInfo: (info: string) => void
+}
+
+const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
+  { getInfo },
+  ref
+) => {
   const [info, setInfo] = useState("")
 
-  const handleSubmit = async (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    const delayDebounceFn = setTimeout(() => {
-      sessionStorage.setItem("selectedValue", e.target.value)
-      setInfo(e.target.value)
-    }, 1000)
+  useEffect(() => {
+    getInfo(info)
+  }, [info])
 
-    return () => clearTimeout(delayDebounceFn)
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
+    sessionStorage.setItem("selectedValue", e.target.value)
+    setInfo(e.target.value)
   }
 
   const resetInfo = () => {
@@ -32,10 +40,10 @@ const AdditionalInfo = forwardRef(function AdditionalInfo(props, ref) {
       <label>Enter Info</label>
       <input
         style={{ border: "1px solid red" }}
-        onChange={(e) => handleSubmit(e)}
+        onChange={(e) => handleChange(e)}
       ></input>
     </div>
   )
-})
+}
 
-export default AdditionalInfo
+export default forwardRef(AdditionalInfo)
