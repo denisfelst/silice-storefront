@@ -1,7 +1,6 @@
 import { useCheckout } from "@lib/context/checkout-context"
 import { PaymentSession } from "@medusajs/medusa"
-import Button from "@modules/common/components/button"
-import Spinner from "@modules/common/icons/spinner"
+import { Button } from "@medusajs/ui"
 import { OnApproveActions, OnApproveData } from "@paypal/paypal-js"
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
@@ -13,34 +12,16 @@ type PaymentButtonProps = {
 }
 
 const PaymentButton: React.FC<PaymentButtonProps> = ({ paymentSession }) => {
-  const [notReady, setNotReady] = useState(true)
   const { cart } = useCart()
 
-  useEffect(() => {
-    setNotReady(true)
-
-    if (!cart) {
-      return
-    }
-
-    if (!cart.shipping_address) {
-      return
-    }
-
-    if (!cart.billing_address) {
-      return
-    }
-
-    if (!cart.email) {
-      return
-    }
-
-    if (cart.shipping_methods.length < 1) {
-      return
-    }
-
-    setNotReady(false)
-  }, [cart])
+  const notReady =
+    !cart ||
+    !cart.shipping_address ||
+    !cart.billing_address ||
+    !cart.email ||
+    cart.shipping_methods.length < 1
+      ? true
+      : false
 
   switch (paymentSession?.provider_id) {
     case "stripe":
@@ -65,7 +46,6 @@ const StripePaymentButton = ({
   session: PaymentSession
   notReady: boolean
 }) => {
-  const [disabled, setDisabled] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
@@ -78,13 +58,7 @@ const StripePaymentButton = ({
   const elements = useElements()
   const card = elements?.getElement("cardNumber")
 
-  useEffect(() => {
-    if (!stripe || !elements) {
-      setDisabled(true)
-    } else {
-      setDisabled(false)
-    }
-  }, [stripe, elements])
+  const disabled = !stripe || !elements ? true : false
 
   const handlePayment = async () => {
     setSubmitting(true)
@@ -148,10 +122,12 @@ const StripePaymentButton = ({
   return (
     <>
       <Button
-        disabled={submitting || disabled || notReady}
+        disabled={disabled || notReady}
         onClick={handlePayment}
+        size="large"
+        isLoading={submitting}
       >
-        {submitting ? <Spinner /> : "Checkout"}
+        Place order
       </Button>
       {errorMessage && (
         <div className="text-red-500 text-small-regular mt-2">
@@ -234,8 +210,13 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
   }
 
   return (
-    <Button disabled={submitting || notReady} onClick={handlePayment}>
-      {submitting ? <Spinner /> : "Checkout"}
+    <Button
+      disabled={notReady}
+      isLoading={submitting}
+      onClick={handlePayment}
+      size="large"
+    >
+      Place order
     </Button>
   )
 }

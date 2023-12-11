@@ -1,8 +1,8 @@
 import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
+import { NullValue } from "../model/constants"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
-import { NullValue } from "../product/model/constants"
 
 type OptionSelectProps = {
   option: ProductOption
@@ -17,24 +17,28 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   updateOption,
   title,
 }) => {
-  // remove nulls from select options view
-  const validOptions = option.values
+    // remove nulls from select options view
+  const selectableOptions = option.values
     .map((v) => v.value)
     .filter(onlyUnique)
     .filter((value) => value !== NullValue)
 
   return (
     <div className="flex flex-col gap-y-3">
-      <span className="text-base-semi">Select {title}</span>
-      <div className="grid grid-cols-3 lg:grid-cols-6 gap-2">
-        {validOptions.map((v) => {
+      <span className="text-sm">Select {title}</span>
+      <div className="flex flex-wrap justify-between gap-2">
+        {selectableOptions.map((v) => {
           return (
             <button
               onClick={() => updateOption(v, { [option.id]: v })}
               key={v}
               className={clsx(
-                "border-gray-200 border text-xsmall-regular h-[50px] transition-all duration-200",
-                { "border-gray-900": v === current }
+                "border-ui-border-base bg-ui-bg-subtle border text-small-regular h-10 rounded-rounded p-2 flex-1 ",
+                {
+                  "border-ui-border-interactive": v === current,
+                  "hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150":
+                    v !== current,
+                }
               )}
             >
               {v}

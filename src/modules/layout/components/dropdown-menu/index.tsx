@@ -4,7 +4,7 @@ import {
   useNavigationCollections,
 } from "@lib/hooks/use-layout-data"
 import repeat from "@lib/util/repeat"
-import ProductPreview from "@modules/products/components/product/product-preview"
+import ProductPreview from "@modules/products/components/product-preview"
 import SkeletonProductPreview from "@modules/skeletons/components/skeleton-product-preview"
 import clsx from "clsx"
 import { chunk } from "lodash"

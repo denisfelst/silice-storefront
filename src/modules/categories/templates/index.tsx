@@ -7,14 +7,14 @@ import {
 } from "@lib/data"
 import getNumberOfSkeletons from "@lib/util/get-number-of-skeletons"
 import repeat from "@lib/util/repeat"
-import ProductPreview from "@modules/products/components/product/product-preview"
+import ProductPreview from "@modules/products/components/product-preview"
 import SkeletonProductPreview from "@modules/skeletons/components/skeleton-product-preview"
 import { useInfiniteQuery } from "@tanstack/react-query"
 import { useCart } from "medusa-react"
 import React, { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import Link from "next/link"
-import UnderlineLink from "@modules/common/components/underline-link"
+import UnderlineLink from "@modules/common/components/interactive-link"
 import { notFound } from "next/navigation"
 
 type CategoryTemplateProps = {
@@ -101,7 +101,7 @@ const CategoryTemplate: React.FC<CategoryTemplateProps> = ({ categories }) => {
           </ul>
         </div>
       )}
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-4 gap-y-8">
+      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
         {previews.map((p) => (
           <li key={p.id}>
             <ProductPreview {...p} />

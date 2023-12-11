@@ -1,4 +1,4 @@
-import { useProductActions } from "@lib/context/product-context"
+import { useProductActions, ProductProvider } from "@lib/context/product-context"
 import useProductPrice from "@lib/hooks/use-product-price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Button from "@modules/common/components/button"
@@ -20,7 +20,7 @@ type ProductActionsProps = {
   product: PricedProduct
 }
 
-const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
+const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
@@ -215,5 +215,12 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     </div>
   )
 }
+
+const ProductActions: React.FC<ProductActionsProps> = ({ product }) => (
+  <ProductProvider product={product}>
+    <ProductActionsInner product={product} />
+  </ProductProvider>
+)
+
 
 export default ProductActions
