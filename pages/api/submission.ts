@@ -1,11 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { google } from "googleapis"
-
-type SheetForm = {
-  orderId: string
-  email: string
-  selectedValue: string
-}
+import { InfoObjectType } from "@lib/constants"
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,7 +10,7 @@ export default async function handler(
     return res.status(405).send({ message: "Only POST requests allowed" })
   }
 
-  const body = req.body as SheetForm
+  const body = req.body
 
   try {
     const auth = new google.auth.GoogleAuth({
@@ -35,12 +30,21 @@ export default async function handler(
       version: "v4",
     })
 
+    const range = `A${body["index"] + 1}:C${body["index"] + 1}` // for several entries
+
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "A1:C1",
+      range: range,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [[body.orderId, body.email, body.selectedValue]],
+        values: [
+          [
+            body["index"],
+            body["variant_id"],
+            body["variant_title"],
+            body["letters"],
+          ],
+        ],
       },
     })
 

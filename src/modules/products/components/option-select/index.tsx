@@ -1,6 +1,6 @@
 import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
-import { NullValue } from "../model/constants"
+import { NullValue } from "@lib/constants"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
 
@@ -17,7 +17,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   updateOption,
   title,
 }) => {
-    // remove nulls from select options view
+  // remove nulls from select options view
   const selectableOptions = option.values
     .map((v) => v.value)
     .filter(onlyUnique)

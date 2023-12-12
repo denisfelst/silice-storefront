@@ -12,13 +12,15 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 import {
   EngravingEnum,
   FormatValueEnum,
+  InfoObjectType,
   NullValue,
   OptionsEnum,
   SizeValueEnum,
   TypeValueEnum,
-} from "../model/constants"
+} from "@lib/constants"
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo from "../product-additional-info"
+import { useStore } from "@lib/context/store-context"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -28,11 +30,15 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
-  // {format, type, size}
+  const { updateAdditionalInfo } = useStore()
+
+  // {format, type, size, engraving}
   const [selectedOptions, setSelectedOptions] = useState<SelectOptions>(
     new SelectOptions()
   )
   const [showLetterInput, setShowLetterInput] = useState<boolean>(false)
+  const [currentInfo, setCurrentInfo] = useState<string>("")
+  const [infoObject, setInfoObject] = useState<InfoObjectType>()
 
   useEffect(() => {
     if (selectedOptions.engraving === EngravingEnum.Yes) {
@@ -43,6 +49,10 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
     updateOptionsFromSelection()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptions])
+
+  useEffect(() => {
+    infoObject && updateAdditionalInfo(infoObject)
+  }, [infoObject])
 
   const additionalInfoRef = useRef(null)
 
@@ -151,17 +161,34 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
     } else return true
   }
 
-  const handleAddToCart = () => {
-    addToCart(options)
-    selectedOptions.resetOptions()
-    setSelectedOptions(selectedOptions)
+  const handleAdditionalInfo = () => {
     //@ts-ignore
     // Call resetInfo from AdditionalInfo component
     additionalInfoRef.current?.resetInfo()
+    setCurrentInfo("")
+    setShowLetterInput(false)
+
+    if (selectedOptions.engraving === EngravingEnum.Yes) {
+      console.log("handleAdditionalInfo => ")
+
+      setInfoObject({
+        variant_id: variant?.id ?? "---",
+        variant_title: selectedOptions.getFullTitle(),
+        letters: currentInfo !== "" ? currentInfo : "---",
+      })
+    }
   }
 
-  const updateAdditionalInfo = (info: string) => {
-    // TODO: handle info
+  const handleAddToCart = () => {
+    addToCart(options)
+    handleAdditionalInfo()
+    selectedOptions.resetOptions()
+    setSelectedOptions(selectedOptions)
+  }
+
+  const setAdditionalInfo = (info: string) => {
+    // updateAdditionalInfo(info)
+    setCurrentInfo(info)
   }
 
   return (
@@ -197,10 +224,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
       {showLetterInput && (
         <div>
-          <AdditionalInfo
-            ref={additionalInfoRef}
-            getInfo={updateAdditionalInfo}
-          />
+          <AdditionalInfo ref={additionalInfoRef} getInfo={setAdditionalInfo} />
         </div>
       )}
 

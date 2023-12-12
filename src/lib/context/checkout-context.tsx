@@ -24,6 +24,7 @@ import React, { createContext, useContext, useEffect, useMemo } from "react"
 import { FormProvider, useForm, useFormContext } from "react-hook-form"
 import { useStore } from "./store-context"
 import Spinner from "@modules/common/icons/spinner"
+import { handleAdditionalInfoSubmission } from "services/additional-info-service"
 
 type AddressValues = {
   first_name: string
@@ -85,7 +86,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   } = useCart()
 
   const { customer } = useMeCustomer()
-  const { countryCode } = useStore()
+  const { countryCode, additionalInfo } = useStore()
 
   const methods = useForm<CheckoutFormValues>({
     defaultValues: mapFormValues(customer, cart, countryCode),
@@ -326,8 +327,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
       onSuccess: ({ data }) => {
         push(`/order/confirmed/${data.id}`)
         resetCart()
-        // @ts-ignore
-        handleAdditionalInfoSubmission(data.id, data.email)
+        handleAdditionalInfoSubmission(additionalInfo)
       },
     })
     isCompleting.close()

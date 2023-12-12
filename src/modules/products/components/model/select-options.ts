@@ -1,16 +1,17 @@
 import {
+  EngravingEnum,
   FormatValueEnum,
   NullValue,
   SizeValueEnum,
   TypeValueEnum,
-  EngravingEnum,
-} from "./constants"
+} from "@lib/constants"
 
 export class SelectOptions {
   public format: FormatValueEnum | typeof NullValue
   public type: TypeValueEnum | typeof NullValue
   public size: SizeValueEnum | typeof NullValue
   public engraving: EngravingEnum | typeof NullValue
+  // public profile: SizeValueEnum | typeof NullValue
 
   constructor(obj?: {
     format: FormatValueEnum | typeof NullValue
@@ -25,10 +26,18 @@ export class SelectOptions {
   }
 
   public isSelectionComplete(): boolean {
-    if (this.type === NullValue && this.size === NullValue) {
+    if (
+      this.type === NullValue &&
+      this.size === NullValue &&
+      this.engraving === NullValue
+    ) {
       return false
     }
     return true
+  }
+
+  public getFullTitle(): string {
+    return `Format: ${this.format}, Size: ${this.size}, Type: ${this.type}, Engraving: ${this.engraving}`
   }
 
   public setValue(value: string): void {
@@ -86,5 +95,6 @@ export class SelectOptions {
     this.format = NullValue
     this.type = NullValue
     this.size = NullValue
+    this.engraving = NullValue
   }
 }

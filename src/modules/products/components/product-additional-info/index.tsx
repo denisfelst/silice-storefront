@@ -19,7 +19,7 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
 
   useEffect(() => {
     getInfo(info)
-  }, [info])
+  }, [info, getInfo])
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
