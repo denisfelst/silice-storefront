@@ -12,6 +12,7 @@ import {
 import React, { useEffect, useState } from "react"
 import { useCartDropdown } from "./cart-dropdown-context"
 import { useSearchParams } from "next/navigation"
+import { InfoObjectType } from "@lib/constants"
 
 interface VariantInfoProps {
   variantId: string
@@ -25,6 +26,8 @@ interface LineInfoProps {
 
 interface StoreContext {
   countryCode: string | undefined
+  additionalInfo: any
+  updateAdditionalInfo(info: InfoObjectType): void
   setRegion: (regionId: string, countryCode: string) => void
   addItem: (item: VariantInfoProps) => void
   updateItem: (item: LineInfoProps) => void
@@ -53,6 +56,7 @@ const REGION_KEY = "medusa_region"
 export const StoreProvider = ({ children }: StoreProps) => {
   const { cart, setCart, createCart, updateCart } = useCart()
   const [countryCode, setCountryCode] = useState<string | undefined>(undefined)
+  const [additionalInfo, setAdditionalInfo] = useState<InfoObjectType[]>([])
   const { timedOpen } = useCartDropdown()
   const addLineItem = useCreateLineItem(cart?.id!)
   const removeLineItem = useDeleteLineItem(cart?.id!)
@@ -60,8 +64,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
 
   // check if the user is onboarding and sets the onboarding session storage
   const searchParams = useSearchParams()
-  const onboardingCartId = searchParams.get("cart_id")
-  const isOnboarding = searchParams.get("onboarding")
+  const onboardingCartId = searchParams && searchParams.get("cart_id")
+  const isOnboarding = searchParams && searchParams.get("onboarding")
 
   useEffect(() => {
     if (isOnboarding === "true") {
@@ -118,6 +122,10 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
       }
     )
+  }
+
+  const updateAdditionalInfo = (info: InfoObjectType) => {
+    info && setAdditionalInfo([...additionalInfo, info])
   }
 
   const ensureRegion = (region: Region, countryCode?: string | null) => {
@@ -310,6 +318,8 @@ export const StoreProvider = ({ children }: StoreProps) => {
     <StoreContext.Provider
       value={{
         countryCode,
+        additionalInfo,
+        updateAdditionalInfo,
         setRegion,
         addItem,
         deleteItem,
