@@ -2,6 +2,7 @@ import {
   EngravingEnum,
   FormatValueEnum,
   NullValue,
+  OptionsEnum,
   SizeValueEnum,
   TypeValueEnum,
 } from "@lib/constants"
@@ -25,19 +26,38 @@ export class SelectOptions {
     this.engraving = obj?.engraving ?? NullValue
   }
 
-  public isSelectionComplete(): boolean {
-    if (
-      this.type === NullValue &&
-      this.size === NullValue &&
-      this.engraving === NullValue
-    ) {
+  public isSelectionComplete(engravingValue?: string): boolean {
+    if (this.format === NullValue) {
       return false
+    }
+    if (this.type === NullValue && this.size === NullValue) {
+      return false
+    }
+    if (this.engraving === NullValue) {
+      return false
+    }
+    if (
+      this.format === FormatValueEnum.Single &&
+      this.engraving === EngravingEnum.Yes
+    ) {
+      if (!engravingValue || engravingValue === "") {
+        return false
+      }
     }
     return true
   }
 
   public getFullTitle(): string {
     return `Format: ${this.format}, Size: ${this.size}, Type: ${this.type}, Engraving: ${this.engraving}`
+  }
+
+  public getOrderedOptions(): string[] {
+    return [
+      OptionsEnum.Format as string,
+      OptionsEnum.Type as string,
+      OptionsEnum.Size as string,
+      OptionsEnum.Engraving as string,
+    ]
   }
 
   public setValue(value: string): void {

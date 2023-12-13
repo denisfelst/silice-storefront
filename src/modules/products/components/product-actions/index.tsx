@@ -21,6 +21,7 @@ import {
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo from "../product-additional-info"
 import { useStore } from "@lib/context/store-context"
+import { ProductOption } from "@medusajs/product"
 
 type ProductActionsProps = {
   product: PricedProduct
@@ -41,7 +42,10 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
   const [infoObject, setInfoObject] = useState<InfoObjectType>()
 
   useEffect(() => {
-    if (selectedOptions.engraving === EngravingEnum.Yes) {
+    if (
+      selectedOptions.engraving === EngravingEnum.Yes &&
+      selectedOptions.size !== NullValue
+    ) {
       setShowLetterInput(true)
     } else {
       setShowLetterInput(false)
@@ -152,8 +156,8 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
       return false
     } else if (title === OptionsEnum.Engraving) {
       if (
-        selectedOptions.format === FormatValueEnum.Single &&
-        selectedOptions.size !== NullValue
+        selectedOptions.size !== NullValue ||
+        selectedOptions.type !== NullValue
       ) {
         return true
       }
@@ -185,8 +189,35 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   const setAdditionalInfo = (info: string) => {
-    // updateAdditionalInfo(info)
     setCurrentInfo(info)
+  }
+
+  // order the way in which the options should be displayed
+  const getOrderedProductOptions = (): any[] => {
+    const customOrder = selectedOptions.getOrderedOptions()
+
+    const sortedOptions = product?.options
+      ? product.options.sort((a, b) => {
+          const titleAIndex = customOrder.indexOf(a.title)
+          const titleBIndex = customOrder.indexOf(b.title)
+
+          if (titleAIndex !== -1 && titleBIndex !== -1) {
+            return titleAIndex - titleBIndex
+          }
+
+          if (titleAIndex !== -1) {
+            return -1
+          }
+
+          if (titleBIndex !== -1) {
+            return 1
+          }
+
+          return 0
+        })
+      : []
+
+    return sortedOptions
   }
 
   return (
@@ -205,7 +236,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
-          {(product.options || []).map((option) => {
+          {getOrderedProductOptions().map((option) => {
             return showOption(option.title) ? (
               <div key={option.id}>
                 <OptionSelect
@@ -256,7 +287,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
         )}
       </div>
 
-      {selectedOptions.isSelectionComplete() ? (
+      {selectedOptions.isSelectionComplete(currentInfo) ? (
         <Button onClick={handleAddToCart}>
           {!inStock ? "Out of stock" : "Add to cart"}
         </Button>
