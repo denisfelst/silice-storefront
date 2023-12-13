@@ -11,9 +11,6 @@ export const handleAdditionalInfoSubmission = async (
       const variant_title = item.variant_title
       const letters = item.letters
 
-      console.log(variant_id, variant_title, letters)
-      console.log("->", JSON.stringify({ variant_id, variant_title, letters }))
-
       // submission to write on google spreadsheet
       const response = await fetch(`${API_BASE_URL}/api/submission`, {
         method: "POST",

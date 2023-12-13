@@ -169,8 +169,6 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
     setShowLetterInput(false)
 
     if (selectedOptions.engraving === EngravingEnum.Yes) {
-      console.log("handleAdditionalInfo => ")
-
       setInfoObject({
         variant_id: variant?.id ?? "---",
         variant_title: selectedOptions.getFullTitle(),
