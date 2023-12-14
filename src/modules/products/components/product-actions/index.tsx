@@ -21,7 +21,6 @@ import {
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo from "../product-additional-info"
 import { useStore } from "@lib/context/store-context"
-import { ProductOption } from "@medusajs/product"
 
 type ProductActionsProps = {
   product: PricedProduct
