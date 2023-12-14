@@ -45,7 +45,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
               className="flex items-center gap-x-"
               onClick={() => deleteItem(item.id)}
             >
-              <Trash size={18} />
+              <Trash size={24} />
             </button>
             <CartItemSelect
               value={item.quantity}
