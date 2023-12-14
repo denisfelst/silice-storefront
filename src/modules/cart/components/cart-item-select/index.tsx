@@ -30,6 +30,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
     },
     ref
   ) => {
+    const EDIT_QUANTITY_ENABLED = process.env.EDIT_QUANTITY_ENABLED || "false"
     const innerRef = useRef<HTMLSelectElement>(null)
     const [isPlaceholder, setIsPlaceholder] = useState(false)
 
@@ -52,31 +53,33 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <div>
-        <IconBadge
-          onFocus={() => innerRef.current?.focus()}
-          onBlur={() => innerRef.current?.blur()}
-          className={clsx(
-            "relative flex items-center txt-compact-small border text-ui-fg-base group",
-            className,
-            {
-              "text-ui-fg-subtle": isPlaceholder,
-            }
-          )}
-        >
-          <select
-            ref={innerRef}
-            {...props}
-            className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
+        {EDIT_QUANTITY_ENABLED === "true" && (
+          <IconBadge
+            onFocus={() => innerRef.current?.focus()}
+            onBlur={() => innerRef.current?.blur()}
+            className={clsx(
+              "relative flex items-center txt-compact-small border text-ui-fg-base group",
+              className,
+              {
+                "text-ui-fg-subtle": isPlaceholder,
+              }
+            )}
           >
-            <option disabled value="">
-              {placeholder}
-            </option>
-            {children}
-          </select>
-          <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
-            <ChevronDown />
-          </span>
-        </IconBadge>
+            <select
+              ref={innerRef}
+              {...props}
+              className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
+            >
+              <option disabled value="">
+                {placeholder}
+              </option>
+              {children}
+            </select>
+            <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
+              <ChevronDown />
+            </span>
+          </IconBadge>
+        )}
         {hasError && props.name && (
           <ErrorMessage
             errors={errors}
