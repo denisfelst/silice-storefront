@@ -173,9 +173,9 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
     if (selectedOptions.engraving === EngravingEnum.Yes) {
       setInfoObject({
-        variant_id: variant?.id ?? "---",
+        variant_id: variant?.id ?? "",
         variant_title: selectedOptions.getFullTitle(),
-        letters: currentInfo !== "" ? currentInfo : "---",
+        letters: currentInfo !== "" ? currentInfo : "",
       })
     }
   }

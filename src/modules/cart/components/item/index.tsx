@@ -19,15 +19,28 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
   const { updateItem, deleteItem, additionalInfo } = useStore()
   const { handle } = item.variant.product
 
-  const getLetters = () => {
+  const getLetters = (variantId: string | null): string => {
     let letters = ""
-    additionalInfo.forEach((item: any, i: number) => {
-      i === additionalInfo.length - 1
+    if (!variantId) return letters
+
+    const variantArr = additionalInfo.filter(
+      (item: any) => item.variant_id === variantId
+    )
+
+    variantArr.forEach((item: any, i: number) => {
+      i === variantArr.length - 1
         ? (letters += item.letters)
         : (letters += item.letters + ", ")
     })
-    console.log(letters)
+
     return letters
+  }
+
+  const isVariantEngraved = (variantId: string | null): boolean => {
+    const isFound = additionalInfo.find(
+      (item: any) => item.variant_id === variantId
+    )
+    return !!isFound
   }
 
   return (
@@ -47,10 +60,15 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
       <Table.Cell className="text-left">
         <Text className="txt-medium-plus text-ui-fg-base">{item.title}</Text>
         <LineItemOptions variant={item.variant} />
-        {getLetters() !== "" && (
-          <span className="txt-medium text-ui-fg-subtle text-red-600">
-            Engraving Content: {getLetters()}
-          </span>
+        {isVariantEngraved(item.variant_id) && (
+          <div className="txt-medium text-ui-fg-subtle">
+            Engraving Content:{" "}
+            <span className="text-red-600">
+              {!!getLetters(item.variant_id)
+                ? getLetters(item.variant_id)
+                : "Default"}
+            </span>
+          </div>
         )}
       </Table.Cell>
 
