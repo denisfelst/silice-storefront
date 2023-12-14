@@ -288,7 +288,8 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
       {selectedOptions.isSelectionComplete(currentInfo) ? (
         <Button onClick={handleAddToCart}>
-          {!inStock ? "Out of stock" : "Add to cart"}
+          {/* {!inStock ? "Out of stock" : "Add to cart"} */}
+          Add to cart
         </Button>
       ) : (
         "Select all options"
