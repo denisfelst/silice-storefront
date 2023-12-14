@@ -55,6 +55,7 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
 
   useEffect(() => {
     infoObject && updateAdditionalInfo(infoObject)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoObject])
 
   const additionalInfoRef = useRef(null)
