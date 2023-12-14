@@ -10,11 +10,16 @@ const LineItemOptions = ({ variant }: LineItemOptionsProps) => {
         const optionName =
           variant.product.options.find((opt) => opt.id === option.option_id)
             ?.title || "Option"
-        return (
-          <Text key={option.id} className="txt-medium text-ui-fg-subtle">
-            {optionName}: {option.value}
-          </Text>
-        )
+
+        if (option.value !== "Null") {
+          return (
+            <Text key={option.id} className="txt-medium text-ui-fg-subtle">
+              {optionName}: {option.value}
+            </Text>
+          )
+        } else {
+          return null
+        }
       })}
     </>
   )
