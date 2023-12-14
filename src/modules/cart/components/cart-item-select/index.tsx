@@ -1,4 +1,5 @@
 import { ErrorMessage } from "@hookform/error-message"
+import { useStore } from "@lib/context/store-context"
 import { IconBadge } from "@medusajs/ui"
 import ChevronDown from "@modules/common/icons/chevron-down"
 import clsx from "clsx"
@@ -53,7 +54,7 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
 
     return (
       <div>
-        {EDIT_QUANTITY_ENABLED === "true" && (
+        {EDIT_QUANTITY_ENABLED === "true" ? (
           <IconBadge
             onFocus={() => innerRef.current?.focus()}
             onBlur={() => innerRef.current?.blur()}
@@ -78,6 +79,28 @@ const CartItemSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
             <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse">
               <ChevronDown />
             </span>
+          </IconBadge>
+        ) : (
+          <IconBadge
+            onFocus={() => innerRef.current?.focus()}
+            onBlur={() => innerRef.current?.blur()}
+            className={clsx(
+              "relative flex items-center txt-compact-small border text-ui-fg-base group",
+              className,
+              {
+                "text-ui-fg-subtle": isPlaceholder,
+              }
+            )}
+          >
+            <select
+              disabled
+              ref={innerRef}
+              {...props}
+              className="appearance-none bg-transparent border-none px-4 transition-colors duration-150 focus:border-gray-700 outline-none w-16 h-16 items-center justify-center"
+            >
+              {children}
+            </select>
+            <span className="absolute flex pointer-events-none justify-end w-8 group-hover:animate-pulse"></span>
           </IconBadge>
         )}
         {hasError && props.name && (
