@@ -5,9 +5,14 @@ import React from "react"
 
 type ProductInfoProps = {
   product: PricedProduct
+  include: {
+    title?: boolean
+    subtitle?: boolean
+    description?: boolean
+  }
 }
 
-const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
+const ProductInfo: React.FC<ProductInfoProps> = ({ product, include }) => {
   return (
     <div id="product-info">
       <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
@@ -19,13 +24,27 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product }) => {
             {product.collection.title}
           </Link>
         )}
-        <Heading level="h2" className="text-3xl leading-10 text-ui-fg-base">
-          {product.title}
-        </Heading>
 
-        <Text className="text-medium text-ui-fg-subtle">
-          {product.description}
-        </Text>
+        {include?.title && (
+          <Heading level="h2" className="text-3xl leading-10 text-ui-fg-base">
+            {product.title}
+          </Heading>
+        )}
+
+        {include?.subtitle && (
+          <Heading
+            level="h3"
+            className="text-medium leading-10 text-ui-fg-base"
+          >
+            {product.title}
+          </Heading>
+        )}
+
+        {include?.description && (
+          <Text className="text-medium text-ui-fg-subtle">
+            {product.description}
+          </Text>
+        )}
       </div>
     </div>
   )

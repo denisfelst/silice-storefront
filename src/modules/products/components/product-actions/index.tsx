@@ -230,9 +230,6 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
           {product.collection.title}
         </Link>
       )}
-      <h3 className="text-xl-regular">{product.title}</h3>
-
-      <p className="text-base-regular">{product.description}</p>
 
       {product.variants.length > 1 && (
         <div className="my-8 flex flex-col gap-y-6">
