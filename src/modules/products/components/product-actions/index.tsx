@@ -26,7 +26,7 @@ type ProductActionsProps = {
   product: PricedProduct
 }
 
-const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
+const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
@@ -290,16 +290,10 @@ const ProductActionsInner: React.FC<ProductActionsProps> = ({ product }) => {
           Add to cart
         </Button>
       ) : (
-        "Select all options"
+        <span className="text-rose-600">Select all options</span>
       )}
     </div>
   )
 }
-
-const ProductActions: React.FC<ProductActionsProps> = ({ product }) => (
-  <ProductProvider product={product}>
-    <ProductActionsInner product={product} />
-  </ProductProvider>
-)
 
 export default ProductActions
