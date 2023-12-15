@@ -2,10 +2,10 @@ import Image from "next/image"
 import Carousel from "./carousel"
 import Fancybox from "./fancybox"
 type ImageProps = {
+  // @ts-ignore
   images: Image[] | undefined
 }
 
-/* eslint-disable @next/next/no-img-element */
 const ImageCarousel: React.FC<ImageProps> = ({ images }) => {
   return (
     <div className="image-carousel block w-full relative">
@@ -27,11 +27,14 @@ const ImageCarousel: React.FC<ImageProps> = ({ images }) => {
                 key={image.url}
               >
                 <a data-fancybox="gallery" href={image.url}>
-                  <img
-                    src={image.url}
-                    alt={`Product image ${index}`}
-                    className="rounded-rounded"
-                  />
+                  <picture>
+                    <img
+                      src={image.url}
+                      alt={`Product image ${index}`}
+                      className="rounded-rounded"
+                      height={500}
+                    />
+                  </picture>
                 </a>
               </div>
             )

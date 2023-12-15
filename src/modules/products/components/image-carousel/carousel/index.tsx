@@ -15,7 +15,7 @@ interface Props {
 const defaults: Partial<OptionsType> = {
   Dots: false,
   Thumbs: {
-    type: "modern",
+    type: "classic",
   },
 }
 
