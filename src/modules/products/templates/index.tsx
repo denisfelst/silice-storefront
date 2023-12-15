@@ -1,7 +1,10 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { ProductProvider } from "@lib/context/product-context"
+import {
+  ProductProvider,
+  useProductActions,
+} from "@lib/context/product-context"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import ProductInfo from "@modules/products/templates/product-info"
 import ProductTabs from "@modules/products/components/product-tabs"
@@ -9,17 +12,20 @@ import ProductOnboardingCta from "@modules/products/components/product-onboardin
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import ProductActions from "../components/product-actions"
 import ImageCarousel from "../components/image-carousel"
+import useProductPrice from "@lib/hooks/use-product-price"
 
 type ProductTemplateProps = {
   product: PricedProduct
 }
 
-const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
+const ProductTemplateInner: React.FC<ProductTemplateProps> = ({ product }) => {
   const [isOnboarding, setIsOnboarding] = useState<boolean>(false)
 
   const infoRef = useRef<HTMLDivElement>(null)
-
   const inView = useIntersection(infoRef, "0px")
+  const { variant } = useProductActions()
+  const price = useProductPrice({ id: product.id!, variantId: variant?.id })
+  const cheapestPrice = price?.cheapestPrice?.calculated_price
 
   useEffect(() => {
     const onboarding = window.sessionStorage.getItem("onboarding")
@@ -28,24 +34,25 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
 
   return (
     <ProductProvider product={product}>
-      <div className="content-container flex flex-col small:flex-row small:items-start py-6 relative">
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
-          <ProductInfo product={product} include={{ title: true }} />
+      <div className="content-container w-full flex flex-col sm:w-10/12 items-start py-6 relative">
+        <div className="info-and-carousel w-full  flex flex-col sm:flex-row sm:h-1/2 sm:mb-6">
+          <div className="carousel-container w-full max-h-screen sm:w-1/2">
+            <ImageCarousel images={product.images}></ImageCarousel>
+          </div>
+          <div className="w-full flex flex-col items-start p-8 sm:w-1/2">
+            <ProductInfo
+              product={product}
+              include={{ title: true, subtitle: true }}
+            />
+            {cheapestPrice && <span>From {cheapestPrice}</span>}
+            <div className="w-full flex flex-col sm:top-48 sm:py-0 sm:max-w-[300px] py-8 gap-y-12">
+              {isOnboarding && <ProductOnboardingCta />}
+              <ProductActions product={product} />
+            </div>
+          </div>
         </div>
 
-        <ImageCarousel images={product.images}></ImageCarousel>
-
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-12">
-          {isOnboarding && <ProductOnboardingCta />}
-          <ProductActions product={product} />
-        </div>
-
-        <ProductInfo
-          product={product}
-          include={{ subtitle: true, description: true }}
-        />
-
-        <div className="flex flex-col small:sticky small:top-48 small:py-0 small:max-w-[300px] w-full py-8 gap-y-6">
+        <div className="w-full flex flex-col sm:top-48 py-8 gap-y-6">
           <ProductTabs product={product} />
         </div>
       </div>
@@ -55,9 +62,15 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => {
 
 // MOBILE OPTIONS MODAL POPUP & RELATED PRODUCTS
 // {/* Dont show related products */}
-// {/* <div className="content-container my-16 px-6 small:px-8 small:my-32">
+// {/* <div className="content-container my-16 px-6 sm:px-8 sm:my-32">
 //   <RelatedProducts product={product} />
 // </div> */}
 // {/* <MobileActions product={product} show={!inView} /> */}
+
+const ProductTemplate: React.FC<ProductTemplateProps> = ({ product }) => (
+  <ProductProvider product={product}>
+    <ProductTemplateInner product={product} />
+  </ProductProvider>
+)
 
 export default ProductTemplate

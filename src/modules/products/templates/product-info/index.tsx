@@ -26,17 +26,14 @@ const ProductInfo: React.FC<ProductInfoProps> = ({ product, include }) => {
         )}
 
         {include?.title && (
-          <Heading level="h2" className="text-3xl leading-10 text-ui-fg-base">
+          <Heading level="h1" className="text-2xl leading-8 text-ui-fg-base">
             {product.title}
           </Heading>
         )}
 
         {include?.subtitle && (
-          <Heading
-            level="h3"
-            className="text-medium leading-10 text-ui-fg-base"
-          >
-            {product.title}
+          <Heading level="h3" className="text-medium text-ui-fg-base mb-3">
+            {product.subtitle}
           </Heading>
         )}
 
