@@ -13,7 +13,7 @@ const FooterNav = () => {
   return (
     <div className="border-t border-ui-border-base w-screen">
       <div className="content-container flex flex-col">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
+        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-32">
           <div>
             <Link
               href="/"
