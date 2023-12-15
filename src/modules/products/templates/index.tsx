@@ -39,20 +39,20 @@ const ProductTemplateInner: React.FC<ProductTemplateProps> = ({ product }) => {
           <div className="carousel-container w-full max-h-screen sm:w-1/2">
             <ImageCarousel images={product.images}></ImageCarousel>
           </div>
-          <div className="w-full flex flex-col items-start p-8 sm:w-1/2">
+          <div className="w-full flex flex-col items-start p-3 sm:py-8 sm:px-10 sm:w-1/2">
             <ProductInfo
               product={product}
               include={{ title: true, subtitle: true }}
             />
             {cheapestPrice && <span>From {cheapestPrice}</span>}
-            <div className="w-full flex flex-col sm:top-48 sm:py-0 sm:max-w-[300px] py-8 gap-y-12">
+            <div className="w-full flex flex-col sm:top-48 sm:py-0 py-2 gap-y-12">
               {isOnboarding && <ProductOnboardingCta />}
               <ProductActions product={product} />
             </div>
           </div>
         </div>
 
-        <div className="w-full flex flex-col sm:top-48 py-8 gap-y-6">
+        <div className="w-full flex flex-col sm:top-48 py-6 gap-y-6 sm:py-8">
           <ProductTabs product={product} />
         </div>
       </div>

@@ -221,7 +221,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 w-full">
       {product.collection && (
         <Link
           href={`/collections/${product.collection.handle}`}
@@ -232,7 +232,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       )}
 
       {product.variants.length > 1 && (
-        <div className="my-8 flex flex-col gap-y-6">
+        <div className="my-4 flex flex-col gap-y-4 rounded bg-slate-100 p-4 w-full">
           {getOrderedProductOptions().map((option) => {
             return showOption(option.title) ? (
               <div key={option.id}>
@@ -245,17 +245,22 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
               </div>
             ) : null
           })}
+          {showLetterInput && (
+            <div>
+              <AdditionalInfo
+                ref={additionalInfoRef}
+                getInfo={setAdditionalInfo}
+              />
+            </div>
+          )}
+          {!selectedOptions.isSelectionComplete(currentInfo) && (
+            <span className="text-rose-600">Select all options</span>
+          )}
         </div>
       )}
 
-      {showLetterInput && (
-        <div>
-          <AdditionalInfo ref={additionalInfoRef} getInfo={setAdditionalInfo} />
-        </div>
-      )}
-
-      <div className="mb-4">
-        {selectedPrice ? (
+      {selectedPrice && (
+        <div className="mb-4">
           <div className="flex flex-col text-gray-700">
             <span
               className={clsx("text-xl-semi", {
@@ -279,18 +284,14 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
               </>
             )}
           </div>
-        ) : (
-          <div></div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {selectedOptions.isSelectionComplete(currentInfo) ? (
+      {selectedOptions.isSelectionComplete(currentInfo) && (
         <Button onClick={handleAddToCart}>
           {/* {!inStock ? "Out of stock" : "Add to cart"} */}
           Add to cart
         </Button>
-      ) : (
-        <span className="text-rose-600">Select all options</span>
       )}
     </div>
   )
