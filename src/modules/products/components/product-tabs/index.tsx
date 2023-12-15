@@ -1,12 +1,10 @@
-import { Tab } from "@headlessui/react"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
 import Back from "@modules/common/icons/back"
 import FastDelivery from "@modules/common/icons/fast-delivery"
 import Refresh from "@modules/common/icons/refresh"
-import { ProgressAccordion, Text } from "@medusajs/ui"
-import clsx from "clsx"
 import { useMemo } from "react"
 import Accordion from "./accordion"
+import ProductInfo from "@modules/products/templates/product-info"
 
 type ProductTabsProps = {
   product: PricedProduct
@@ -16,8 +14,12 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   const tabs = useMemo(() => {
     return [
       {
-        label: "Product Information",
-        component: <ProductInfoTab product={product} />,
+        label: "Concept",
+        component: <ProductConceptTab product={product} />,
+      },
+      {
+        label: "Specs",
+        component: <ProductSpecsTab product={product} />,
       },
       {
         label: "Shipping & Returns",
@@ -44,7 +46,19 @@ const ProductTabs = ({ product }: ProductTabsProps) => {
   )
 }
 
-const ProductInfoTab = ({ product }: ProductTabsProps) => {
+const ProductConceptTab = ({ product }: ProductTabsProps) => {
+  return (
+    <div className="flex items-start flex-col text-small-regular">
+      <ProductInfo
+        product={product}
+        include={{ title: true, description: true }}
+      />
+      <span className="font-semibold text-rose-600">Add Concept here</span>
+    </div>
+  )
+}
+
+const ProductSpecsTab = ({ product }: ProductTabsProps) => {
   return (
     <div className="text-small-regular py-8">
       <div className="grid grid-cols-2 gap-x-8">
