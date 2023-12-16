@@ -34,6 +34,7 @@ export default async function handler(
     const values = [
       [
         body["index"],
+        body["email"],
         body["variant_id"],
         body["variant_title"],
         body["letters"],

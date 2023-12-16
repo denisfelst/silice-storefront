@@ -3,7 +3,8 @@ import { InfoObjectType } from "@lib/constants"
 const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:8000"
 
 export const handleAdditionalInfoSubmission = async (
-  additionalInfo: InfoObjectType[]
+  additionalInfo: InfoObjectType[],
+  email?: string
 ) => {
   let indexArr: string[] = []
   let variantIdArr: string[] = []
@@ -12,6 +13,7 @@ export const handleAdditionalInfoSubmission = async (
 
   const hasState = additionalInfo.length > 0
 
+  // TODO: INCLUDE EMAIL IF hasState === true
   // if (hasState) {
   //   additionalInfo.map((item, index) => {
   //     indexArr.push(index.toString())
@@ -78,6 +80,7 @@ export const handleAdditionalInfoSubmission = async (
       variant_title,
       letters,
       index,
+      email,
     }),
   })
   return response
