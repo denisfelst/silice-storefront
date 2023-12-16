@@ -89,7 +89,12 @@ const CartDropdown = () => {
                             <div>
                               <button
                                 className="flex items-center gap-x-1 text-gray-500"
-                                onClick={() => deleteItem(item.id)}
+                                onClick={() =>
+                                  deleteItem(
+                                    item.id,
+                                    item.variant_id ?? undefined
+                                  )
+                                }
                               >
                                 <Trash size={14} />
                                 <span>Remove</span>

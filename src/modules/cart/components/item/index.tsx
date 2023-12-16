@@ -77,7 +77,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
           <div className="flex gap-2">
             <button
               className="flex items-center gap-x-"
-              onClick={() => deleteItem(item.id)}
+              onClick={() => deleteItem(item.id, item.variant_id ?? undefined)}
             >
               <Trash size={24} />
             </button>

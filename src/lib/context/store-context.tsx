@@ -31,7 +31,7 @@ interface StoreContext {
   setRegion: (regionId: string, countryCode: string) => void
   addItem: (item: VariantInfoProps) => void
   updateItem: (item: LineInfoProps) => void
-  deleteItem: (lineId: string) => void
+  deleteItem: (lineId: string, variant_id?: string) => void
   resetCart: () => void
 }
 
@@ -280,7 +280,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
     )
   }
 
-  const deleteItem = (lineId: string) => {
+  const deleteItem = (lineId: string, variant_id?: string) => {
     removeLineItem.mutate(
       {
         lineId,
@@ -289,6 +289,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         onSuccess: ({ cart }) => {
           setCart(cart)
           storeCart(cart.id)
+          deleteStorageItem(variant_id)
         },
         onError: (error) => {
           handleError(error)
@@ -319,6 +320,31 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
       }
     )
+  }
+
+  const deleteStorageItem = (variant_id: string | undefined) => {
+    if (!variant_id) {
+      console.error("Session: undefined variant id")
+      return
+    }
+    const itemsToDelete: string[] = []
+
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i)
+      if (!key) {
+        console.error("Session: Key not found in for variant id:", variant_id)
+        return
+      }
+      const value = sessionStorage.getItem(key)
+
+      if (value?.includes(variant_id)) {
+        itemsToDelete.push(key)
+      }
+    }
+
+    itemsToDelete.forEach((item) => {
+      sessionStorage.removeItem(item)
+    })
   }
 
   return (
