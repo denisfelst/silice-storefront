@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { google } from "googleapis"
-import { InfoObjectType } from "@lib/constants"
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,19 +31,21 @@ export default async function handler(
 
     const range = `A${body["index"] + 1}:C${body["index"] + 1}` // for several entries
 
+    const values = [
+      [
+        body["index"],
+        body["variant_id"],
+        body["variant_title"],
+        body["letters"],
+      ],
+    ]
+
     const response = await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
       range: range,
       valueInputOption: "USER_ENTERED",
       requestBody: {
-        values: [
-          [
-            body["index"],
-            body["variant_id"],
-            body["variant_title"],
-            body["letters"],
-          ],
-        ],
+        values: values,
       },
     })
 

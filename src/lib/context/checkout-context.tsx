@@ -325,9 +325,11 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
     isCompleting.open()
     complete(undefined, {
       onSuccess: ({ data }) => {
-        push(`/order/confirmed/${data.id}`)
-        resetCart()
-        handleAdditionalInfoSubmission(additionalInfo)
+        handleAdditionalInfoSubmission(additionalInfo).then(() => {
+          push(`/order/confirmed/${data.id}`)
+          resetCart()
+          sessionStorage.clear()
+        })
       },
     })
     isCompleting.close()

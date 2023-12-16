@@ -30,7 +30,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const { updateOptions, addToCart, options, inStock, variant } =
     useProductActions()
 
-  const { updateAdditionalInfo } = useStore()
+  const { addAdditionalInfo } = useStore()
 
   // {format, type, size, engraving}
   const [selectedOptions, setSelectedOptions] = useState<SelectOptions>(
@@ -54,7 +54,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }, [selectedOptions])
 
   useEffect(() => {
-    infoObject && updateAdditionalInfo(infoObject)
+    infoObject && addAdditionalInfo(infoObject)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoObject])
 

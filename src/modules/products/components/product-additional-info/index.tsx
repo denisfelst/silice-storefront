@@ -23,7 +23,6 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
-    sessionStorage.setItem("selectedValue", e.target.value)
     setInfo(e.target.value)
   }
 

@@ -27,7 +27,7 @@ interface LineInfoProps {
 interface StoreContext {
   countryCode: string | undefined
   additionalInfo: any
-  updateAdditionalInfo(info: InfoObjectType): void
+  addAdditionalInfo(info: InfoObjectType): void
   setRegion: (regionId: string, countryCode: string) => void
   addItem: (item: VariantInfoProps) => void
   updateItem: (item: LineInfoProps) => void
@@ -124,7 +124,14 @@ export const StoreProvider = ({ children }: StoreProps) => {
     )
   }
 
-  const updateAdditionalInfo = (info: InfoObjectType) => {
+  const addAdditionalInfo = (info: InfoObjectType) => {
+    const indexName = `item${additionalInfo.length}`
+
+    sessionStorage.setItem(
+      indexName,
+      info.variant_id + " // " + info.variant_title + " // " + info.letters
+    )
+
     info && setAdditionalInfo([...additionalInfo, info])
   }
 
@@ -319,7 +326,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
       value={{
         countryCode,
         additionalInfo,
-        updateAdditionalInfo,
+        addAdditionalInfo,
         setRegion,
         addItem,
         deleteItem,
