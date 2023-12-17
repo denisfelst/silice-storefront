@@ -46,7 +46,7 @@ export const handleAdditionalInfoSubmission = async (
   const arr = []
 
   for (let i = 0; i < 50; i++) {
-    const value = sessionStorage.getItem(`item${i}`)
+    const value = localStorage.getItem(`item${i}`)
     if (value) {
       arr.push(value)
     }

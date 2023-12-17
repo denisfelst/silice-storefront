@@ -28,11 +28,13 @@ interface StoreContext {
   countryCode: string | undefined
   additionalInfo: any
   addAdditionalInfo(info: InfoObjectType): void
+  removeAllItemsFromStorage: () => void
   setRegion: (regionId: string, countryCode: string) => void
   addItem: (item: VariantInfoProps) => void
   updateItem: (item: LineInfoProps) => void
   deleteItem: (lineId: string, variant_id?: string) => void
   resetCart: () => void
+  getCartItemsQuantity: () => number
 }
 
 const StoreContext = React.createContext<StoreContext | null>(null)
@@ -127,12 +129,23 @@ export const StoreProvider = ({ children }: StoreProps) => {
   const addAdditionalInfo = (info: InfoObjectType) => {
     const indexName = `item${additionalInfo.length}`
 
-    sessionStorage.setItem(
+    localStorage.setItem(
       indexName,
       info.variant_id + " // " + info.variant_title + " // " + info.letters
     )
 
     info && setAdditionalInfo([...additionalInfo, info])
+  }
+
+  const removeAdditionalInfo = (variantId: string) => {
+    const newArray = additionalInfo.filter(
+      (item) => !item.variant_id.includes(variantId)
+    )
+    setAdditionalInfo(newArray)
+  }
+
+  const removeAllAdditionalInfos = () => {
+    setAdditionalInfo([])
   }
 
   const ensureRegion = (region: Region, countryCode?: string | null) => {
@@ -289,13 +302,31 @@ export const StoreProvider = ({ children }: StoreProps) => {
         onSuccess: ({ cart }) => {
           setCart(cart)
           storeCart(cart.id)
-          deleteStorageItem(variant_id)
+          removeItemFromStorage(variant_id)
         },
         onError: (error) => {
           handleError(error)
         },
       }
     )
+  }
+
+  useEffect(() => {
+    console.log(additionalInfo)
+  }, [additionalInfo])
+
+  const removeItemFromStorage = (variant_id: string | undefined) => {
+    if (!variant_id) {
+      console.error("Session: undefined variant id")
+      return
+    }
+    deleteStorageItem(variant_id)
+    removeAdditionalInfo(variant_id)
+  }
+
+  const removeAllItemsFromStorage = () => {
+    localStorage.clear()
+    removeAllAdditionalInfos()
   }
 
   const updateItem = ({
@@ -322,20 +353,16 @@ export const StoreProvider = ({ children }: StoreProps) => {
     )
   }
 
-  const deleteStorageItem = (variant_id: string | undefined) => {
-    if (!variant_id) {
-      console.error("Session: undefined variant id")
-      return
-    }
+  const deleteStorageItem = (variant_id: string) => {
     const itemsToDelete: string[] = []
 
-    for (let i = 0; i < sessionStorage.length; i++) {
-      const key = sessionStorage.key(i)
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
       if (!key) {
         console.error("Session: Key not found in for variant id:", variant_id)
         return
       }
-      const value = sessionStorage.getItem(key)
+      const value = localStorage.getItem(key)
 
       if (value?.includes(variant_id)) {
         itemsToDelete.push(key)
@@ -343,8 +370,17 @@ export const StoreProvider = ({ children }: StoreProps) => {
     }
 
     itemsToDelete.forEach((item) => {
-      sessionStorage.removeItem(item)
+      localStorage.removeItem(item)
     })
+  }
+
+  //get number of items in cart, regardless of duplicated variants
+  const getCartItemsQuantity = (): number => {
+    let itemCount = 0
+    cart?.items.forEach((item) => {
+      itemCount += item.quantity
+    })
+    return itemCount
   }
 
   return (
@@ -353,11 +389,13 @@ export const StoreProvider = ({ children }: StoreProps) => {
         countryCode,
         additionalInfo,
         addAdditionalInfo,
+        removeAllItemsFromStorage,
         setRegion,
         addItem,
         deleteItem,
         updateItem,
         resetCart,
+        getCartItemsQuantity,
       }}
     >
       {children}

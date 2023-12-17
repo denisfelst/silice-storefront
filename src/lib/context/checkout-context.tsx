@@ -86,7 +86,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
   } = useCart()
 
   const { customer } = useMeCustomer()
-  const { countryCode, additionalInfo } = useStore()
+  const { countryCode, additionalInfo, removeAllItemsFromStorage } = useStore()
 
   const methods = useForm<CheckoutFormValues>({
     defaultValues: mapFormValues(customer, cart, countryCode),
@@ -328,7 +328,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
         handleAdditionalInfoSubmission(additionalInfo, cart?.email).then(() => {
           push(`/order/confirmed/${data.id}`)
           resetCart()
-          sessionStorage.clear()
+          removeAllItemsFromStorage()
         })
       },
     })

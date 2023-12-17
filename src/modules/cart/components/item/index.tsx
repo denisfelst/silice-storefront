@@ -8,6 +8,9 @@ import CartItemSelect from "@modules/cart/components/cart-item-select"
 import Trash from "@modules/common/icons/trash"
 import Thumbnail from "@modules/products/components/thumbnail"
 import Link from "next/link"
+import { CartDropdownContext } from "@lib/context/cart-dropdown-context"
+import { useCart } from "medusa-react"
+import { useCheckout } from "@lib/context/checkout-context"
 
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
@@ -16,22 +19,43 @@ type ItemProps = {
 }
 
 const Item = ({ item, region, type = "full" }: ItemProps) => {
-  const { updateItem, deleteItem, additionalInfo } = useStore()
+  const { updateItem, deleteItem, additionalInfo, getCartItemsQuantity } =
+    useStore()
+
   const { handle } = item.variant.product
 
   const getLetters = (variantId: string | null): string => {
     let letters = ""
     if (!variantId) return letters
 
-    const variantArr = additionalInfo.filter(
-      (item: any) => item.variant_id === variantId
+    const variantArr = additionalInfo.filter((item: any) =>
+      item.variant_id.includes(variantId)
     )
 
-    variantArr.forEach((item: any, i: number) => {
-      i === variantArr.length - 1
-        ? (letters += item.letters)
-        : (letters += item.letters + ", ")
-    })
+    // get from additionalInfo
+    if (variantArr.length === getCartItemsQuantity()) {
+      variantArr.forEach((item: any, i: number) => {
+        i === variantArr.length - 1
+          ? (letters += item.letters)
+          : (letters += item.letters + ", ")
+      })
+    } else {
+      // cherrypick content from localStorage
+      const localItems = []
+      for (let i = 0; i < 50; i++) {
+        const value = localStorage.getItem(`item${i}`)
+        if (value) localItems.push(value)
+      }
+      const matchingValues = localItems
+        .map((item) => {
+          const parts = item.split(" // ")
+          return parts.length === 3 && parts[0].includes(variantId)
+            ? parts[2].trim()
+            : null
+        })
+        .filter((value) => value !== null)
+      letters = matchingValues.join(", ")
+    }
 
     return letters
   }
@@ -40,7 +64,13 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
     const isFound = additionalInfo.find(
       (item: any) => item.variant_id === variantId
     )
-    return !!isFound
+    const localItems = []
+    // const isFoundLocal
+    for (let i = 0; i < 50; i++) {
+      const value = localStorage.getItem(`item${i}`)
+      if (value && value.includes("Engraving: Yes")) localItems.push(value)
+    }
+    return !!isFound || localItems.length > 0
   }
 
   return (
@@ -66,7 +96,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
             <span className="text-red-600">
               {!!getLetters(item.variant_id)
                 ? getLetters(item.variant_id)
-                : "Default"}
+                : "---"}
             </span>
           </div>
         )}
