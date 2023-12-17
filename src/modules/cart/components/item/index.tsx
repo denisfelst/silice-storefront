@@ -8,9 +8,6 @@ import CartItemSelect from "@modules/cart/components/cart-item-select"
 import Trash from "@modules/common/icons/trash"
 import Thumbnail from "@modules/products/components/thumbnail"
 import Link from "next/link"
-import { CartDropdownContext } from "@lib/context/cart-dropdown-context"
-import { useCart } from "medusa-react"
-import { useCheckout } from "@lib/context/checkout-context"
 
 type ItemProps = {
   item: Omit<LineItem, "beforeInsert">
@@ -64,8 +61,8 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
     const isFound = additionalInfo.find(
       (item: any) => item.variant_id === variantId
     )
+
     const localItems = []
-    // const isFoundLocal
     for (let i = 0; i < 50; i++) {
       const value = localStorage.getItem(`item${i}`)
       if (value && value.includes("Engraving: Yes")) localItems.push(value)

@@ -127,12 +127,20 @@ export const StoreProvider = ({ children }: StoreProps) => {
   }
 
   const addAdditionalInfo = (info: InfoObjectType) => {
-    const indexName = `item${additionalInfo.length}`
+    const index = "item"
+    let value = additionalInfo.length
+    let isSet = false
 
-    localStorage.setItem(
-      indexName,
-      info.variant_id + " // " + info.variant_title + " // " + info.letters
-    )
+    while (!isSet) {
+      const indexName = `${index}${value}`
+      if (!localStorage.getItem(indexName)) {
+        localStorage.setItem(
+          indexName,
+          info.variant_id + " // " + info.variant_title + " // " + info.letters
+        )
+        isSet = true
+      } else value++
+    }
 
     info && setAdditionalInfo([...additionalInfo, info])
   }
