@@ -1,9 +1,11 @@
 export const IS_BROWSER = typeof window !== "undefined"
 
 // Product
-export const FORMAT_KEY = "opt_01HD6W19FS2X7FT4889W4G2RQP"
-export const TYPE_KEY = "opt_01HD6XVASZ7YRMSPDGQ3E2RKRM"
-export const SIZE_KEY = "opt_01HD6ZYKWXQA0K8SVEC7T16S6M"
+export const FORMAT_KEY = "opt_01HMRKW3F1VFWRAH2831J7MHP1"
+export const TYPE_KEY = "opt_01HMRKQP22BV745ZN80A6QDXN4"
+export const SIZE_KEY = "opt_01HMRKQP21FVQPJW0CDFQMSN96"
+export const ENGRAVING_KEY = "prod_01HMRKDQTD8KXE6ABM903H6N74" 
+
 
 export const NullValue = "Null"
 

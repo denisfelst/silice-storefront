@@ -142,6 +142,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   // should show element option (e.g. size) depending on what is already selected
   const showOption = (title: string): boolean => {
+    console.log('showOption::: ', title);
     if (title === OptionsEnum.Format) {
       return true
     } else if (title === OptionsEnum.Type) {
@@ -194,6 +195,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   // order the way in which the options should be displayed
   const getOrderedProductOptions = (): any[] => {
+    console.log('getOrderedProductOptions::: ');
     const customOrder = selectedOptions.getOrderedOptions()
 
     const sortedOptions = product?.options
@@ -231,7 +233,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </Link>
       )}
 
-      {product.variants.length > 1 && (
+      {product.variants.length > 0 && (
         <div className="my-4 flex flex-col gap-y-4 rounded bg-slate-100 p-4 w-full">
           {getOrderedProductOptions().map((option) => {
             return showOption(option.title) ? (

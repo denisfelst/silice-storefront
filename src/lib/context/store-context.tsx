@@ -319,9 +319,6 @@ export const StoreProvider = ({ children }: StoreProps) => {
     )
   }
 
-  useEffect(() => {
-    console.log(additionalInfo)
-  }, [additionalInfo])
 
   const removeItemFromStorage = (variant_id: string | undefined) => {
     if (!variant_id) {
