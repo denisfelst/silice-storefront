@@ -218,4 +218,3 @@ Done! All product and collection data should now be coming from the module. The 
 # Personal Notes
 
 run storefront: npm run dev
-run admin panel: npx medusa develop -> else -> npx medusa user -e [email] -p [password]
