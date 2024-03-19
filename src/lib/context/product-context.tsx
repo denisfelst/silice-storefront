@@ -23,7 +23,7 @@ interface ProductContext {
   variant?: Variant
   maxQuantityMet: boolean
   options: Record<string, string>
-  updateOptions: (options: Record<string, string>) => void
+  updateOptions: (title:string, options: Record<string, string>) => void
   increaseQuantity: () => void
   decreaseQuantity: () => void
   addToCart: (optionsParam?: any) => void
@@ -129,7 +129,7 @@ export const ProductProvider = ({
     }
   }, [variant])
 
-  const updateOptions = (update: Record<string, string>) => {
+  const updateOptions = (title:string, update: Record<string, string>) => {
     setOptions({ ...options, ...update })
   }
 

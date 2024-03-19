@@ -82,7 +82,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       engraving: selectedOptions.engraving,
     })
 
-    updateOptions(option) // add new selection to options
+    updateOptions('test12345', option) // add new selection to options
     newSelectedOptions.setValue(selectedValue)
     setSelectedOptions(newSelectedOptions)
   }
@@ -137,7 +137,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       newOptions[engravingKey] = selectedOptions.engraving
     }
 
-    updateOptions(newOptions)
+    updateOptions('test12345', newOptions)
   }
 
   // should show element option (e.g. size) depending on what is already selected
