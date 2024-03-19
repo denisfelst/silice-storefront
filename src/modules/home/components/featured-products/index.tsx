@@ -22,4 +22,4 @@ const FeaturedProducts = ({
 }
 
 export default FeaturedProducts
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-static'
