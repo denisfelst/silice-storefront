@@ -55,7 +55,9 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
               )}
 
             {paymentSession.provider_id === "manual" && isDevelopment && (
-              <PaymentTest className="hidden small:block" />
+              <div className="hidden small:block">
+              <PaymentTest />
+              </div>
             )}
           </div>
           <span className="justify-self-end text-gray-700">
@@ -63,7 +65,9 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
           </span>
         </div>
         {paymentSession.provider_id === "manual" && isDevelopment && (
-          <PaymentTest className="small:hidden text-[10px]" />
+          <div className="small:hidden text-[10px]">
+            <PaymentTest />
+          </div>
         )}
       </RadioGroup.Option>
     </>
