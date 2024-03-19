@@ -119,7 +119,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
         onError: (error) => {
           if (process.env.NODE_ENV === "development") {
-            console.error(error)
+            console.error("setRegion ", error)
           }
         },
       }
@@ -210,7 +210,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
         onError: (error) => {
           if (process.env.NODE_ENV === "development") {
-            console.error(error)
+            console.error("createNewCart ",error)
           }
         },
       }
@@ -234,7 +234,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
         onError: (error) => {
           if (process.env.NODE_ENV === "development") {
-            console.error(error)
+            console.error('resetCart', error)
           }
         },
       }
