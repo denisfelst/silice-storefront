@@ -9,6 +9,7 @@ export default function PageLayout({
   return (
     <>
       <Nav />
+
       {children}
       <Footer />
     </>

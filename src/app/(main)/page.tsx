@@ -16,10 +16,11 @@ export default async function Home() {
 
   return (
     <>
-      <Hero />
+    <h1>SANTI</h1>
+      {/* <Hero />
       <Suspense fallback={<SkeletonHomepageProducts count={count} />}>
         <FeaturedProducts collections={collections} />
-      </Suspense>
+      </Suspense> */}
     </>
   )
 }
