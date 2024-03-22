@@ -13,8 +13,8 @@ module.exports = withStoreConfig({
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
+        protocol: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.includes("localhost") ? "http" : "https",
+        hostname: process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL,
       },
       {
         protocol: "https",
