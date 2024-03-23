@@ -83,68 +83,91 @@ export class SelectOptions {
 
       case FormatValueEnum.Single as string:
         this.format = FormatValueEnum.Single
-        this.combination = NullValue
+        this.resetAllGroup()
         break
       case FormatValueEnum.Group as string:
         this.format = FormatValueEnum.Group
-        this.size = NullValue
+        this.resetAllSingle()
         break
 
       case ProfileValueEnum.OEM as string:
         this.profile = ProfileValueEnum.OEM
-        this.combination = NullValue
+        this.resetOption(OptionsEnum.Size)
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
       case ProfileValueEnum.SA as string:
         this.profile = ProfileValueEnum.SA
-        this.size = NullValue
+        this.resetOption(OptionsEnum.Size)
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
 
       case SizeValueEnum.Unit as string:
         this.size = SizeValueEnum.Unit
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
       case SizeValueEnum.Ctrl as string:
         this.size = SizeValueEnum.Ctrl
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
       case SizeValueEnum.Shift as string:
         this.size = SizeValueEnum.Shift
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
       case SizeValueEnum.Spacebar as string:
         this.size = SizeValueEnum.Spacebar
+        this.resetOption(OptionsEnum.Row)
+        this.resetOption(OptionsEnum.Engraving)
         break
 
       case RowValueEnum.R1 as string:
         this.row = RowValueEnum.R1
+        this.resetOption(OptionsEnum.Engraving)
         break
       case RowValueEnum.R2 as string:
         this.row = RowValueEnum.R2
+        this.resetOption(OptionsEnum.Engraving)
         break
       case RowValueEnum.R3 as string:
         this.row = RowValueEnum.R3
+        this.resetOption(OptionsEnum.Engraving)
         break
       case RowValueEnum.R4 as string:
         this.row = RowValueEnum.R4
+        this.resetOption(OptionsEnum.Engraving)
         break
 
       case CombinationValueEnum.Asdw as string:
         this.combination = CombinationValueEnum.Asdw
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.Arrows as string:
         this.combination = CombinationValueEnum.Arrows
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.FRow as string:
         this.combination = CombinationValueEnum.FRow
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.CWA as string:
         this.combination = CombinationValueEnum.CWA
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.SpecialsLeft as string:
         this.combination = CombinationValueEnum.SpecialsLeft
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.ModifierLeft as string:
         this.combination = CombinationValueEnum.ModifierLeft
+        this.resetOption(OptionsEnum.Engraving)
         break
       case CombinationValueEnum.Numpad as string:
         this.combination = CombinationValueEnum.Numpad
+        this.resetOption(OptionsEnum.Engraving)
         break
 
       case EngravingEnum.Yes as string:
@@ -156,11 +179,52 @@ export class SelectOptions {
     }
   }
 
-  public resetOptions(): void {
+  public resetAllOptions(): void {
     this.format = NullValue
     this.profile = NullValue
     this.size = NullValue
     this.row = NullValue
+    this.combination = NullValue
+    this.engraving = NullValue
+
+  }
+  public resetOption(option?: OptionsEnum): void {
+    if(!option) return
+    
+    if (option === OptionsEnum.Format) {
+      this.format = NullValue
+      return
+    }
+    if (option === OptionsEnum.Profile) {
+      this.profile = NullValue
+      return
+    }
+    if (option === OptionsEnum.Size) {
+      this.size = NullValue
+      return
+    }
+    if (option === OptionsEnum.Row) {
+      this.row = NullValue
+      return
+    }
+    if (option === OptionsEnum.Combination) {
+      this.combination = NullValue
+      return
+    }
+    if (option === OptionsEnum.Engraving) {
+      this.engraving = NullValue
+      return
+    }
+  }
+
+  private resetAllSingle(){
+    this.profile = NullValue
+    this.size = NullValue
+    this.row = NullValue
+    this.engraving = NullValue
+  }
+
+  private resetAllGroup(){
     this.combination = NullValue
     this.engraving = NullValue
   }

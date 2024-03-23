@@ -43,8 +43,8 @@ export enum ProfileValueEnum {
 
 export enum SizeValueEnum {
   Unit = "1u",
-  Shift = "1.25u",
-  Ctrl = "2.25u",
+  Shift = "2.25u",
+  Ctrl = "1.25u",
   Spacebar = "6.25u",
 }
 
@@ -75,6 +75,13 @@ export enum EngravingEnum {
 export enum AdditionalInfoEnum {
   Letter = "Letter",
   Comments = "Comments",
+}
+
+export const MatchingRowsBySize = {
+  "Unit": [RowValueEnum.R1 as string, RowValueEnum.R2 as string, RowValueEnum.R3 as string, RowValueEnum.R4 as string],
+  "Ctrl": [RowValueEnum.R4 as string],
+  "Shift": [RowValueEnum.R3 as string, RowValueEnum.R4 as string],
+  "Spacebar": [RowValueEnum.R4 as string],
 }
 
 

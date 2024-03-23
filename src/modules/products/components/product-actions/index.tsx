@@ -18,6 +18,7 @@ import {
   CombinationValueEnum,
   ProfileValueEnum,
   RowValueEnum,
+  MatchingRowsBySize,
 } from "@lib/constants"
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo from "../product-additional-info"
@@ -272,7 +273,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const handleAddToCart = () => {
     addToCart(options)
     handleAdditionalInfo()
-    selectedOptions.resetOptions()
+    selectedOptions.resetAllOptions()
     setSelectedOptions(selectedOptions)
   }
 
@@ -308,6 +309,21 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     return sortedOptions
   }
 
+  // given an option, set which values will be displayed. If all of them, omit  
+  const checkIfFilterOutValues = (title: string, selectableOptions: string[]): any[] => {
+    if(title === OptionsEnum.Row){
+      switch(true){
+        case selectedOptions.size === SizeValueEnum.Ctrl:
+          return MatchingRowsBySize.Ctrl           
+        case selectedOptions.size === SizeValueEnum.Spacebar:
+          return MatchingRowsBySize.Spacebar 
+        case selectedOptions.size === SizeValueEnum.Shift:
+          return MatchingRowsBySize.Shift 
+      }
+    }
+    return selectableOptions;
+  }
+
   return (
     <div className="flex flex-col gap-y-2 w-full">
       {product.collection && (
@@ -329,6 +345,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                   current={options[option.id]}
                   updateOption={updateSelectionHandler}
                   title={option.title}
+                  checkIfFilterOutValues={checkIfFilterOutValues}
                 />
               </div>
             ) : null

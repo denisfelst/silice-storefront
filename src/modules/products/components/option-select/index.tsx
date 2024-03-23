@@ -7,22 +7,26 @@ import clsx from "clsx"
 type OptionSelectProps = {
   option: ProductOption
   current: string
-  updateOption: (title: string, option: Record<string, string>) => void
   title: string
+  updateOption: (title: string, option: Record<string, string>) => void
+  checkIfFilterOutValues: (title:string, selectableOptions: string[]) => any[] 
 }
 
 const OptionSelect: React.FC<OptionSelectProps> = ({
   option,
   current,
-  updateOption,
   title,
+  updateOption,
+  checkIfFilterOutValues
 }) => {
   // remove nulls from select options view
-  const selectableOptions = option.values
-    .map((v) => v.value)
-    .filter(onlyUnique)
-    .filter((value) => value !== NullValue)
-
+  let selectableOptions = option.values
+  .map((v) => v.value)
+  .filter(onlyUnique)
+  .filter((value) => value !== NullValue)
+  
+  selectableOptions = checkIfFilterOutValues(title, selectableOptions);
+  
   return (
     <div className="flex flex-col gap-y-3">
       <span className="text-sm">Select {title}</span>
