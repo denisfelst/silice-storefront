@@ -1,6 +1,5 @@
 import {
   useProductActions,
-  ProductProvider,
 } from "@lib/context/product-context"
 import useProductPrice from "@lib/hooks/use-product-price"
 import { PricedProduct } from "@medusajs/medusa/dist/types/pricing"
@@ -16,7 +15,9 @@ import {
   NullValue,
   OptionsEnum,
   SizeValueEnum,
-  TypeValueEnum,
+  CombinationValueEnum,
+  ProfileValueEnum,
+  RowValueEnum,
 } from "@lib/constants"
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo from "../product-additional-info"
@@ -41,9 +42,19 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   const [infoObject, setInfoObject] = useState<InfoObjectType>()
 
   useEffect(() => {
+    // Show letter input -> Single OR Group cases
     if (
-      selectedOptions.engraving === EngravingEnum.Yes &&
-      selectedOptions.size !== NullValue
+      ( 
+        selectedOptions.format === FormatValueEnum.Group && 
+        selectedOptions.combination !== NullValue &&
+        selectedOptions.engraving === EngravingEnum.Yes
+      ) || ( 
+        selectedOptions.format === FormatValueEnum.Single && 
+        selectedOptions.profile !== NullValue &&
+        selectedOptions.size !== NullValue &&
+        selectedOptions.row !== NullValue &&
+        selectedOptions.engraving === EngravingEnum.Yes 
+      )
     ) {
       setShowLetterInput(true)
     } else {
@@ -67,55 +78,56 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     return variantPrice || null
   }, [price])
 
-  const updateSelectionHandler = (
-    selectedValue: string,
-    option: Record<string, string>
-  ): void => {
+  const updateSelectionHandler = (selectedValue: string, option: Record<string, string>): void => {
     if (!selectedValue || !option) {
       console.error("Undefined selection value")
     }
-
+      
     const newSelectedOptions = new SelectOptions({
       format: selectedOptions.format,
-      type: selectedOptions.type,
+      profile: selectedOptions.profile,
       size: selectedOptions.size,
+      row: selectedOptions.row,
+      combination: selectedOptions.combination,
       engraving: selectedOptions.engraving,
     })
 
-    updateOptions('test12345', option) // add new selection to options
+    updateOptions('dummy', option) // add new selection to options
     newSelectedOptions.setValue(selectedValue)
     setSelectedOptions(newSelectedOptions)
   }
 
   const updateOptionsFromSelection = () => {
     let newOptions = Object.assign({}, options)
-    let formatKey, sizeKey, typeKey, engravingKey // options keys
+    let formatKey, profileKey, sizeKey, rowKey, combinationKey, engravingKey // options keys
 
     for (const key in newOptions) {
       if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
         newOptions[key] = NullValue // set nullValue to undefined options
       } else {
         const value = newOptions[key]
-        if (
-          value === FormatValueEnum.Single ||
-          value === FormatValueEnum.Group
-        ) {
-          formatKey = key
-        } else if (
-          value === TypeValueEnum.Asdw ||
-          value === TypeValueEnum.Arrows ||
-          value === TypeValueEnum.FRow
-        ) {
-          typeKey = key
-        } else if (
-          value === SizeValueEnum.Unit ||
-          value === SizeValueEnum.Spacebar ||
-          value === SizeValueEnum.Shift ||
-          value === SizeValueEnum.Ctrl
-        ) {
-          sizeKey = key
-        } else if (value === EngravingEnum.Yes || value === EngravingEnum.No) {
-          engravingKey = key
+
+        switch (true) {
+          case isValidFormat(value):
+            formatKey = key;
+            break;
+          case isValidCombination(value):
+            combinationKey = key;
+            break;
+          case isValidProfile(value):
+            profileKey = key;
+            break;
+          case isValidSize(value):
+            sizeKey = key;
+            break;
+          case isValidRow(value):
+            rowKey = key;
+            break;
+          case isValidEngraving(value):
+            engravingKey = key;
+            break;
+          default:
+            break;
         }
       }
     }
@@ -124,45 +136,121 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     if (formatKey && newOptions[formatKey] !== selectedOptions.format) {
       newOptions[formatKey] = selectedOptions.format
     }
-    if (typeKey && newOptions[typeKey] !== selectedOptions.type) {
-      newOptions[typeKey] = selectedOptions.type
+    if (combinationKey && newOptions[combinationKey] !== selectedOptions.combination) {
+      newOptions[combinationKey] = selectedOptions.combination
+    }
+    if (profileKey && newOptions[profileKey] !== selectedOptions.profile) {
+      newOptions[profileKey] = selectedOptions.profile
     }
     if (sizeKey && newOptions[sizeKey] !== selectedOptions.size) {
       newOptions[sizeKey] = selectedOptions.size
     }
-    if (
-      engravingKey &&
-      newOptions[engravingKey] !== selectedOptions.engraving
-    ) {
+    if (rowKey && newOptions[rowKey] !== selectedOptions.row) {
+      newOptions[rowKey] = selectedOptions.row
+    }
+    if (engravingKey && newOptions[engravingKey] !== selectedOptions.engraving) {
       newOptions[engravingKey] = selectedOptions.engraving
     }
 
     updateOptions('test12345', newOptions)
   }
 
+  const isValidFormat = (value: string) : boolean => {
+    return (
+      value === FormatValueEnum.Single || 
+      value === FormatValueEnum.Group
+    )
+  }
+
+  const isValidCombination = (value: string) : boolean => {
+    return (
+      value === CombinationValueEnum.Asdw ||
+      value === CombinationValueEnum.Arrows ||
+      value === CombinationValueEnum.FRow || 
+      value === CombinationValueEnum.CWA || 
+      value === CombinationValueEnum.ModifierLeft || 
+      value === CombinationValueEnum.Numpad || 
+      value === CombinationValueEnum.SpecialsLeft
+    )
+  }
+
+  const isValidSize = (value: string) : boolean => {
+    return (
+      value === SizeValueEnum.Unit ||
+      value === SizeValueEnum.Spacebar ||
+      value === SizeValueEnum.Shift ||
+      value === SizeValueEnum.Ctrl
+    )
+  }
+  
+  const isValidProfile = (value: string) : boolean => {
+    return (
+      value === ProfileValueEnum.SA || 
+      value === ProfileValueEnum.OEM
+    )
+  }
+
+  const isValidRow = (value: string) : boolean => {
+    return (
+      value === RowValueEnum.R1 || 
+      value === RowValueEnum.R2 || 
+      value === RowValueEnum.R3 || 
+      value === RowValueEnum.R4
+    )
+  }
+  const isValidEngraving = (value: string) : boolean => {
+    return (
+      value === EngravingEnum.Yes || value === EngravingEnum.No
+    )
+  }
+
   // should show element option (e.g. size) depending on what is already selected
-  const showOption = (title: string): boolean => {
-    if (title === OptionsEnum.Format) {
+  const showOption = (option: string): boolean => {
+    if (option === OptionsEnum.Format) {
       return true
-    } else if (title === OptionsEnum.Type) {
+    } 
+    
+    else if (option === OptionsEnum.Combination) {
       if (selectedOptions.format === FormatValueEnum.Group) {
         return true
       }
       return false
-    } else if (title === OptionsEnum.Size) {
+    } 
+    
+    else if (option === OptionsEnum.Profile) {
       if (selectedOptions.format === FormatValueEnum.Single) {
         return true
       }
       return false
-    } else if (title === OptionsEnum.Engraving) {
+    } 
+    
+    else if (option === OptionsEnum.Size) {
+      if (selectedOptions.format === FormatValueEnum.Single && selectedOptions.profile !== NullValue ) {
+        return true
+      }
+      return false
+    }
+
+    else if (option === OptionsEnum.Row) {
+      if (selectedOptions.format === FormatValueEnum.Single && selectedOptions.profile !== NullValue && selectedOptions.size !== NullValue) {
+        return true
+      }
+      return false
+    } 
+    
+    else if (option === OptionsEnum.Engraving) {
       if (
-        selectedOptions.size !== NullValue ||
-        selectedOptions.type !== NullValue
+        selectedOptions.combination !== NullValue ||
+        (selectedOptions.profile !== NullValue &&
+        selectedOptions.size !== NullValue &&
+        selectedOptions.row !== NullValue)
       ) {
         return true
       }
       return false
-    } else return true
+    } 
+    
+    else return true
   }
 
   const handleAdditionalInfo = () => {

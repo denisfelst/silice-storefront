@@ -17,34 +17,52 @@ export enum ColorValueEnum {
   Green = "Green",
 }
 
+// -----
+
+export enum OptionsEnum {
+  Format = "Format",
+  Profile = "Profile",
+  Size = "Size",
+  Row = "Row",
+  Combination = "Combination",
+  Engraving = "Character Engraving",
+}
+
+// -----
+
 export enum FormatValueEnum {
   Group = "Group",
   Single = "Single",
 }
 
-export enum TypeValueEnum {
-  Asdw = "Asdw",
-  Arrows = "Arrows",
-  FRow = "FRow",
+
+export enum ProfileValueEnum {
+  SA = "SA",
+  OEM = "OEM",
 }
 
 export enum SizeValueEnum {
-  Unit = "Unit",
-  Shift = "Shift",
-  Ctrl = "Ctrl",
-  Spacebar = "Spacebar",
+  Unit = "1u",
+  Shift = "1.25u",
+  Ctrl = "2.25u",
+  Spacebar = "6.25u",
 }
 
-export enum OptionsEnum {
-  Format = "Format",
-  Size = "Size",
-  Type = "Type",
-  Engraving = "Engraving",
+export enum RowValueEnum {
+  R1 = "R1",
+  R2 = "R2",
+  R3 = "R3",
+  R4 = "R4",
 }
 
-export enum AdditionalInfoEnum {
-  Letter = "Letter",
-  Comments = "Comments",
+export enum CombinationValueEnum {
+  Asdw = "Asdw",
+  Arrows = "Arrows",
+  FRow = "F-Row",
+  CWA = "Ctrl + Win + Alt Left",
+  ModifierLeft = "Modifier Keys Left",
+  Numpad = "Numpad",
+  SpecialsLeft = "Lateral Left",
 }
 
 export enum EngravingEnum {
@@ -52,12 +70,13 @@ export enum EngravingEnum {
   No = "No",
 }
 
-export enum ProfileEnum {
-  R1 = "R1",
-  R2 = "R2",
-  R3 = "R3",
-  R4 = "R4",
+// -----
+
+export enum AdditionalInfoEnum {
+  Letter = "Letter",
+  Comments = "Comments",
 }
+
 
 export type InfoObjectType = {
   variant_id: string
