@@ -16,10 +16,10 @@ const FooterNav = () => {
         <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-32">
           <div>
             <Link
-              href="/"
+              href="https://www.silice.glass"
               className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
             >
-              Medusa Store
+              Silice
             </Link>
           </div>
           <div className="text-small-regular grid grid-cols-3 gap-x-10 md:gap-x-16">
@@ -141,7 +141,7 @@ const FooterNav = () => {
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Medusa Store. All rights reserved.
+            © {new Date().getFullYear()} Silice Glass Keycaps. All rights reserved.
           </Text>
           <MedusaCTA />
         </div>

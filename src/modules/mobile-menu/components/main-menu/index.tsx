@@ -37,7 +37,7 @@ const MainMenu = () => {
         </div>
 
         <Heading className="txt-compact-xlarge-plus text-ui-fg-subtle uppercase">
-          Medusa Store
+          Silice
         </Heading>
 
         <div className="flex-1 basis-0 flex justify-end">
