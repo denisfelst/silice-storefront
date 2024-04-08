@@ -8,6 +8,14 @@ import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
 import { Heading } from "@medusajs/ui"
 
+const SideMenuItems = {
+  Home: "/",
+  Store: "/store",
+  // Search: "", // TODO: add search if needed
+  Account: "/account",
+  Cart: "/cart",
+}
+
 const MainMenu = () => {
   const { collections } = useCollections()
   const { customer } = useMeCustomer()
@@ -62,18 +70,22 @@ const MainMenu = () => {
 
         <div className="flex flex-col flex-1 text-large-regular text-gray-900">
           <ul className="flex flex-col gap-y-2">
-            <li className="bg-gray-50 p-4 rounded-rounded">
-              <Link href="/store">
-                <button
-                  className="flex items-center justify-between w-full"
-                  onClick={close}
-                >
-                  <span className="sr-only">Go to Store</span>
-                  <span>Store</span>
-                  <ChevronDown className="-rotate-90" />
-                </button>
-              </Link>
-            </li>
+            {Object.entries(SideMenuItems).map(([name, href]) => {
+              return (
+                <li className="bg-gray-50 p-4 rounded-rounded" key={name}>
+                <Link href={href}>
+                  <button
+                    className="flex items-center justify-between w-full"
+                    onClick={close}
+                  >
+                    <span className="sr-only">Go to {name}</span>
+                    <span>{name}</span>
+                    <ChevronDown className="-rotate-90" />
+                  </button>
+                </Link>
+                </li>
+              )
+            })}
             {collections ? (
               <>
                 {collections.map((collection) => (
