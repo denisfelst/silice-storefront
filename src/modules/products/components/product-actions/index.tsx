@@ -339,6 +339,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
       {product.variants.length > 0 && (
         <div className="my-4 flex flex-col gap-y-4 rounded bg-slate-100 p-4 w-full">
+          {!selectedOptions.isSelectionComplete(currentInfo.character) && (
+            <span className="text-rose-600">Select all options</span>
+          )}
           {getOrderedProductOptions().map((option) => {
             return showOption(option.title) ? (
               <div key={option.id}>
@@ -358,11 +361,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
               getAdditionalInfo={setAdditionalInfo}
               showLetterInput={showLetterInput}
               showCommentInput={selectedOptions.engraving !== NullValue}
+              selectedSize={selectedOptions.size}
             />
           </div>
-          {!selectedOptions.isSelectionComplete(currentInfo.character) && (
-            <span className="text-rose-600">Select all options</span>
-          )}
         </div>
       )}
 
