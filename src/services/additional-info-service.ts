@@ -10,39 +10,8 @@ export const handleAdditionalInfoSubmission = async (
   let variantIdArr: string[] = []
   let variantTitleArr: string[] = []
   let letterArr: string[] = []
+  let commentArr: string[] = []
 
-  const hasState = additionalInfo.length > 0
-
-  // TODO: INCLUDE EMAIL IF hasState === true
-  // if (hasState) {
-  //   additionalInfo.map((item, index) => {
-  //     indexArr.push(index.toString())
-  //     variantIdArr.push(item.variant_id)
-  //     variantTitleArr.push(item.variant_title ?? "---")
-  //     letterArr.push(item.letters)
-  //   })
-  //   const index = indexArr.length
-  //   const variant_id = variantIdArr.join(" // ")
-  //   const variant_title = variantTitleArr.join(" // ")
-  //   const letters = letterArr.join(" // ")
-
-  //   // submission to write on google spreadsheet
-  //   const response = await fetch(`${API_BASE_URL}/api/submission`, {
-  //     method: "POST",
-  //     // prettier-ignore
-  //     headers: {
-  //         "Accept": "application/json",
-  //         "Content-Type": "application/json",
-  //       },
-  //     body: JSON.stringify({
-  //       variant_id,
-  //       variant_title,
-  //       letters,
-  //       index,
-  //     }),
-  //   })
-  //   return response
-  // } else {
   const arr = []
 
   for (let i = 0; i < 50; i++) {
@@ -54,18 +23,20 @@ export const handleAdditionalInfoSubmission = async (
 
   arr.forEach((str) => {
     // Split the string into its components
-    const [variantd, title, letters] = str.split(" // ")
+    const [variantd, title, letters, comments] = str.split(" // ")
 
     // Push the components into their respective arrays
     variantIdArr.push(variantd)
     variantTitleArr.push(title)
     letterArr.push(letters)
+    commentArr.push(comments)
   })
 
   const index = arr.length
   const variant_id = variantIdArr.join(" // ")
   const variant_title = variantTitleArr.join(" // ")
   const letters = letterArr.join(" // ")
+  const comments = commentArr.join(" // ")
 
   // submission to write on google spreadsheet
   const response = await fetch(`${API_BASE_URL}/api/submission`, {
@@ -76,13 +47,13 @@ export const handleAdditionalInfoSubmission = async (
           "Content-Type": "application/json",
       },
     body: JSON.stringify({
+      index,
       variant_id,
       variant_title,
-      letters,
-      index,
       email,
+      letters,
+      comments,
     }),
   })
   return response
-  // }
 }

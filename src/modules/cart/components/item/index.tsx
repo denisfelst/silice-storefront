@@ -46,7 +46,7 @@ const Item = ({ item, region, type = "full" }: ItemProps) => {
       const matchingValues = localItems
         .map((item) => {
           const parts = item.split(" // ")
-          return parts.length === 3 && parts[0].includes(variantId)
+          return parts.length === 4 && parts[0].includes(variantId) // 4 is with letters + comments. increase if more are added
             ? parts[2].trim()
             : null
         })

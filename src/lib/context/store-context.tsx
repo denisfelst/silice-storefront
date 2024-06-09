@@ -136,7 +136,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
       if (!localStorage.getItem(indexName)) {
         localStorage.setItem(
           indexName,
-          info.variant_id + " // " + info.variant_title + " // " + info.letters
+          info.variant_id + " // " + info.variant_title + " // " + info.letters + " // " + info.additionalComments 
         )
         isSet = true
       } else value++

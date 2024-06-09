@@ -8,26 +8,46 @@ import {
 } from "react"
 
 interface AdditionalInfoProps {
-  getInfo: (info: string) => void
+  showLetterInput: boolean;
+  showCommentInput: boolean;
+  getAdditionalInfo: (info: AdditionalInfoType) => void
 }
 
+export class AdditionalInfoType {
+  character: string;
+  comment: string;
+
+  constructor(character: string, comment: string){
+    this.character = character;
+    this.comment = comment;
+  }
+}
+
+
 const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
-  { getInfo },
+  { getAdditionalInfo, showLetterInput, showCommentInput },
   ref
 ) => {
-  const [info, setInfo] = useState("")
+  const [additionalInfo, setAdditionalInfo] = useState<AdditionalInfoType>(new AdditionalInfoType("",""));
 
   useEffect(() => {
-    getInfo(info)
-  }, [info, getInfo])
+    getAdditionalInfo(additionalInfo)
+  }, [additionalInfo, getAdditionalInfo])
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    setInfo(e.target.value)
+  const handleCharacterChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAdditionalInfo(
+      new AdditionalInfoType(e.target.value, additionalInfo.comment) 
+    )
+  }
+  
+  const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setAdditionalInfo(
+      new AdditionalInfoType(additionalInfo.character, e.target.value) 
+    )
   }
 
   const resetInfo = () => {
-    setInfo("")
+    setAdditionalInfo(new AdditionalInfoType("",""))
   }
 
   useImperativeHandle(ref, () => ({
@@ -35,15 +55,29 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
   }))
 
   return (
-    <div>
-      <label>Enter Info</label>
-      <br />
-      <input
-        style={{ border: "1px solid red" }}
-        onChange={(e) => handleChange(e)}
-      ></input>
+    <div className="additionalInfo">
+        {showLetterInput && (
+          <div className="additionalInfo-character">
+            <label>Enter Character</label>
+            <br />
+            <input
+              style={{ border: "1px solid red" }}
+              onChange={handleCharacterChange}
+            />
+          </div>
+          )}
+        {showCommentInput && (
+          <div className="additionalInfo-comment">
+            <label>Any additional comments or observations?</label>
+            <br />
+            <input
+              style={{ border: "1px solid blue" }}
+              onChange={handleCommentChange}
+              />
+          </div>
+        )}
     </div>
-  )
+  );
 }
 
 export default forwardRef(AdditionalInfo)

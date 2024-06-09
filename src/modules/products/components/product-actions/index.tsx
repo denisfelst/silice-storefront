@@ -21,7 +21,7 @@ import {
   MatchingRowsBySize,
 } from "@lib/constants"
 import { SelectOptions } from "../model/select-options"
-import AdditionalInfo from "../product-additional-info"
+import AdditionalInfo, { AdditionalInfoType } from "../product-additional-info"
 import { useStore } from "@lib/context/store-context"
 
 type ProductActionsProps = {
@@ -39,7 +39,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     new SelectOptions()
   )
   const [showLetterInput, setShowLetterInput] = useState<boolean>(false)
-  const [currentInfo, setCurrentInfo] = useState<string>("")
+  const [currentInfo, setCurrentInfo] = useState<AdditionalInfoType>(new AdditionalInfoType("",""))
   const [infoObject, setInfoObject] = useState<InfoObjectType>()
 
   useEffect(() => {
@@ -256,16 +256,18 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   const handleAdditionalInfo = () => {
     //@ts-ignore
-    // Call resetInfo from AdditionalInfo component
+    // Reset Info
     additionalInfoRef.current?.resetInfo()
-    setCurrentInfo("")
+    setCurrentInfo(new AdditionalInfoType("",""))
     setShowLetterInput(false)
 
-    if (selectedOptions.engraving === EngravingEnum.Yes) {
+    // Trigger additional info addition (local storage etc.) only if any comment or character
+    if (currentInfo.character !== "" ||  currentInfo.comment !== "") {
       setInfoObject({
         variant_id: variant?.id ?? "",
         variant_title: selectedOptions.getFullTitle(),
-        letters: currentInfo !== "" ? currentInfo : "",
+        letters: currentInfo.character,
+        additionalComments: currentInfo.comment,
       })
     }
   }
@@ -277,7 +279,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     setSelectedOptions(selectedOptions)
   }
 
-  const setAdditionalInfo = (info: string) => {
+  const setAdditionalInfo = (info: AdditionalInfoType) => {
     setCurrentInfo(info)
   }
 
@@ -350,15 +352,15 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
               </div>
             ) : null
           })}
-          {showLetterInput && (
-            <div>
-              <AdditionalInfo
-                ref={additionalInfoRef}
-                getInfo={setAdditionalInfo}
-              />
-            </div>
-          )}
-          {!selectedOptions.isSelectionComplete(currentInfo) && (
+          <div>
+            <AdditionalInfo
+              ref={additionalInfoRef}
+              getAdditionalInfo={setAdditionalInfo}
+              showLetterInput={showLetterInput}
+              showCommentInput={selectedOptions.engraving !== NullValue}
+            />
+          </div>
+          {!selectedOptions.isSelectionComplete(currentInfo.character) && (
             <span className="text-rose-600">Select all options</span>
           )}
         </div>
@@ -392,7 +394,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         </div>
       )}
 
-      {selectedOptions.isSelectionComplete(currentInfo) && (
+      {selectedOptions.isSelectionComplete(currentInfo.character) && (
         <Button onClick={handleAddToCart}>
           {/* {!inStock ? "Out of stock" : "Add to cart"} */}
           Add to cart

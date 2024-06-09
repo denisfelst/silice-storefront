@@ -38,6 +38,7 @@ export default async function handler(
         body["variant_id"],
         body["variant_title"],
         body["letters"],
+        body["comments"],
       ],
     ]
 

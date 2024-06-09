@@ -89,5 +89,6 @@ export type InfoObjectType = {
   variant_id: string
   variant_title: string
   letters: string
+  additionalComments: string;
   index?: number
 }

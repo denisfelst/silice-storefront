@@ -56,7 +56,7 @@ export class SelectOptions {
   }
 
   public getFullTitle(): string {
-    return `Format: ${this.format}, Profile: ${this.profile}, Size: ${this.size}, Row: ${this.profile}, Combination Type: ${this.combination}, Engraving: ${this.engraving}`
+    return `Format: ${this.format}, Profile: ${this.profile}, Size: ${this.size}, Row: ${this.row}, Combination Type: ${this.combination}, Engraving: ${this.engraving}`
   }
 
   public getOrderedOptions(): string[] {
