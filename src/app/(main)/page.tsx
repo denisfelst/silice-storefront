@@ -1,6 +1,7 @@
 import { getCollectionsList } from "@lib/data"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
+import Benefits from "@modules/home/components/benefits"
 import SkeletonHomepageProducts from "@modules/skeletons/components/skeleton-homepage-products"
 import { Metadata } from "next"
 import { Suspense } from "react"
@@ -16,9 +17,10 @@ export default async function Home() {
 
   return (
     <>
-      <Hero />
       <Suspense fallback={<SkeletonHomepageProducts count={count} />}>
-        <FeaturedProducts collections={collections} />
+        <Hero />
+        <Benefits />
+        {/* <FeaturedProducts collections={collections} /> */}
       </Suspense>
     </>
   )
