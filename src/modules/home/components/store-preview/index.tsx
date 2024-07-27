@@ -26,7 +26,7 @@ const StorePreview = () => {
             Shop
           </button>
         </div>
-        <div className="relative w-full overflow-hidden">
+        <div className="w-full overflow-hidden">
           <Image className="w-full h-full object-cover" src={"/from_side.jpg"} quality="100" alt="store preview image" width={0} height={0} sizes="fill" style={{ width: '100%', height: 'auto', minHeight: '30vh' }} />
         </div>
       </div>
