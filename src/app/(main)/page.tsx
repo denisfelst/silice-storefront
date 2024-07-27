@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <>
       <Suspense fallback={<SkeletonHomepageProducts count={count} />}>
-        <div className="w-full flex flex-col items-center">
+        <div className="w-full flex flex-col items-center pattern-lp-bg">
           <Hero />
           <div className="max-w-screen-2xl ">
             <Benefits />
