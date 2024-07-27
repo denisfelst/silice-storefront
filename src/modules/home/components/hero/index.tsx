@@ -34,10 +34,8 @@ const Hero = () => {
             The First and Only Glass Keycaps in the Market.<br/>
             Now at Your Fingertips.
           </Heading>
-          <button onClick={handleButtonClick} className="relative flex flex-col items-start p-1 gap-2 w-36 h-14 mb-2 2xl:w-42 2xl:h-16">
-            <div className="flex items-center justify-center p-4 gap-2 w-full h-full rounded-full bg-gradient-to-r from-red-500 to-red-500 hover:to-red-300">
-              <span className="font-bold text-white uppercase text-sm md:text-md 2xl:text-lg">Shop Now</span>
-            </div>
+          <button onClick={handleButtonClick} className="relative flex items-center justify-center p-2 w-36 h-12 bg-red-500 rounded-full hover:bg-red-400 transition-colors duration-300">
+            <span className="font-medium text-white text-sm md:text-base uppercase">Shop Now</span>
           </button>
         </div>
       </div>
