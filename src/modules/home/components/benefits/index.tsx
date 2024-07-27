@@ -4,7 +4,7 @@ import {  Heading } from "@medusajs/ui"
 const Benefits = () => {
 
   return (
-    <div className="main-benefits-container text-white flex flex-col md:flex-row">
+    <section className="main-benefits-container text-white flex flex-col md:flex-row">
 
       <div className="h-[30vh] max-h-[450px] w-full bg-[#454855] transition-colors duration-300 ease-linear hover:bg-[#555865] md:h-[40vh] lg:max-h-none">
         <div className="flex justify-center items-center text-center w-full h-full overflow-hidden">
@@ -30,7 +30,7 @@ const Benefits = () => {
         </div>
       </div>
   
-    </div>
+    </section>
   )
 }
 

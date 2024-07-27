@@ -15,10 +15,10 @@ const Hero = () => {
 
 
   return (
-    <div className="main-hero-container h-[60vh] max-h-[650px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
+    <section className="main-hero-container h-[60vh] max-h-[650px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
       <div className="absolute z-10 flex flex-col justify-end items-end text-center w-full h-full overflow-hidden">
         <div className="image-container absolute inset-0 z-0 min-w-[750px] max-w-screen-xl 2xl:max-w-screen-2xl">
-          <Image src={"/hero.jpg"} alt="hero image" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }} />
+          <Image src={"/hero.jpg"} quality="100" alt="hero image" width={0} height={0} sizes="100vw" style={{ width: '100%', height: 'auto' }} />
         </div>
         <div className="inside-hero relative mb-4 z-10 w-full flex flex-col justify-start items-center xl:h-1/3 xl:w-1/2  2xl:h-1/2">
           <Heading
@@ -41,7 +41,7 @@ const Hero = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
 

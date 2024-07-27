@@ -11,6 +11,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      // for bg pattern in LP
+      backgroundImage: { 
+        'pattern': "url('https://www.toptal.com/designers/subtlepatterns/patterns/double-bubble-outline.png')",
+      },
       transitionProperty: {
         width: "width margin",
         height: "height",
