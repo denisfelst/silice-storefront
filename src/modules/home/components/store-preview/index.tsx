@@ -22,8 +22,8 @@ const StorePreview = () => {
             Check out our newest release
           </Heading>
           <Heading level="h3" className="text-md mb-4 md:text-sm xl:text-md 2xl:text-lg 2xl:mb-4">Our purest expression of our product vision</Heading>
-          <button className="relative bg-transparent text-red-500 font-bold border-b-2 border-gray-800 py-2 px-4 transition-colors duration-300 ease-in-out hover:text-yellow-500 hover:border-gray-600">
-            Shop
+          <button onClick={handleButtonClick} className="relative bg-transparent text-red-500 font-bold border-b-2 border-gray-800 py-2 px-4 transition-colors duration-300 ease-in-out hover:text-yellow-500 hover:border-gray-600">
+            <span>Shop</span>
           </button>
         </div>
         <div className="w-full overflow-hidden">
