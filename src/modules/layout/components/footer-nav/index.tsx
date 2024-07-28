@@ -13,7 +13,7 @@ const FooterNav = () => {
   return (
     <div className="border-t border-ui-border-base w-screen">
       <div className="content-container flex flex-col">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-32">
+        {/* <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-32">
           <div>
             <Link
               href="https://www.silice.glass"
@@ -138,8 +138,8 @@ const FooterNav = () => {
               </ul>
             </div>
           </div>
-        </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
+        </div> */}
+        <div className="flex w-full mb-16 justify-between text-ui-fg-muted py-6">
           <Text className="txt-compact-small">
             © {new Date().getFullYear()} Silice Glass Keycaps. All rights
             reserved.
