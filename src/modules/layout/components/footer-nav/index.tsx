@@ -141,7 +141,8 @@ const FooterNav = () => {
         </div>
         <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
           <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Silice Glass Keycaps. All rights reserved.
+            © {new Date().getFullYear()} Silice Glass Keycaps. All rights
+            reserved.
           </Text>
           <MedusaCTA />
         </div>

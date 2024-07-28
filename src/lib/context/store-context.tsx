@@ -136,7 +136,13 @@ export const StoreProvider = ({ children }: StoreProps) => {
       if (!localStorage.getItem(indexName)) {
         localStorage.setItem(
           indexName,
-          info.variant_id + " // " + info.variant_title + " // " + info.letters + " // " + info.additionalComments 
+          info.variant_id +
+            " // " +
+            info.variant_title +
+            " // " +
+            info.letters +
+            " // " +
+            info.additionalComments
         )
         isSet = true
       } else value++
@@ -210,7 +216,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
         onError: (error) => {
           if (process.env.NODE_ENV === "development") {
-            console.error("createNewCart ",error)
+            console.error("createNewCart ", error)
           }
         },
       }
@@ -234,7 +240,7 @@ export const StoreProvider = ({ children }: StoreProps) => {
         },
         onError: (error) => {
           if (process.env.NODE_ENV === "development") {
-            console.error('resetCart', error)
+            console.error("resetCart", error)
           }
         },
       }
@@ -318,7 +324,6 @@ export const StoreProvider = ({ children }: StoreProps) => {
       }
     )
   }
-
 
   const removeItemFromStorage = (variant_id: string | undefined) => {
     if (!variant_id) {

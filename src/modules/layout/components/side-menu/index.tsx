@@ -95,8 +95,8 @@ const SideMenu = ({ searchModalOpen }: { searchModalOpen: () => void }) => {
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small">
-                        © {new Date().getFullYear()} Silice Glass Keycaps. All rights
-                        reserved.
+                        © {new Date().getFullYear()} Silice Glass Keycaps. All
+                        rights reserved.
                       </Text>
                     </div>
                   </div>

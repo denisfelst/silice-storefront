@@ -7,7 +7,6 @@ import ShippingAddress from "../shipping-address"
 import Divider from "@modules/common/components/divider"
 import { useRegions } from "medusa-react"
 
-
 const Addresses = () => {
   const { regions } = useRegions()
 
@@ -30,8 +29,13 @@ const Addresses = () => {
   return (
     <div className="bg-white px-4 small:px-8">
       <div className="flex flex-col bg-white mb-6">
-        <span>Your region is currently: <b>{cart?.region.name ?? "Unknown"}</b>. </span>
-        <span>You can change your region anytime from the menu bar in the home page. Don&apos;t worry, you won&apos;t lose your orders.</span>
+        <span>
+          Your region is currently: <b>{cart?.region.name ?? "Unknown"}</b>.{" "}
+        </span>
+        <span>
+          You can change your region anytime from the menu bar in the home page.
+          Don&apos;t worry, you won&apos;t lose your orders.
+        </span>
       </div>
 
       <div className="flex flex-row items-center justify-between mb-6">

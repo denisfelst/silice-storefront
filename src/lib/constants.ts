@@ -4,9 +4,8 @@ export const IS_BROWSER = typeof window !== "undefined"
 export const FORMAT_KEY = "opt_01HQBPQKVSDXKB9YRJZ17QMZ6A"
 export const TYPE_KEY = "opt_01HQBPQM12PBBTGXS75FCE6F85"
 export const SIZE_KEY = "opt_01HQBPQM0XGBH3NEQG0GZ3JEJV"
-export const ENGRAVING_KEY = "opt_01HQBPQM174M682MD2CYPB1Q0D" 
-export const PROFILE_KEY= "prod_01HQBMQAXYAD4QXXVF405YDDCS" // not being used rn 
-
+export const ENGRAVING_KEY = "opt_01HQBPQM174M682MD2CYPB1Q0D"
+export const PROFILE_KEY = "prod_01HQBMQAXYAD4QXXVF405YDDCS" // not being used rn
 
 export const NullValue = "Null"
 
@@ -34,7 +33,6 @@ export enum FormatValueEnum {
   Group = "Group",
   Single = "Single",
 }
-
 
 export enum ProfileValueEnum {
   SA = "SA",
@@ -78,17 +76,21 @@ export enum AdditionalInfoEnum {
 }
 
 export const MatchingRowsBySize = {
-  "Unit": [RowValueEnum.R1 as string, RowValueEnum.R2 as string, RowValueEnum.R3 as string, RowValueEnum.R4 as string],
-  "Ctrl": [RowValueEnum.R4 as string],
-  "Shift": [RowValueEnum.R3 as string, RowValueEnum.R4 as string],
-  "Spacebar": [RowValueEnum.R4 as string],
+  Unit: [
+    RowValueEnum.R1 as string,
+    RowValueEnum.R2 as string,
+    RowValueEnum.R3 as string,
+    RowValueEnum.R4 as string,
+  ],
+  Ctrl: [RowValueEnum.R4 as string],
+  Shift: [RowValueEnum.R3 as string, RowValueEnum.R4 as string],
+  Spacebar: [RowValueEnum.R4 as string],
 }
-
 
 export type InfoObjectType = {
   variant_id: string
   variant_title: string
   letters: string
-  additionalComments: string;
+  additionalComments: string
   index?: number
 }

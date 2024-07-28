@@ -9,8 +9,7 @@ import StorePreview from "@modules/home/components/store-preview"
 
 export const metadata: Metadata = {
   title: "Silice - Glass Keycaps",
-  description:
-    "Official Silice Online Store for Glass Keycaps.",
+  description: "Official Silice Online Store for Glass Keycaps.",
 }
 
 export default async function Home() {
@@ -31,4 +30,4 @@ export default async function Home() {
     </>
   )
 }
-// pattern-lp-bg 
+// pattern-lp-bg

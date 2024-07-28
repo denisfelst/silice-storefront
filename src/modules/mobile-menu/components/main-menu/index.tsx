@@ -73,16 +73,16 @@ const MainMenu = () => {
             {Object.entries(SideMenuItems).map(([name, href]) => {
               return (
                 <li className="bg-gray-50 p-4 rounded-rounded" key={name}>
-                <Link href={href}>
-                  <button
-                    className="flex items-center justify-between w-full"
-                    onClick={close}
-                  >
-                    <span className="sr-only">Go to {name}</span>
-                    <span>{name}</span>
-                    <ChevronDown className="-rotate-90" />
-                  </button>
-                </Link>
+                  <Link href={href}>
+                    <button
+                      className="flex items-center justify-between w-full"
+                      onClick={close}
+                    >
+                      <span className="sr-only">Go to {name}</span>
+                      <span>{name}</span>
+                      <ChevronDown className="-rotate-90" />
+                    </button>
+                  </Link>
                 </li>
               )
             })}

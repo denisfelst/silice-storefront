@@ -236,7 +236,7 @@ export const CheckoutProvider = ({ children }: CheckoutProviderProps) => {
       await initPayment()
     }
     start()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart?.region, cart?.id, cart?.items])
 
   /**

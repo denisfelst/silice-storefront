@@ -56,7 +56,7 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
 
             {paymentSession.provider_id === "manual" && isDevelopment && (
               <div className="hidden small:block">
-              <PaymentTest />
+                <PaymentTest />
               </div>
             )}
           </div>

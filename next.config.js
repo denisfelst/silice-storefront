@@ -1,15 +1,16 @@
 const { withStoreConfig } = require("./store-config")
 const store = require("./store.config.json")
 
-const isLocalhost = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.includes("localhost");
+const isLocalhost =
+  process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.includes("localhost")
 
 const removeProtocol = (url) => {
-  if (url.startsWith('https://')) {
-      return url.slice(8); // Remove 'https://'
-  } else if (url.startsWith('http://')) {
-      return url.slice(7); // Remove 'http://'
+  if (url.startsWith("https://")) {
+    return url.slice(8) // Remove 'https://'
+  } else if (url.startsWith("http://")) {
+    return url.slice(7) // Remove 'http://'
   } else {
-      return url; // If no protocol found, return original URL
+    return url // If no protocol found, return original URL
   }
 }
 
@@ -26,7 +27,9 @@ module.exports = withStoreConfig({
     remotePatterns: [
       {
         protocol: isLocalhost ? "http" : "https",
-        hostname: isLocalhost ? 'localhost' : removeProtocol(process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL),
+        hostname: isLocalhost
+          ? "localhost"
+          : removeProtocol(process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL),
       },
       {
         protocol: "https",

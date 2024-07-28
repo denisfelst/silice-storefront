@@ -133,9 +133,14 @@ const MobileActions: React.FC<MobileActionsProps> = ({ product, show }) => {
                                 option={option}
                                 current={options[option.id]}
                                 updateOption={updateOptions}
-                                title={option.title} checkIfFilterOutValues={function (title: string, selectableOptions: string[]): any[] {
+                                title={option.title}
+                                checkIfFilterOutValues={function (
+                                  title: string,
+                                  selectableOptions: string[]
+                                ): any[] {
                                   throw new Error("Function not implemented.")
-                                } }                              />
+                                }}
+                              />
                             </div>
                           )
                         })}

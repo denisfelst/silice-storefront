@@ -9,7 +9,7 @@ type OptionSelectProps = {
   current: string
   title: string
   updateOption: (title: string, option: Record<string, string>) => void
-  checkIfFilterOutValues: (title:string, selectableOptions: string[]) => any[] 
+  checkIfFilterOutValues: (title: string, selectableOptions: string[]) => any[]
 }
 
 const OptionSelect: React.FC<OptionSelectProps> = ({
@@ -17,16 +17,16 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   current,
   title,
   updateOption,
-  checkIfFilterOutValues
+  checkIfFilterOutValues,
 }) => {
   // remove nulls from select options view
   let selectableOptions = option.values
-  .map((v) => v.value)
-  .filter(onlyUnique)
-  .filter((value) => value !== NullValue)
-  
-  selectableOptions = checkIfFilterOutValues(title, selectableOptions);
-  
+    .map((v) => v.value)
+    .filter(onlyUnique)
+    .filter((value) => value !== NullValue)
+
+  selectableOptions = checkIfFilterOutValues(title, selectableOptions)
+
   return (
     <div className="flex flex-col gap-y-3">
       <span className="text-sm">Select {title}</span>

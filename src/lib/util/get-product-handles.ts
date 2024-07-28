@@ -6,7 +6,7 @@ export const getProductHandles = async (): Promise<string[]> => {
     .then(({ products }) => products)
 
   const handles: string[] = []
-  
+
   for (const product of products) {
     if (product.handle) {
       handles.push(product.handle)

@@ -49,9 +49,7 @@ const Register = () => {
           <Spinner />
         </div>
       )}
-      <h1 className="text-large-semi uppercase mb-6">
-        Become a Silice Member
-      </h1>
+      <h1 className="text-large-semi uppercase mb-6">Become a Silice Member</h1>
       <p className="text-center text-base-regular text-gray-700 mb-4">
         Create your Silice Member profile, and get access to an enhanced
         shopping experience.

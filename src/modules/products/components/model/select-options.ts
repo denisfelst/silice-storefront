@@ -37,16 +37,28 @@ export class SelectOptions {
     if (this.format === NullValue) {
       return false
     }
-    if (this.combination === NullValue && this.size === NullValue && this.profile === NullValue) {
+    if (
+      this.combination === NullValue &&
+      this.size === NullValue &&
+      this.profile === NullValue
+    ) {
       return false
     }
     if (this.engraving === NullValue) {
       return false
     }
-    if (this.format === FormatValueEnum.Single && (this.profile === NullValue || this.size === NullValue || this.row === NullValue)){
+    if (
+      this.format === FormatValueEnum.Single &&
+      (this.profile === NullValue ||
+        this.size === NullValue ||
+        this.row === NullValue)
+    ) {
       return false
     }
-    if (this.format === FormatValueEnum.Single && this.engraving === EngravingEnum.Yes) {
+    if (
+      this.format === FormatValueEnum.Single &&
+      this.engraving === EngravingEnum.Yes
+    ) {
       // engraving letter value from user input
       if (!engravingValue || engravingValue === "") {
         return false
@@ -80,7 +92,6 @@ export class SelectOptions {
     }
 
     switch (value.trim()) {
-
       case FormatValueEnum.Single as string:
         this.format = FormatValueEnum.Single
         this.resetAllGroup()
@@ -186,11 +197,10 @@ export class SelectOptions {
     this.row = NullValue
     this.combination = NullValue
     this.engraving = NullValue
-
   }
   public resetOption(option?: OptionsEnum): void {
-    if(!option) return
-    
+    if (!option) return
+
     if (option === OptionsEnum.Format) {
       this.format = NullValue
       return
@@ -217,14 +227,14 @@ export class SelectOptions {
     }
   }
 
-  private resetAllSingle(){
+  private resetAllSingle() {
     this.profile = NullValue
     this.size = NullValue
     this.row = NullValue
     this.engraving = NullValue
   }
 
-  private resetAllGroup(){
+  private resetAllGroup() {
     this.combination = NullValue
     this.engraving = NullValue
   }
