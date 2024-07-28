@@ -13,7 +13,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="main-hero-container h-[60vh] max-h-[650px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
+    <section className="main-hero-container h-[75vh] max-h-[750px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
       <div className="absolute z-10 flex flex-col justify-center items-end text-center w-full h-full overflow-hidden">
         <div className="image-container absolute inset-0 min-w-[850px] max-w-screen-xl 2xl:max-w-screen-2xl">
           <Image
@@ -28,7 +28,7 @@ const Hero = () => {
           />
         </div>
         <div
-          className="inside-hero relative mb-12 z-10 w-full h-full flex flex-col justify-end items-center "
+          className="inside-hero relative mb-12 z-10 w-full h-full flex flex-col justify-end items-center"
           style={{ textShadow: "2px 2px 2px rgba(0, 0, 0, 0.7)" }}
         >
           <Heading
