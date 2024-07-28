@@ -13,6 +13,13 @@ const Benefits = () => {
             elegance, and durability, elevating your keyboard with a touch of
             sophistication.
           </span>
+          <br />
+          <ul>
+            <li>Premium Glass Billets</li>
+            <li>High Durability & Resistance</li>
+            <li>Experience: Sight, Touch, Sound</li>
+            <li>Innovative Process & Creations</li>
+          </ul>
         </div>
       </div>
 
@@ -25,6 +32,13 @@ const Benefits = () => {
             Handcrafted by skilled artisans, each keycap is a testament to
             precision and quality, ensuring every piece is a unique work of art.
           </span>
+          <br />
+          <ul>
+            <li>Moldmaking</li>
+            <li>Glass Casting & Kiln Forming</li>
+            <li>Sandering & Polishing </li>
+            <li>Engraving</li>
+          </ul>
         </div>
       </div>
 
@@ -34,9 +48,17 @@ const Benefits = () => {
             Exclusive & Custom
           </Heading>
           <span>
-            Enjoy bespoke customization with our glass keycaps, allowing you to
-            personalize designs and colors for a truly unique keyboard setup.
+            Enjoy customization with our glass keycaps, allowing you to choose
+            from different design and size combination for a unique keyboard
+            setup
           </span>
+          <br />
+          <ul>
+            <li>Limited Time Frame Orders</li>
+            <li>100% On Demand: You Order, We Make it</li>
+            <li>Highly Customized keycaps</li>
+            <li>The Only Glass Keycaps Available Worldwide</li>
+          </ul>
         </div>
       </div>
     </section>
