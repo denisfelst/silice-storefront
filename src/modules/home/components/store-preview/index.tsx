@@ -13,8 +13,8 @@ const StorePreview = () => {
   }
 
   return (
-    <section className="main-store-preview-container max-w-screen-xl">
-      <div className="relative min-h-[30vh] h-full max-h-[35vh] min-w-[400px] max-w-screen-xl 2xl:max-w-screen-2xl">
+    <section className="main-store-preview-container max-w-screen overflow-hidden max-w-[100vw]">
+      <div className="relative min-h-[30vh] h-full max-h-[35vh] min-w-[400px] max-w-screen-xl">
         <div className="text-container w-full h-full flex flex-col justify-center items-center absolute font-normal text-gray-800">
           <Heading level="h2" className="mb-2 text-xl 2xl:text-2xl 2xl:mb-4">
             Check out our newest release
