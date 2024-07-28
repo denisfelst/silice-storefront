@@ -11,7 +11,7 @@ export default function RootLayout({
     <html lang="en" data-mode="light">
       <body>
         <Providers>
-          <main className="relative">{children}</main>
+          <main className="relative w-full overflow-x-hidden">{children}</main>
           <Analytics />
         </Providers>
       </body>
