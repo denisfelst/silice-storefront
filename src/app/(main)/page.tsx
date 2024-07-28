@@ -6,6 +6,7 @@ import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import Benefits from "@modules/home/components/benefits"
 import StorePreview from "@modules/home/components/store-preview"
+import HowItWorks from "@modules/home/components/how-it-works"
 
 export const metadata: Metadata = {
   title: "Silice - Glass Keycaps",
@@ -18,9 +19,10 @@ export default async function Home() {
   return (
     <>
       <Suspense fallback={<SkeletonHomepageProducts count={count} />}>
-        <div className="w-full flex flex-col items-center pattern-lp-bg">
+        <div className="w-full flex flex-col items-center overflow-hidden">
           <Hero />
-          <div className="max-w-screen-2xl ">
+          <div className="w-auto max-w-screen-2xl">
+            <HowItWorks />
             <Benefits />
             <StorePreview />
           </div>
