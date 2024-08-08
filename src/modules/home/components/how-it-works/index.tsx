@@ -8,7 +8,7 @@ const HowItWorks = () => {
           className="self-center mb-6 text-2xl font-semibold text-gray-800"
           level="h3"
         >
-          How we operate:
+          How it works:
         </Heading>
         <div className="flex flex-col justify-evenly items-center h-full space-y-6 md:flex-row md:space-y-0 md:space-x-6">
           <div className="flex flex-col justify-center items-center text-center h-full w-full md:w-44 p-4 bg-white rounded-lg shadow-sm">

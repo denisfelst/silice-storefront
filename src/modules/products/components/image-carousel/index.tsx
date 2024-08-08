@@ -3,20 +3,22 @@ import Carousel from "./carousel"
 import Fancybox from "./fancybox"
 type ImageProps = {
   // @ts-ignore
-  images: Image[] | undefined
+  images: any[] | undefined
+  infinite?: boolean | undefined
+  height?: number | undefined
 }
 
-const ImageCarousel: React.FC<ImageProps> = ({ images }) => {
+const ImageCarousel: React.FC<ImageProps> = ({ images, infinite, height }) => {
   return (
     <div className="image-carousel block w-full relative">
       <Fancybox
         options={{
           Carousel: {
-            infinite: false,
+            infinite: infinite ?? false,
           },
         }}
       >
-        <Carousel options={{ infinite: false }}>
+        <Carousel options={{ infinite: infinite ?? false }}>
           {images?.map((image: any, index: any) => {
             return (
               <div
@@ -32,7 +34,7 @@ const ImageCarousel: React.FC<ImageProps> = ({ images }) => {
                       src={image.url}
                       alt={`Product image ${index}`}
                       className="rounded-rounded"
-                      height={500}
+                      height={height ?? 500}
                     />
                   </picture>
                 </a>

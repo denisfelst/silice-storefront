@@ -7,6 +7,7 @@ import Hero from "@modules/home/components/hero"
 import Benefits from "@modules/home/components/benefits"
 import StorePreview from "@modules/home/components/store-preview"
 import HowItWorks from "@modules/home/components/how-it-works"
+import HomeImageSlider from "@modules/home/components/home-image-slider"
 
 export const metadata: Metadata = {
   title: "Silice - Glass Keycaps",
@@ -22,8 +23,10 @@ export default async function Home() {
         <div className="main-page-container w-full flex flex-col items-center">
           <Hero />
           <div className="w-auto max-w-screen-2xl">
-            <HowItWorks />
+            <HomeImageSlider />
             <Benefits />
+            <HowItWorks />
+            {/* about us */}
             <StorePreview />
           </div>
         </div>
