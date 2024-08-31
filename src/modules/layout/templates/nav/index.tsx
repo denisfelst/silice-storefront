@@ -4,10 +4,10 @@ import { useMobileMenu } from "@lib/context/mobile-menu-context"
 import useToggleState from "@lib/hooks/use-toggle-state"
 import Hamburger from "@modules/common/components/hamburger"
 import CartDropdown from "@modules/layout/components/cart-dropdown"
-import DropdownMenu from "@modules/layout/components/dropdown-menu"
 import SideMenu from "@modules/layout/components/side-menu"
 import MobileMenu from "@modules/mobile-menu/templates"
 import DesktopSearchModal from "@modules/search/templates/desktop-search-modal"
+import Image from "next/image"
 import Link from "next/link"
 
 const Nav = () => {
@@ -31,12 +31,23 @@ const Nav = () => {
             </div>
           </div>
 
-          <div className="flex items-center h-full">
+          <div className="flex items-center justify-center h-full w-[60px] sm:w-[90px]">
             <Link
               href="/"
               className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
             >
-              Silice
+              <Image
+                src={"/logo-long.jpg"}
+                alt="logo"
+                className=""
+                width={0}
+                height={0}
+                sizes="100vh"
+                style={{
+                  width: "auto",
+                  height: "90%",
+                }}
+              ></Image>
             </Link>
           </div>
 
