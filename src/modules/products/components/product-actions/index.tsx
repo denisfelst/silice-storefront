@@ -69,16 +69,13 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }, [price])
 
   const shouldShowLetterInput = () =>
-    (selectedOptions.format === FormatValueEnum.Group &&
-      selectedOptions.combination !== NullValue &&
-      selectedOptions.matte !== NullValue &&
-      selectedOptions.engraving === EngravingEnum.Yes) ||
-    (selectedOptions.format === FormatValueEnum.Single &&
-      selectedOptions.profile !== NullValue &&
-      selectedOptions.size !== NullValue &&
-      selectedOptions.row !== NullValue &&
-      selectedOptions.matte !== NullValue &&
-      selectedOptions.engraving === EngravingEnum.Yes)
+    // ONLY IF SINGLE
+    selectedOptions.format === FormatValueEnum.Single &&
+    selectedOptions.profile !== NullValue &&
+    selectedOptions.size !== NullValue &&
+    selectedOptions.row !== NullValue &&
+    selectedOptions.matte !== NullValue &&
+    selectedOptions.engraving === EngravingEnum.Yes
 
   const updateSelectionHandler = (
     selectedValue: string,
