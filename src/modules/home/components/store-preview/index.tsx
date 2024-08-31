@@ -23,7 +23,7 @@ const StorePreview = () => {
             level="h3"
             className="text-md mb-4 md:text-sm xl:text-md 2xl:text-lg 2xl:mb-4"
           >
-            Our purest expression of our product vision
+            The purest expression of our product vision
           </Heading>
           <button
             onClick={handleButtonClick}
