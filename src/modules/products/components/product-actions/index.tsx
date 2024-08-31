@@ -281,8 +281,23 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     }
   }
 
+  const replaceUndefinedValuesToNull = (
+    options: Record<string, string | undefined>
+  ): Record<string, string> => {
+    const result: Record<string, string> = {} // Create a new object to store the result
+
+    for (let key in options) {
+      // Assign either the value from options or the NullValue if it's undefined
+      result[key] =
+        options[key] !== undefined ? (options[key] as string) : NullValue
+    }
+
+    return result
+  }
+
   const handleAddToCart = () => {
-    addToCart(options)
+    const revisedOptions = replaceUndefinedValuesToNull(options)
+    addToCart(revisedOptions)
     handleAdditionalInfo()
     selectedOptions.resetAllOptions()
     setSelectedOptions(selectedOptions)
