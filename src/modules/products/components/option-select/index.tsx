@@ -1,11 +1,6 @@
 import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
-import {
-  EngravingEnum,
-  MatteEnum,
-  NullValue,
-  RowValueEnum,
-} from "@lib/constants"
+import { EngravingEnum, MatteEnum, NullValue } from "@lib/constants"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
 

@@ -7,6 +7,7 @@ import { useCollections, useMeCustomer } from "medusa-react"
 import Link from "next/link"
 import ReactCountryFlag from "react-country-flag"
 import { Heading } from "@medusajs/ui"
+import Image from "next/image"
 
 const SideMenuItems = {
   Home: "/",
@@ -44,9 +45,20 @@ const MainMenu = () => {
           </button>
         </div>
 
-        <Heading className="txt-compact-xlarge-plus text-ui-fg-subtle uppercase">
-          Silice
-        </Heading>
+        <div className="flex items-center justify-center h-full w-[60px] sm:w-[90px]">
+          <Image
+            src={"/logo-long.jpg"}
+            alt="company logo"
+            className=""
+            width={0}
+            height={0}
+            sizes="100vh"
+            style={{
+              width: "auto",
+              height: "100%",
+            }}
+          ></Image>
+        </div>
 
         <div className="flex-1 basis-0 flex justify-end">
           <button onClick={close}>

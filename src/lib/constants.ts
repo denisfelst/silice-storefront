@@ -1,11 +1,11 @@
 export const IS_BROWSER = typeof window !== "undefined"
 
-// Product
+// OBSOLETE => not being used rn
 export const FORMAT_KEY = "opt_01HQBPQKVSDXKB9YRJZ17QMZ6A"
 export const TYPE_KEY = "opt_01HQBPQM12PBBTGXS75FCE6F85"
 export const SIZE_KEY = "opt_01HQBPQM0XGBH3NEQG0GZ3JEJV"
 export const ENGRAVING_KEY = "opt_01HQBPQM174M682MD2CYPB1Q0D"
-export const PROFILE_KEY = "prod_01HQBMQAXYAD4QXXVF405YDDCS" // not being used rn
+export const PROFILE_KEY = "prod_01HQBMQAXYAD4QXXVF405YDDCS"
 
 export const NullValue = "Null"
 

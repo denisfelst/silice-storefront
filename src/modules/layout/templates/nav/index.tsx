@@ -38,7 +38,7 @@ const Nav = () => {
             >
               <Image
                 src={"/logo-long.jpg"}
-                alt="logo"
+                alt="company logo"
                 className=""
                 width={0}
                 height={0}
