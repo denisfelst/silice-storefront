@@ -24,6 +24,7 @@ export enum OptionsEnum {
   Size = "Size",
   Row = "Row",
   Combination = "Combination",
+  Matte = "Matte",
   Engraving = "Character Engraving",
 }
 
@@ -63,9 +64,14 @@ export enum CombinationValueEnum {
   SpecialsLeft = "Lateral Left",
 }
 
+export enum MatteEnum {
+  Yes = "Yes_Matte",
+  No = "No_Matte",
+}
+
 export enum EngravingEnum {
-  Yes = "Yes",
-  No = "No",
+  Yes = "Yes_Engraving",
+  No = "No_Engraving",
 }
 
 // -----

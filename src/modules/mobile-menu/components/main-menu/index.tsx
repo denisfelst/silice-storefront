@@ -10,7 +10,7 @@ import { Heading } from "@medusajs/ui"
 
 const SideMenuItems = {
   Home: "/",
-  Store: "/store",
+  Product: "/products/classic",
   // Search: "", // TODO: add search if needed
   Account: "/account",
   Cart: "/cart",

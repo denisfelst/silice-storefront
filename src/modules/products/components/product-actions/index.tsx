@@ -17,6 +17,7 @@ import {
   ProfileValueEnum,
   RowValueEnum,
   MatchingRowsBySize,
+  MatteEnum,
 } from "@lib/constants"
 import { SelectOptions } from "../model/select-options"
 import AdditionalInfo, { AdditionalInfoType } from "../product-additional-info"
@@ -44,16 +45,7 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
 
   useEffect(() => {
     // Show letter input -> Single OR Group cases
-    if (
-      (selectedOptions.format === FormatValueEnum.Group &&
-        selectedOptions.combination !== NullValue &&
-        selectedOptions.engraving === EngravingEnum.Yes) ||
-      (selectedOptions.format === FormatValueEnum.Single &&
-        selectedOptions.profile !== NullValue &&
-        selectedOptions.size !== NullValue &&
-        selectedOptions.row !== NullValue &&
-        selectedOptions.engraving === EngravingEnum.Yes)
-    ) {
+    if (shouldShowLetterInput()) {
       setShowLetterInput(true)
     } else {
       setShowLetterInput(false)
@@ -76,6 +68,18 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     return variantPrice || null
   }, [price])
 
+  const shouldShowLetterInput = () =>
+    (selectedOptions.format === FormatValueEnum.Group &&
+      selectedOptions.combination !== NullValue &&
+      selectedOptions.matte !== NullValue &&
+      selectedOptions.engraving === EngravingEnum.Yes) ||
+    (selectedOptions.format === FormatValueEnum.Single &&
+      selectedOptions.profile !== NullValue &&
+      selectedOptions.size !== NullValue &&
+      selectedOptions.row !== NullValue &&
+      selectedOptions.matte !== NullValue &&
+      selectedOptions.engraving === EngravingEnum.Yes)
+
   const updateSelectionHandler = (
     selectedValue: string,
     option: Record<string, string>
@@ -90,17 +94,24 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       size: selectedOptions.size,
       row: selectedOptions.row,
       combination: selectedOptions.combination,
+      matte: selectedOptions.matte,
       engraving: selectedOptions.engraving,
     })
 
-    updateOptions("dummy", option) // add new selection to options
+    updateOptions("---", option) // add new selection to options
     newSelectedOptions.setValue(selectedValue)
     setSelectedOptions(newSelectedOptions)
   }
 
   const updateOptionsFromSelection = () => {
     let newOptions = Object.assign({}, options)
-    let formatKey, profileKey, sizeKey, rowKey, combinationKey, engravingKey // options keys
+    let formatKey,
+      profileKey,
+      sizeKey,
+      rowKey,
+      combinationKey,
+      matteKey,
+      engravingKey // options keys
 
     for (const key in newOptions) {
       if (newOptions.hasOwnProperty(key) && newOptions[key] === undefined) {
@@ -127,6 +138,9 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
           case isValidEngraving(value):
             engravingKey = key
             break
+          case isValidMatte(value):
+            matteKey = key
+            break
           default:
             break
         }
@@ -152,14 +166,15 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
     if (rowKey && newOptions[rowKey] !== selectedOptions.row) {
       newOptions[rowKey] = selectedOptions.row
     }
+    if (matteKey && newOptions[matteKey]) {
+      newOptions[matteKey] = selectedOptions.matte
+    }
     if (
       engravingKey &&
       newOptions[engravingKey] !== selectedOptions.engraving
     ) {
       newOptions[engravingKey] = selectedOptions.engraving
     }
-
-    updateOptions("test12345", newOptions)
   }
 
   const isValidFormat = (value: string): boolean => {
@@ -199,6 +214,10 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
       value === RowValueEnum.R4
     )
   }
+  const isValidMatte = (value: string): boolean => {
+    return value === MatteEnum.Yes || value === MatteEnum.No
+  }
+
   const isValidEngraving = (value: string): boolean => {
     return value === EngravingEnum.Yes || value === EngravingEnum.No
   }
@@ -234,12 +253,28 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
         return true
       }
       return false
-    } else if (option === OptionsEnum.Engraving) {
+    } else if (option === OptionsEnum.Matte) {
       if (
-        selectedOptions.combination !== NullValue ||
-        (selectedOptions.profile !== NullValue &&
+        (selectedOptions.format !== NullValue &&
+          selectedOptions.combination !== NullValue) ||
+        (selectedOptions.format !== NullValue &&
+          selectedOptions.profile !== NullValue &&
           selectedOptions.size !== NullValue &&
           selectedOptions.row !== NullValue)
+      ) {
+        return true
+      }
+
+      return false
+    } else if (option === OptionsEnum.Engraving) {
+      if (
+        (selectedOptions.format !== NullValue &&
+          selectedOptions.combination !== NullValue &&
+          selectedOptions.matte !== NullValue) ||
+        (selectedOptions.profile !== NullValue &&
+          selectedOptions.size !== NullValue &&
+          selectedOptions.row !== NullValue &&
+          selectedOptions.matte !== NullValue)
       ) {
         return true
       }
