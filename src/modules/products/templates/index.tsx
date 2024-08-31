@@ -34,25 +34,25 @@ const ProductTemplateInner: React.FC<ProductTemplateProps> = ({ product }) => {
 
   return (
     <ProductProvider product={product}>
-      <div className="content-container w-full flex flex-col sm:w-10/12 items-start py-6 relative">
-        <div className="info-and-carousel w-full  flex flex-col sm:flex-row sm:h-1/2 sm:mb-6">
-          <div className="carousel-container w-full max-h-screen sm:w-1/2">
+      <div className="content-container flex flex-col w-11/12 items-start py-6 relative">
+        <div className="info-and-carousel w-full  flex flex-col lg:flex-row lg:h-1/2 lg:mb-6">
+          <div className="carousel-container w-full max-h-screen lg:w-1/2">
             <ImageCarousel images={product.images}></ImageCarousel>
           </div>
-          <div className="w-full flex flex-col items-start p-3 sm:py-8 sm:px-10 sm:w-1/2">
+          <div className="w-full flex flex-col items-start p-3 lg:py-8 lg:px-10 lg:w-1/2">
             <ProductInfo
               product={product}
               include={{ title: true, subtitle: true }}
             />
             {cheapestPrice && <span>From {cheapestPrice}</span>}
-            <div className="w-full flex flex-col sm:top-48 sm:py-0 py-2 gap-y-12">
+            <div className="w-full flex flex-col lg:top-48 lg:py-0 py-2 gap-y-12">
               {isOnboarding && <ProductOnboardingCta />}
               <ProductActions product={product} />
             </div>
           </div>
         </div>
 
-        <div className="w-full flex flex-col sm:top-48 py-6 gap-y-6 sm:py-8">
+        <div className="w-full flex flex-col lg:top-48 py-6 gap-y-6 lg:py-8">
           <ProductTabs product={product} />
         </div>
       </div>
