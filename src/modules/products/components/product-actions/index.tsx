@@ -175,48 +175,32 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   const isValidFormat = (value: string): boolean => {
-    return value === FormatValueEnum.Single || value === FormatValueEnum.Group
+    return Object.values(FormatValueEnum).includes(value as FormatValueEnum)
   }
 
   const isValidCombination = (value: string): boolean => {
-    return (
-      value === CombinationValueEnum.Asdw ||
-      value === CombinationValueEnum.Arrows ||
-      value === CombinationValueEnum.FRow ||
-      value === CombinationValueEnum.CWA ||
-      value === CombinationValueEnum.ModifierLeft ||
-      value === CombinationValueEnum.Numpad ||
-      value === CombinationValueEnum.SpecialsLeft
+    return Object.values(CombinationValueEnum).includes(
+      value as CombinationValueEnum
     )
   }
 
   const isValidSize = (value: string): boolean => {
-    return (
-      value === SizeValueEnum.Unit ||
-      value === SizeValueEnum.Spacebar ||
-      value === SizeValueEnum.Shift ||
-      value === SizeValueEnum.Ctrl
-    )
+    return Object.values(SizeValueEnum).includes(value as SizeValueEnum)
   }
 
   const isValidProfile = (value: string): boolean => {
-    return value === ProfileValueEnum.SA || value === ProfileValueEnum.OEM
+    return Object.values(ProfileValueEnum).includes(value as ProfileValueEnum)
   }
 
   const isValidRow = (value: string): boolean => {
-    return (
-      value === RowValueEnum.R1 ||
-      value === RowValueEnum.R2 ||
-      value === RowValueEnum.R3 ||
-      value === RowValueEnum.R4
-    )
+    return Object.values(RowValueEnum).includes(value as RowValueEnum)
   }
   const isValidMatte = (value: string): boolean => {
-    return value === MatteEnum.Yes || value === MatteEnum.No
+    return Object.values(MatteEnum).includes(value as MatteEnum)
   }
 
   const isValidEngraving = (value: string): boolean => {
-    return value === EngravingEnum.Yes || value === EngravingEnum.No
+    return Object.values(EngravingEnum).includes(value as EngravingEnum)
   }
 
   // should show element option (e.g. size) depending on what is already selected
