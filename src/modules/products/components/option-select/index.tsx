@@ -1,6 +1,11 @@
 import React from "react"
 import { onlyUnique } from "@lib/util/only-unique"
-import { EngravingEnum, MatteEnum, NullValue } from "@lib/constants"
+import {
+  EngravingEnum,
+  MatteEnum,
+  NullValue,
+  OptionsEnum,
+} from "@lib/constants"
 import { ProductOption } from "@medusajs/medusa"
 import clsx from "clsx"
 
@@ -9,7 +14,10 @@ type OptionSelectProps = {
   current: string
   title: string
   updateOption: (title: string, option: Record<string, string>) => void
-  checkIfFilterOutValues: (title: string, selectableOptions: string[]) => any[]
+  checkIfFilterOutValues: (
+    title: string,
+    filteredOptionValues: string[]
+  ) => any[]
 }
 
 const OptionSelect: React.FC<OptionSelectProps> = ({
@@ -20,12 +28,29 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   checkIfFilterOutValues,
 }) => {
   // remove nulls from select options view
-  let selectableOptions = option.values
+  const filteredOptionValues = option.values
     .map((v) => v.value)
     .filter(onlyUnique)
     .filter((value) => value !== NullValue)
 
-  selectableOptions = checkIfFilterOutValues(title, selectableOptions)
+  const finalOptionValues = ensureNoFirstYesAfter(
+    checkIfFilterOutValues(title, filteredOptionValues) as string[]
+  )
+
+  function ensureNoFirstYesAfter(optionValues: string[]) {
+    if (
+      option.title !== OptionsEnum.Matte &&
+      option.title !== OptionsEnum.Engraving
+    ) {
+      return optionValues
+    }
+    // Separate the "No" and "Yes" elements
+    const noFirst = optionValues.filter((item) => item.startsWith("No_"))
+    const yesSecond = optionValues.filter((item) => item.startsWith("Yes_"))
+
+    // Return a new array with "No" first, followed by "Yes"
+    return [...noFirst, ...yesSecond]
+  }
 
   const reformatValue = (optionValue: string) => {
     switch (optionValue) {
@@ -51,7 +76,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
     <div className="flex flex-col gap-y-3">
       <span className="text-sm">Select {reformatTitle(title)}</span>
       <div className="flex flex-wrap justify-between gap-2">
-        {selectableOptions.map((optionValue) => {
+        {finalOptionValues.map((optionValue) => {
           return (
             <button
               onClick={() =>
