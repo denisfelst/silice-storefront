@@ -2,32 +2,47 @@ import { Heading } from "@medusajs/ui"
 
 const HowItWorks = () => {
   return (
-    <section className="main-intro-container w-full max-w-screen-xl bg-gray-100 p-8 rounded-lg shadow-md">
-      <div className="flex flex-col min-h-[20vh]">
+    <section className="how-it-works-container w-full max-w-screen-xl bg-gray-50 p-8 rounded-lg shadow-lg">
+      <div className="flex flex-col items-center">
         <Heading
-          className="self-center mb-6 text-2xl font-semibold text-gray-800"
+          className="text-3xl font-semibold text-gray-900 mb-8"
           level="h3"
         >
-          How it works:
+          How It Works
         </Heading>
-        <div className="flex flex-col justify-evenly items-center h-full space-y-6 md:flex-row md:space-y-0 md:space-x-6">
-          <div className="flex flex-col justify-center items-center text-center h-full w-full md:w-44 p-4 bg-white rounded-lg shadow-sm">
-            <span className="text-lg font-bold mb-2">1</span>
-            <span>Choose your favorite keycap(s).</span>
+        <div className="relative">
+          <div className="absolute inset-0 flex flex-col items-center">
+            <div className="border-l-2 border-gray-300 absolute h-full left-1/2 transform -translate-x-1/2"></div>
           </div>
-          <div className="flex flex-col justify-center items-center text-center h-full w-full md:w-44 p-4 bg-white rounded-lg shadow-sm">
-            <span className="text-lg font-bold mb-2">2</span>
-            <span>
-              We get your order and start producing as soon as order period
-              ends.
-            </span>
-          </div>
-          <div className="flex flex-col justify-center items-center text-center h-2/3 w-full md:w-44 p-4 bg-white rounded-lg shadow-sm">
-            <span className="text-lg font-bold mb-2">3</span>
-            <span className="px-2">
-              As soon as we&apos;ve finished producing it, we&apos;ll ship it to
-              you.
-            </span>
+          <div className="flex flex-col space-y-8">
+            <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-md p-6">
+              <div className="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center mb-4">
+                <i className="fas fa-keyboard text-2xl"></i>{" "}
+                {/* Font Awesome icon */}
+              </div>
+              <span className="text-lg font-semibold text-gray-800">
+                Choose your favorite keycap(s).
+              </span>
+            </div>
+            <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-md p-6">
+              <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center mb-4">
+                <i className="fas fa-cogs text-2xl"></i>{" "}
+                {/* Font Awesome icon */}
+              </div>
+              <span className="text-lg font-semibold text-gray-800">
+                We get your order and start producing as soon as the order
+                period ends.
+              </span>
+            </div>
+            <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-md p-6">
+              <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mb-4">
+                <i className="fas fa-truck text-2xl"></i>{" "}
+                {/* Font Awesome icon */}
+              </div>
+              <span className="text-lg font-semibold text-gray-800">
+                As soon as we’ve finished producing it, we’ll ship it to you.
+              </span>
+            </div>
           </div>
         </div>
       </div>
