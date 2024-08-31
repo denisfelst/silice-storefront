@@ -17,6 +17,7 @@ const Hero = () => {
       <div className="absolute z-10 flex flex-col justify-center items-end text-center w-full h-full overflow-hidden">
         <div className="image-container absolute inset-0 min-w-[850px] max-w-screen-xl 2xl:max-w-screen-2xl">
           <Image
+            className="opacity-80"
             draggable={false}
             src={"/hero.jpg"}
             quality="100"
