@@ -2,13 +2,13 @@ import { getCollectionsList } from "@lib/data"
 import SkeletonHomepageProducts from "@modules/skeletons/components/skeleton-homepage-products"
 import { Metadata } from "next"
 import { Suspense } from "react"
-import FeaturedProducts from "@modules/home/components/featured-products"
 import Hero from "@modules/home/components/hero"
 import Benefits from "@modules/home/components/benefits"
 import StorePreview from "@modules/home/components/store-preview"
 import HowItWorks from "@modules/home/components/how-it-works"
 import HomeImageSlider from "@modules/home/components/home-image-slider"
 import IntroInfo from "@modules/home/components/intro-info"
+import AboutUsSection from "@modules/home/components/about-us-section"
 
 export const metadata: Metadata = {
   title: "Silice - Glass Keycaps",
@@ -28,7 +28,7 @@ export default async function Home() {
             <HomeImageSlider />
             <Benefits />
             <HowItWorks />
-            {/* about us */}
+            <AboutUsSection />
             <StorePreview />
           </div>
         </div>

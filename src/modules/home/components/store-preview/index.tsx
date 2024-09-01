@@ -23,7 +23,9 @@ const StorePreview = () => {
             src="/from_side_xl.jpg"
             quality="100"
             alt="store preview image"
-            layout="fill"
+            width={0}
+            height={0}
+            sizes="100vw"
           />
         </div>
 
