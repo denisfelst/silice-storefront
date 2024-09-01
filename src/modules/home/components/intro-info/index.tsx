@@ -9,7 +9,7 @@ const IntroInfo = () => {
       >
         Get Your Glass Keycaps Individually
       </Heading>
-      <div className="border-t-2 border-gray-300 mx-auto w-24 my-4 md: my-4"></div>
+      <div className="border-t-2 border-gray-300 mx-auto w-24 my-4"></div>
       <p className="text-base md:text-lg text-gray-700 leading-relaxed mx-4 md:mx-8">
         Each keycap is uniquely crafted and can be customized with various
         sizes, profiles, and finishes. Personalize each keycap with unique

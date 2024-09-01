@@ -2,7 +2,7 @@ import { Heading } from "@medusajs/ui"
 
 const HowItWorks = () => {
   return (
-    <section className="how-it-works-container w-full max-w-screen-xl bg-gray-50 p-8 rounded-lg shadow-lg">
+    <section className="how-it-works-container w-full max-w-screen-xl bg-gray-50 p-8 rounded-lg shadow-lg mx-4 mb-4">
       <div className="flex flex-col items-center">
         <Heading
           className="text-3xl font-semibold text-gray-900 mb-8"
