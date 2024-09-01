@@ -50,7 +50,7 @@ const StorePreview = () => {
           {/* CTA Button */}
           <button
             onClick={handleButtonClick}
-            className="flex items-center justify-center px-6 py-3 border-2 border-white text-white rounded-full bg-black bg-opacity-30 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
+            className="flex items-center justify-center px-6 py-3 border-2 border-[#87c4ef] text-[#87c4ef] rounded-md bg-black bg-opacity-30 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
             style={{ textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)" }}
           >
             <span className="font-medium text-sm md:text-base uppercase">

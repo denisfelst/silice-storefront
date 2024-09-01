@@ -12,6 +12,7 @@ const AboutUsSection = () => {
           >
             Who We Are
           </Heading>
+          <div className="border-t-2 border-[#87c4ef] w-24 my-4"></div>
           <p className="text-lg md:text-xl leading-relaxed text-gray-700">
             We're a passionate team of glassmakers, designers, and keycap
             enthusiasts, who came together with a unique vision:{" "}
@@ -26,7 +27,7 @@ const AboutUsSection = () => {
         <div className="md:w-1/2 order-1 md:order-2 mb-8 md:mb-0">
           <Image
             draggable={false}
-            className="w-full h-auto rounded-lg shadow-lg"
+            className="w-full h-auto rounded-tl-[80px] shadow-lg"
             src="/about-us1.jpg"
             width={0}
             height={0}

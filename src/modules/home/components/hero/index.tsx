@@ -45,14 +45,14 @@ const Hero = () => {
             level="h2"
             className="text-md leading-6 text-ui-fg-subtle font-normal text-gray-200 mb-4 md:text-xl xl:text-2xl xl:mb-4"
           >
-            Discover our glass keycaps, meticulously crafted <br />
-            to provide a unique tactile experience and aesthetic appeal.
+            Discover our glass keycaps, lovingly crafted <br />
+            to provide a unique tactile and aesthetic experience.
           </Heading>
 
           {/* CTA Button */}
           <button
             onClick={handleButtonClick}
-            className="flex items-center justify-center px-6 py-3 border-2 border-red-500 text-red-500 rounded-full bg-black bg-opacity-25 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
+            className="flex items-center justify-center px-6 py-3 border-2 border-[#87c4ef] text-[#87c4ef] rounded-sm bg-black bg-opacity-25 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
             style={{ textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)" }}
           >
             <span className="font-medium text-sm md:text-base uppercase">
