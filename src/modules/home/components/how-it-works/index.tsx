@@ -10,8 +10,8 @@ const HowItWorks = () => {
         >
           How It Works
         </Heading>
-        <div className="flex flex-col space-y-8">
-          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6">
+        <div className="flex flex-col md:flex-row md:space-x-8 space-y-8 md:space-y-0">
+          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6 flex-1 min-w-[250px] max-w-[300px] min-h-[200px]">
             <div className="w-12 h-12 bg-gray-400 text-white rounded-full flex items-center justify-center mb-4">
               <span className="text-xl font-bold">1</span>
             </div>
@@ -19,7 +19,7 @@ const HowItWorks = () => {
               Choose your favorite keycap(s).
             </span>
           </div>
-          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6">
+          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6 flex-1 min-w-[250px] max-w-[300px] min-h-[200px]">
             <div className="w-12 h-12 bg-gray-500 text-white rounded-full flex items-center justify-center mb-4">
               <span className="text-xl font-bold">2</span>
             </div>
@@ -28,7 +28,7 @@ const HowItWorks = () => {
               ends.
             </span>
           </div>
-          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6">
+          <div className="relative flex flex-col items-center text-center bg-white rounded-lg shadow-lg p-6 flex-1 min-w-[250px] max-w-[300px] min-h-[200px]">
             <div className="w-12 h-12 bg-gray-600 text-white rounded-full flex items-center justify-center mb-4">
               <span className="text-xl font-bold">3</span>
             </div>
