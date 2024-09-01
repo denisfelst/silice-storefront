@@ -5,15 +5,21 @@ const Benefits = () => {
   return (
     <section className="main-benefits-container flex flex-col md:flex-row w-screen-xl max-w-screen-xl w-full p-6 space-y-6 md:space-y-0 md:space-x-6">
       {/* Benefit Card 1 */}
-      <div className="relative w-full bg-white rounded-lg overflow-hidden border border-gray-200">
-        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-8 text-gray-900 font-medium">
-          <div className="flex items-center justify-center mb-4">
-            <i className="fas fa-gem text-4xl text-blue-500"></i>
-          </div>
-          <Heading level="h2" className="mb-4 text-xl font-semibold">
+      <div className="relative w-full bg-white rounded-lg overflow-hidden">
+        <Image
+          src="/glass1-small.jpg"
+          alt="Glass texture"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
+        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-6 text-gray-900 font-medium">
+          <Heading level="h2" className="mb-4 text-2xl font-semibold">
             Material
           </Heading>
-          <span className="mb-4 block">
+          <span className="mb-4">
             Crafted from premium glass, elevate your typing experience.
           </span>
           <ul className="list-disc text-left space-y-2">
@@ -37,15 +43,21 @@ const Benefits = () => {
       </div>
 
       {/* Benefit Card 2 */}
-      <div className="relative w-full bg-white rounded-lg overflow-hidden border border-gray-200">
-        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-8 text-gray-900 font-medium">
-          <div className="flex items-center justify-center mb-4">
-            <i className="fas fa-cube text-4xl text-green-500"></i>
-          </div>
-          <Heading level="h2" className="mb-4 text-xl font-semibold">
+      <div className="relative w-full bg-white rounded-lg overflow-hidden">
+        <Image
+          src="/taller2.jpg"
+          alt="Artisan process"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
+        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-6 text-gray-900 font-medium">
+          <Heading level="h2" className="mb-4 text-2xl font-semibold">
             Artisan Process
           </Heading>
-          <span className="mb-4 block">
+          <span className="mb-4">
             Handcrafted by skilled artisans, every piece is a unique work of
             art.
           </span>
@@ -69,15 +81,21 @@ const Benefits = () => {
       </div>
 
       {/* Benefit Card 3 */}
-      <div className="relative w-full bg-white rounded-lg overflow-hidden border border-gray-200">
-        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-8 text-gray-900 font-medium">
-          <div className="flex items-center justify-center mb-4">
-            <i className="fas fa-gem text-4xl text-purple-500"></i>
-          </div>
-          <Heading level="h2" className="mb-4 text-xl font-semibold">
+      <div className="relative w-full bg-white rounded-lg overflow-hidden">
+        <Image
+          src="/glass3.jpg"
+          alt="Custom keyboard"
+          width={0}
+          height={0}
+          sizes="100vw"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
+        <div className="relative flex flex-col justify-center items-center text-center w-full h-full p-6 text-gray-900 font-medium">
+          <Heading level="h2" className="mb-4 text-2xl font-semibold">
             Exclusive & Custom
           </Heading>
-          <span className="mb-4 block">
+          <span className="mb-4">
             Choose your design and size combination for a unique keyboard setup.
           </span>
           <ul className="list-disc text-left space-y-2">
