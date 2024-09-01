@@ -11,9 +11,11 @@ const IntroInfo = () => {
       </Heading>
       <div className="border-t-2 border-gray-300 mx-auto w-24 my-4"></div>
       <p className="text-base md:text-lg text-gray-700 leading-relaxed mx-4 md:mx-8">
-        Each keycap is uniquely crafted and can be customized with various
-        sizes, profiles, and finishes. Personalize each keycap with unique
-        engravings and effects to suit your preferences.
+        <span className="font-bold">Each keycap is uniquely crafted</span> and
+        can be customized with various{" "}
+        <span className="font-bold">sizes, profiles, and finishes.</span>{" "}
+        Personalize each keycap with unique{" "}
+        <span className="font-bold">engravings and transparency effects</span>.
       </p>
     </section>
   )
