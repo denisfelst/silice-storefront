@@ -13,7 +13,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="main-hero-container h-[75vh] max-h-[750px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
+    <section className="main-hero-container h-[75vh] max-h-[750px] w-full bg-black relative mb-4 md:h-[65vh] lg:max-h-none">
       <div className="absolute z-10 flex flex-col justify-center items-end text-center w-full h-full overflow-hidden">
         {/* Image */}
         <div className="image-container absolute inset-0 min-w-[850px] max-w-screen-xl 2xl:max-w-screen-2xl">
@@ -32,7 +32,7 @@ const Hero = () => {
 
         {/* Headlines */}
         <div
-          className="inside-hero relative mb-12 z-10 w-full h-full flex flex-col justify-end items-center"
+          className="inside-hero relative mb-12 z-10 w-full h-full flex flex-col justify-end items-center md:mb-24"
           style={{ textShadow: "2px 2px 2px rgba(0, 0, 0, 0.7)" }}
         >
           <Heading
@@ -45,9 +45,8 @@ const Hero = () => {
             level="h2"
             className="text-md leading-6 text-ui-fg-subtle font-normal text-gray-200 mb-4 md:text-xl xl:text-2xl xl:mb-4"
           >
-            The First and Only Glass Keycaps in the Market.
-            <br />
-            Now at Your Fingertips.
+            Discover our glass keycaps, meticulously crafted <br />
+            to provide a unique tactile experience and aesthetic appeal.
           </Heading>
 
           {/* CTA Button */}
