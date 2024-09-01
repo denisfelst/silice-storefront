@@ -53,9 +53,12 @@ const Hero = () => {
           {/* CTA Button */}
           <button
             onClick={handleButtonClick}
-            className="px-6 py-3 bg-red-600 text-white rounded-full hover:bg-red-500 transition-transform transform hover:scale-105 duration-300"
+            className="flex items-center justify-center px-6 py-3 border-2 border-red-500 text-red-500 rounded-full bg-black bg-opacity-25 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
+            style={{ textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)" }}
           >
-            Shop Now
+            <span className="font-medium text-sm md:text-base uppercase">
+              Shop Now
+            </span>
           </button>
         </div>
       </div>
