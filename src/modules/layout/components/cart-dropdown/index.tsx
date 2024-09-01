@@ -61,7 +61,7 @@ const CartDropdown = () => {
                         >
                           <Thumbnail thumbnail={item.thumbnail} size="square" />
                         </Link>
-                        <div className="flex flex-col justify-between flex-1">
+                        <div className="flex flex-col justify-between flex-1 bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
                           <div className="flex flex-col flex-1">
                             <div className="flex items-start justify-between">
                               <div>
