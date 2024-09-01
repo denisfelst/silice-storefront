@@ -14,13 +14,13 @@ const AboutUsSection = () => {
           </Heading>
           <div className="border-t-2 border-[#87c4ef] w-24 my-4"></div>
           <p className="text-lg md:text-xl leading-relaxed text-gray-700">
-            We're a passionate team of glassmakers, designers, and keycap
+            We&apos;re a passionate team of glassmakers, designers, and keycap
             enthusiasts, who came together with a unique vision:{" "}
             <span className="font-bold">
               creating keycaps entirely out of glass.
             </span>
             <br />
-            Since then, we've dedicated ourselves to crafting this powerful
+            Since then, we&apos;ve dedicated ourselves to crafting this powerful
             material into beautiful keycaps for the community.
           </p>
         </div>
