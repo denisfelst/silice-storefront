@@ -38,7 +38,7 @@ const HomeImageSlider = () => {
   }
 
   return (
-    <section className="main-image-slider-container w-full max-w-screen-xl px-4 bg-gray-50">
+    <section className="main-image-slider-container w-full max-w-screen-xl pb-4 md:px-4 bg-gray-50">
       <div className="react-slidy-container">
         <ReactSlidy
           keyboardNavigation
@@ -61,7 +61,7 @@ const HomeImageSlider = () => {
           ))}
         </ReactSlidy>
 
-        <div className="react-slidy-dots flex justify-center max-h-[45px]">
+        <div className="react-slidy-dots flex justify-center align-top mt-[-8px] max-h-[35px]">
           {images.map((_, index: number) => {
             return (
               <button key={index} style={createStyles(index === actualSlide)}>

@@ -13,7 +13,7 @@ const Hero = () => {
   }
 
   return (
-    <section className="main-hero-container h-[75vh] max-h-[750px] w-full bg-black relative mb-4 md:h-[65vh] lg:max-h-none">
+    <section className="main-hero-container h-[75vh] max-h-[750px] w-full bg-black relative md:h-[65vh] lg:max-h-none">
       <div className="absolute z-10 flex flex-col justify-center items-end text-center w-full h-full overflow-hidden">
         {/* Image */}
         <div className="image-container absolute inset-0 min-w-[850px] max-w-screen-xl 2xl:max-w-screen-2xl">

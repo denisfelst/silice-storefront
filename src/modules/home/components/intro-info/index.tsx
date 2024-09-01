@@ -2,7 +2,7 @@ import { Heading } from "@medusajs/ui"
 
 const IntroInfo = () => {
   return (
-    <section className="info-section max-w-screen-xl bg-white p-8 mx-4 text-center border border-gray-200 rounded-lg shadow-sm mb-4">
+    <section className="info-section max-w-screen-xl bg-white p-8 text-center border border-gray-200 rounded-lg shadow-sm my-2 mx-2 md:mx-4">
       <Heading
         level="h2"
         className="text-3xl md:text-4xl font-medium text-gray-900 leading-tight"
