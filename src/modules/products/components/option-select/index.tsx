@@ -73,29 +73,29 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-y-3">
-      <span className="text-sm">Select {reformatTitle(title)}</span>
-      <div className="flex flex-wrap justify-between gap-2">
-        {finalOptionValues.map((optionValue) => {
-          return (
-            <button
-              onClick={() =>
-                updateOption(optionValue, { [option.id]: optionValue })
+    <div className="flex flex-col gap-y-4">
+      <span className="text-base font-semibold text-gray-900">
+        Select {reformatTitle(title)}
+      </span>
+      <div className="flex flex-wrap gap-3">
+        {finalOptionValues.map((optionValue) => (
+          <button
+            onClick={() =>
+              updateOption(optionValue, { [option.id]: optionValue })
+            }
+            key={optionValue}
+            className={clsx(
+              "border border-gray-200 bg-transparent text-gray-800 text-sm font-medium rounded py-2 px-4 flex-1 transition-colors duration-200",
+              {
+                " text-black border-[#87c4ef] border-[3px]":
+                  optionValue === current,
+                "hover:bg-gray-100": optionValue !== current,
               }
-              key={optionValue}
-              className={clsx(
-                "border-ui-border-base bg-ui-bg-subtle border text-small-regular h-10 rounded-rounded p-2 flex-1 ",
-                {
-                  "border-ui-border-interactive": optionValue === current,
-                  "hover:shadow-elevation-card-rest transition-shadow ease-in-out duration-150":
-                    optionValue !== current,
-                }
-              )}
-            >
-              {reformatValue(optionValue)}
-            </button>
-          )
-        })}
+            )}
+          >
+            {reformatValue(optionValue)}
+          </button>
+        ))}
       </div>
     </div>
   )

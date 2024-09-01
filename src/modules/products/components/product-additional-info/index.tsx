@@ -43,7 +43,7 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
     )
   }
 
-  const handleCommentChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setAdditionalInfo(
       new AdditionalInfoType(additionalInfo.character, e.target.value)
     )
@@ -73,29 +73,41 @@ const AdditionalInfo: ForwardRefRenderFunction<any, AdditionalInfoProps> = (
   }))
 
   return (
-    <div className="additionalInfo">
-      {showLetterInput && (
-        <div className="additionalInfo-character">
-          <label>Enter Character (max {getCharLimit()} chars)</label>
-          <br />
-          <input
-            maxLength={getCharLimit()}
-            style={{ border: "1px solid red" }}
-            onChange={handleCharacterChange}
-          />
+    <>
+      {showLetterInput || showCommentInput ? (
+        <div className="additional-info-container bg-white mt-4 p-6 rounded-lg shadow-lg border border-gray-200">
+          {showLetterInput && (
+            <div className="additional-info-field mb-4">
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Enter character(s) to engrave (max.{" "}
+                <span className="font-bold">{getCharLimit()}</span> chars -
+                <span className="font-bold"> case sensitive!</span>)
+              </label>
+              <input
+                type="text"
+                maxLength={getCharLimit()}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-[#87c4ef] focus:ring-[#87c4ef] focus:ring-opacity-50 transition-colors duration-300"
+                onChange={handleCharacterChange}
+              />
+              <div className="border-b border-gray-200 pb-4 mb-2"></div>
+            </div>
+          )}
+
+          {showCommentInput && (
+            <div className="additional-info-field">
+              <label className="block text-gray-700 text-sm font-medium mb-2">
+                Any additional comments or observations? (Optional)
+              </label>
+              <textarea
+                rows={4}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:border-[#87c4ef] focus:ring-[#87c4ef] focus:ring-opacity-50 transition-colors duration-300"
+                onChange={handleCommentChange}
+              />
+            </div>
+          )}
         </div>
-      )}
-      {showCommentInput && (
-        <div className="additionalInfo-comment">
-          <label>Any additional comments or observations?</label>
-          <br />
-          <input
-            style={{ border: "1px solid blue" }}
-            onChange={handleCommentChange}
-          />
-        </div>
-      )}
-    </div>
+      ) : null}
+    </>
   )
 }
 

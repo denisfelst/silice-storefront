@@ -354,24 +354,31 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
   }
 
   return (
-    <div className="flex flex-col gap-y-2 w-full">
+    <div className="flex flex-col gap-y-6 w-full max-w-4xl mx-auto">
+      {/* Collection Link */}
       {product.collection && (
         <Link
           href={`/collections/${product.collection.handle}`}
-          className="text-small-regular text-gray-700"
+          className="text-sm text-gray-900 hover:text-gray-700 transition duration-300"
         >
           {product.collection.title}
         </Link>
       )}
 
+      {/* Product Variants */}
       {product.variants.length > 0 && (
-        <div className="my-4 flex flex-col gap-y-4 rounded bg-slate-100 p-4 w-full">
+        <div className="bg-white rounded-lg p-6 shadow-xl">
           {!selectedOptions.isSelectionComplete(currentInfo.character) && (
-            <span className="text-rose-600">Select all options</span>
+            <p className="text-red-600 text-center mb-4">
+              Complete all selections to continue
+            </p>
           )}
-          {getOrderedProductOptions().map((option) => {
-            return showOption(option.title) ? (
-              <div key={option.id}>
+          {getOrderedProductOptions().map((option) =>
+            showOption(option.title) ? (
+              <div
+                key={option.id}
+                className="border-b border-gray-200 pb-4 mb-2 last:border-none"
+              >
                 <OptionSelect
                   option={option}
                   current={options[option.id]}
@@ -381,51 +388,47 @@ const ProductActions: React.FC<ProductActionsProps> = ({ product }) => {
                 />
               </div>
             ) : null
-          })}
-          <div>
-            <AdditionalInfo
-              ref={additionalInfoRef}
-              getAdditionalInfo={setAdditionalInfo}
-              showLetterInput={showLetterInput}
-              showCommentInput={selectedOptions.engraving !== NullValue}
-              selectedSize={selectedOptions.size}
-            />
-          </div>
+          )}
+          <AdditionalInfo
+            ref={additionalInfoRef}
+            getAdditionalInfo={setAdditionalInfo}
+            showLetterInput={showLetterInput}
+            showCommentInput={selectedOptions.engraving !== NullValue}
+            selectedSize={selectedOptions.size}
+          />
         </div>
       )}
 
+      {/* Price Information */}
       {selectedPrice && (
-        <div className="mb-4">
-          <div className="flex flex-col text-gray-700">
-            <span
-              className={clsx("text-xl-semi", {
-                "text-rose-600": selectedPrice.price_type === "sale",
-              })}
-            >
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <div className="text-gray-800">
+            <span className="text-xl font-bold">
               {selectedPrice.calculated_price ??
-                "Price unavailable. Add it to the basket to see its price."}
+                "Price shown after adding to cart"}
             </span>
             {selectedPrice.price_type === "sale" && (
-              <>
-                <p>
-                  <span className="text-gray-500">Original: </span>
-                  <span className="line-through">
-                    {selectedPrice.original_price}
-                  </span>
+              <div className="mt-2">
+                <p className="text-gray-700 line-through">
+                  {selectedPrice.original_price}
                 </p>
-                <span className="text-rose-600">
-                  -{selectedPrice.percentage_diff}%
-                </span>
-              </>
+                <p className="text-red-600">
+                  {selectedPrice.percentage_diff}% off
+                </p>
+              </div>
             )}
           </div>
         </div>
       )}
 
+      {/* Add to Cart Button */}
       {selectedOptions.isSelectionComplete(currentInfo.character) && (
-        <Button onClick={handleAddToCart}>
-          {/* {!inStock ? "Out of stock" : "Add to cart"} */}
-          Add to cart
+        <Button
+          onClick={handleAddToCart}
+          className="flex items-center justify-center px-6 py-3 border-2 border-[#87c4ef] text-white bg-[#87c4ef] rounded-md shadow-lg hover:bg-[#6ba3d2] transition-colors duration-300"
+          style={{ textShadow: "1px 1px 2px rgba(0, 0, 0, 0.2)" }}
+        >
+          <span className="font-medium text-base uppercase">Add to Cart</span>
         </Button>
       )}
     </div>
