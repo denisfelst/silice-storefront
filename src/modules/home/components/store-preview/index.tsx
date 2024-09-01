@@ -13,8 +13,8 @@ const StorePreview = () => {
   }
 
   return (
-    <section className="main-store-preview-container max-w-[100vw] overflow-hidden relative">
-      <div className="relative min-h-[40vh] max-h-[45vh] flex flex-col justify-center items-center">
+    <section className="main-store-preview-container w-full overflow-hidden relative">
+      <div className="relative min-h-[30vh] max-h-[50vh] flex items-center justify-center">
         {/* Background Image */}
         <div className="absolute inset-0 w-full h-full">
           <Image
@@ -31,23 +31,29 @@ const StorePreview = () => {
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         {/* Text Container */}
-        <div className="relative z-10 flex flex-col justify-center items-center text-center text-white p-6 md:p-12">
+        <div className="relative z-10 flex flex-col items-center text-center text-white p-6 md:p-12">
           <Heading
             level="h2"
-            className="text-2xl md:text-3xl font-semibold mb-4"
+            className="text-3xl md:text-4xl font-semibold mb-4 md:mb-6 leading-snug md:leading-normal"
           >
-            Check out our newest release
+            Discover Our Latest Release
           </Heading>
-          <Heading level="h3" className="text-lg md:text-xl font-normal mb-6">
-            The purest expression of our product vision
+          <Heading
+            level="h3"
+            className="text-lg md:text-xl font-light mb-6 leading-snug md:leading-normal"
+          >
+            The pinnacle of our design and craftsmanship
           </Heading>
 
           {/* CTA Button */}
           <button
             onClick={handleButtonClick}
-            className="relative bg-red-500 text-white font-bold py-3 px-6 rounded-full shadow-lg hover:bg-red-400 transition-transform transform hover:scale-105 duration-300"
+            className="flex items-center justify-center px-6 py-3 border-2 border-white text-white rounded-full bg-black bg-opacity-30 hover:bg-opacity-50 transition-colors duration-300 shadow-md"
+            style={{ textShadow: "1px 1px 3px rgba(0, 0, 0, 0.6)" }}
           >
-            Shop
+            <span className="font-medium text-sm md:text-base uppercase">
+              Explore Now
+            </span>
           </button>
         </div>
       </div>
@@ -56,3 +62,4 @@ const StorePreview = () => {
 }
 
 export default StorePreview
+//    Classic: The purest expression of our product vision. <br /> More coming soon.
