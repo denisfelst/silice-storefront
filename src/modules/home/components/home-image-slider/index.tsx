@@ -15,7 +15,7 @@ const HomeImageSlider = () => {
     setActualSlide(currentSlide)
   }
 
-  const MAX_HEIGHT = "450px"
+  const MAX_HEIGHT = "700px"
 
   const images = [
     { url: "/foto1.jpg" },
@@ -38,7 +38,7 @@ const HomeImageSlider = () => {
   }
 
   return (
-    <section className="main-image-slider-container w-full max-w-screen-xl p-4">
+    <section className="main-image-slider-container w-full max-w-screen-xl px-4 bg-gray-50">
       <div className="react-slidy-container">
         <ReactSlidy
           keyboardNavigation
