@@ -3,9 +3,9 @@ import Image from "next/image"
 
 const Benefits = () => {
   return (
-    <section className="main-benefits-container flex flex-col md:flex-row w-screen-xl max-w-screen-xl w-full p-6 space-y-6 md:space-y-0 md:space-x-6">
+    <section className="main-benefits-container flex flex-col md:flex-row w-screen-xl max-w-screen-xl w-full py-4 md:p-4 space-y-6 md:space-y-0 md:space-x-6">
       {/* Benefit Card 1 */}
-      <div className="relative w-full bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative w-full bg-gray-100 md:rounded-lg overflow-hidden">
         <Image
           src="/glass1-small.jpg"
           alt="Glass texture"
@@ -30,7 +30,7 @@ const Benefits = () => {
       </div>
 
       {/* Benefit Card 2 */}
-      <div className="relative w-full bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative w-full bg-gray-100 md:rounded-lg overflow-hidden">
         <Image
           src="/taller2.jpg"
           alt="Artisan process"
@@ -56,7 +56,7 @@ const Benefits = () => {
       </div>
 
       {/* Benefit Card 3 */}
-      <div className="relative w-full bg-gray-100 rounded-lg overflow-hidden">
+      <div className="relative w-full bg-gray-100 md:rounded-lg overflow-hidden">
         <Image
           src="/glass3.jpg"
           alt="Custom keyboard"
