@@ -39,13 +39,12 @@ const Nav = () => {
               <Image
                 src={"/logo-long.jpg"}
                 alt="company logo"
-                className=""
                 width={0}
                 height={0}
                 sizes="100vh"
                 style={{
-                  width: "auto",
-                  height: "90%",
+                  width: "100%",
+                  height: "auto",
                 }}
               ></Image>
             </Link>
